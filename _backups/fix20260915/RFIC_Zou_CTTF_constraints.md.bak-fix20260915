@@ -1,0 +1,15 @@
+# Tenghao Zou RFIC2024 Slides (28页) 深度测量 —— 主参照
+- 页面 960x540 白底; 结构: p0封面 / p1 Outline / p2-17 技术主体 / p18 照片 / p19-24 测量+对比 / p25 结论 / p26 致谢 / p27 参考
+- 标题: 44pt FranklinGothic-Book #000000 黑色 居中 y=9 (全片一致, 无横线无色条); RMo01B 为青绿粗体 —— 作者差异
+- L1 bullet: 32pt, • ArialMT x≈52-76, 文字 x≈63-85, 行距 46pt; 每页通常仅 1 条主旨句 + 大图占 70-85%
+- L2 子条: 28pt "–" 缩进 x≈101
+- 强调: 行内粗体 Arial-BoldMT; 数学变量 Arial-BoldItalic 31pt (k/C/Q); 红 #FF0000 = 关键结果(文字+2pt虚线框); 蓝 #2E0AFC = 标注箭头; 灰 #333333/#898989
+- 公式: 原生文本 FranklinGothic 斜体 + CambriaMath; 推导链 →/= 串联
+- 图内注释主力字号 16pt (全片最多字符), 其次 14.5/18/20; axes >=14pt
+- 曲线: MATLAB 默认色序 1.5pt: #0072BD #D95319 #EDB120 #7E2F8E #77AC30 #4DBEEE; meas.红实线 / sim.黑点线
+- 电路: 黑 2pt 描边, 红虚线框分组, 关键支路红色
+- 页脚带 y502-540 青绿渐变图: IEEE/MTT-S/SSCS 白 logo 左, 页码 20pt 白中, 会话号 RTu1A-3 14pt 白右, DENVER2022 右下
+- 封面: 会话号 32pt 粗体居中顶 → 全题 ~40pt 粗体 3 行 → 作者 24pt 粗体带上标 → 单位 20pt 粗体
+- 大纲页: 44pt 居中黑标题 + 5 条 32pt bullet 全黑 (灰化仅出现在章节中途的重复大纲页 —— RMo01B 手法)
+- 表格: 全场零表格 (对比用图/并排 bullet); 整场无 disclosure/backup/Q&A 页
+- 会话号 2 处: 封面顶部居中 + 每页页脚右

@@ -1,0 +1,513 @@
+{
+ "arch": {
+  "outline": 322,
+  "2up-figs": 1709,
+  "text-only": 284,
+  "full-bleed-fig": 56,
+  "table": 78
+ },
+ "per_deck": {
+  "RMo01A_1.pdf": {
+   "outline": 1,
+   "2up-figs": 19,
+   "text-only": 4,
+   "full-bleed-fig": 2
+  },
+  "RMo01A_2.pdf": {
+   "outline": 1,
+   "2up-figs": 17,
+   "text-only": 2
+  },
+  "RMo01A_3_.pdf": {
+   "outline": 6,
+   "2up-figs": 21,
+   "text-only": 3
+  },
+  "RMo01A_4.pdf": {
+   "outline": 6,
+   "2up-figs": 39,
+   "full-bleed-fig": 2,
+   "table": 1
+  },
+  "RMo01A_5.pdf": {
+   "outline": 1,
+   "2up-figs": 13,
+   "text-only": 4,
+   "table": 1
+  },
+  "RMo01B_1.pdf": {
+   "outline": 5,
+   "2up-figs": 18,
+   "table": 1,
+   "text-only": 5
+  },
+  "RMo01B_2.pdf": {
+   "outline": 5,
+   "2up-figs": 16,
+   "full-bleed-fig": 3
+  },
+  "RMo01B_3.pdf": {
+   "outline": 1,
+   "2up-figs": 17,
+   "text-only": 4,
+   "table": 1
+  },
+  "RMo01B_4.pdf": {
+   "outline": 2,
+   "2up-figs": 16,
+   "table": 1,
+   "text-only": 1
+  },
+  "RMo01B_5.pdf": {
+   "outline": 5,
+   "2up-figs": 12,
+   "table": 1,
+   "text-only": 3
+  },
+  "RMo01C_1.pdf": {
+   "outline": 5,
+   "2up-figs": 16,
+   "text-only": 4,
+   "table": 1
+  },
+  "RMo01C_2.pdf": {
+   "outline": 1,
+   "2up-figs": 17,
+   "table": 1,
+   "text-only": 1
+  },
+  "RMo01C_3.pdf": {
+   "outline": 5,
+   "2up-figs": 24,
+   "text-only": 2
+  },
+  "RMo01C_4.pdf": {
+   "outline": 6,
+   "2up-figs": 21,
+   "text-only": 3
+  },
+  "RMo01C_5.pdf": {
+   "text-only": 8,
+   "2up-figs": 17,
+   "full-bleed-fig": 1
+  },
+  "RMo02A_1.pdf": {
+   "outline": 6,
+   "2up-figs": 19,
+   "text-only": 2
+  },
+  "RMo02A_2.pdf": {
+   "outline": 8,
+   "2up-figs": 20,
+   "full-bleed-fig": 1,
+   "text-only": 3
+  },
+  "RMo02A_3.pdf": {
+   "outline": 5,
+   "2up-figs": 19,
+   "table": 1,
+   "text-only": 3
+  },
+  "RMo02A_4.pdf": {
+   "outline": 6,
+   "2up-figs": 19,
+   "full-bleed-fig": 4,
+   "text-only": 1
+  },
+  "RMo02A_5.pdf": {
+   "outline": 8,
+   "text-only": 5,
+   "2up-figs": 12
+  },
+  "RMo02B_1.pdf": {
+   "outline": 1,
+   "2up-figs": 14,
+   "table": 1,
+   "full-bleed-fig": 1,
+   "text-only": 2
+  },
+  "RMo02B_2.pdf": {
+   "outline": 6,
+   "2up-figs": 22,
+   "text-only": 2,
+   "table": 1
+  },
+  "RMo02B_3.pdf": {
+   "outline": 1,
+   "2up-figs": 20,
+   "full-bleed-fig": 1,
+   "text-only": 3
+  },
+  "RMo02B_4.pdf": {
+   "outline": 1,
+   "2up-figs": 21,
+   "full-bleed-fig": 4,
+   "table": 2
+  },
+  "RMo02B_5.pdf": {
+   "outline": 5,
+   "2up-figs": 14,
+   "text-only": 2,
+   "table": 1
+  },
+  "RMo02C_1.pdf": {
+   "outline": 9,
+   "2up-figs": 30,
+   "table": 1,
+   "text-only": 2
+  },
+  "RMo02C_2.pdf": {
+   "outline": 1,
+   "text-only": 3,
+   "2up-figs": 20,
+   "full-bleed-fig": 2
+  },
+  "RMo02C_3.pdf": {
+   "outline": 5,
+   "2up-figs": 21,
+   "text-only": 2
+  },
+  "RMo02C_4.pdf": {
+   "outline": 5,
+   "2up-figs": 31,
+   "text-only": 2
+  },
+  "RMo02C_5.pdf": {
+   "outline": 1,
+   "text-only": 27,
+   "2up-figs": 66,
+   "table": 1
+  },
+  "RMo03A_1.pdf": {
+   "text-only": 10,
+   "table": 1,
+   "2up-figs": 16,
+   "full-bleed-fig": 1,
+   "outline": 1
+  },
+  "RMo03A_2.pdf": {
+   "outline": 6,
+   "2up-figs": 18,
+   "text-only": 3
+  },
+  "RMo03A_3.pdf": {
+   "outline": 6,
+   "2up-figs": 23,
+   "text-only": 4,
+   "full-bleed-fig": 2
+  },
+  "RMo03A_4.pdf": {
+   "outline": 5,
+   "2up-figs": 26,
+   "full-bleed-fig": 1,
+   "text-only": 2
+  },
+  "RMo03A_5.pdf": {
+   "outline": 1,
+   "2up-figs": 27,
+   "table": 1
+  },
+  "RMo03B_1.pdf": {
+   "outline": 5,
+   "text-only": 6,
+   "2up-figs": 10,
+   "table": 1
+  },
+  "RMo03B_2.pdf": {
+   "text-only": 3,
+   "2up-figs": 17,
+   "full-bleed-fig": 1,
+   "table": 2
+  },
+  "RMo03B_3.pdf": {
+   "text-only": 8,
+   "2up-figs": 33,
+   "table": 1
+  },
+  "RMo03B_4.pdf": {
+   "outline": 6,
+   "2up-figs": 16,
+   "text-only": 2
+  },
+  "RMo03B_5.pdf": {
+   "outline": 6,
+   "2up-figs": 17,
+   "table": 2,
+   "text-only": 1
+  },
+  "RMo03C_1.pdf": {
+   "outline": 7,
+   "2up-figs": 22,
+   "text-only": 2
+  },
+  "RMo03C_2.pdf": {
+   "outline": 1,
+   "text-only": 3,
+   "2up-figs": 11,
+   "table": 1
+  },
+  "RMo03C_3.pdf": {
+   "outline": 4,
+   "2up-figs": 20,
+   "text-only": 2,
+   "table": 1
+  },
+  "RMo03C_4.pdf": {
+   "outline": 1,
+   "2up-figs": 18,
+   "table": 2,
+   "text-only": 3
+  },
+  "RMo03C_5.pdf": {
+   "outline": 1,
+   "2up-figs": 21,
+   "table": 1,
+   "text-only": 2
+  },
+  "RMo04A_1.pdf": {
+   "outline": 6,
+   "2up-figs": 23,
+   "full-bleed-fig": 4,
+   "text-only": 4
+  },
+  "RMo04A_2.pdf": {
+   "outline": 5,
+   "2up-figs": 15,
+   "table": 2,
+   "text-only": 1
+  },
+  "RMo04A_3.pdf": {
+   "text-only": 7,
+   "2up-figs": 19,
+   "full-bleed-fig": 1,
+   "table": 2
+  },
+  "RMo04A_4.pdf": {
+   "outline": 1,
+   "2up-figs": 13,
+   "text-only": 3,
+   "full-bleed-fig": 1,
+   "table": 2
+  },
+  "RMo04B_1.pdf": {
+   "outline": 3,
+   "2up-figs": 35,
+   "table": 3,
+   "full-bleed-fig": 1
+  },
+  "RTu01B_1.pdf": {
+   "text-only": 7,
+   "2up-figs": 12,
+   "full-bleed-fig": 1
+  },
+  "RTu01B_2.pdf": {
+   "text-only": 7,
+   "2up-figs": 25,
+   "outline": 5
+  },
+  "RTu01B_3.pdf": {
+   "outline": 4,
+   "2up-figs": 21,
+   "text-only": 5,
+   "table": 1
+  },
+  "RTu01B_4.pdf": {
+   "outline": 1,
+   "2up-figs": 21,
+   "text-only": 6,
+   "table": 5
+  },
+  "RTu01B_5.pdf": {
+   "2up-figs": 16,
+   "outline": 5,
+   "text-only": 1
+  },
+  "RTu01C_1.pdf": {
+   "outline": 2,
+   "text-only": 3,
+   "2up-figs": 17,
+   "full-bleed-fig": 1,
+   "table": 4
+  },
+  "RTu01C_2.pdf": {
+   "outline": 1,
+   "2up-figs": 18,
+   "text-only": 2
+  },
+  "RTu01C_3.pdf": {
+   "outline": 5,
+   "2up-figs": 17,
+   "full-bleed-fig": 4,
+   "text-only": 2
+  },
+  "RTu01C_4.pdf": {
+   "outline": 8,
+   "full-bleed-fig": 2,
+   "2up-figs": 28,
+   "text-only": 1
+  },
+  "RTu01C_5.pdf": {
+   "outline": 1,
+   "2up-figs": 22,
+   "table": 1,
+   "text-only": 2
+  },
+  "RTu02B_1.pdf": {
+   "outline": 5,
+   "2up-figs": 17,
+   "text-only": 5,
+   "full-bleed-fig": 2,
+   "table": 1
+  },
+  "RTu02B_2.pdf": {
+   "outline": 1,
+   "2up-figs": 31,
+   "text-only": 2,
+   "table": 1
+  },
+  "RTu02B_3.pdf": {
+   "outline": 1,
+   "2up-figs": 14,
+   "table": 1,
+   "text-only": 1
+  },
+  "RTu02B_4.pdf": {
+   "outline": 2,
+   "2up-figs": 23,
+   "text-only": 2
+  },
+  "RTu02C_1.pdf": {
+   "outline": 6,
+   "text-only": 5,
+   "2up-figs": 18,
+   "full-bleed-fig": 1,
+   "table": 2
+  },
+  "RTu02C_2.pdf": {
+   "outline": 5,
+   "table": 6,
+   "2up-figs": 13,
+   "text-only": 4
+  },
+  "RTu02C_3.pdf": {
+   "outline": 2,
+   "text-only": 2,
+   "2up-figs": 13
+  },
+  "RTu02C_4.pdf": {
+   "outline": 5,
+   "2up-figs": 17,
+   "full-bleed-fig": 1,
+   "text-only": 2,
+   "table": 1
+  },
+  "RTu02C_5.pdf": {
+   "outline": 7,
+   "text-only": 8,
+   "2up-figs": 7,
+   "table": 3
+  },
+  "RTu03B_1.pdf": {
+   "outline": 7,
+   "text-only": 4,
+   "2up-figs": 11,
+   "table": 1
+  },
+  "RTu03B_2.pdf": {
+   "outline": 6,
+   "2up-figs": 13,
+   "table": 2,
+   "text-only": 3
+  },
+  "RTu03B_3.pdf": {
+   "outline": 5,
+   "2up-figs": 17,
+   "text-only": 1,
+   "table": 1
+  },
+  "RTu03B_4.pdf": {
+   "outline": 6,
+   "2up-figs": 17,
+   "table": 2,
+   "text-only": 4
+  },
+  "RTu03B_5.pdf": {
+   "outline": 2,
+   "2up-figs": 23,
+   "text-only": 5
+  },
+  "RTu03C_1.pdf": {
+   "outline": 7,
+   "2up-figs": 16,
+   "table": 1
+  },
+  "RTu03C_2.pdf": {
+   "outline": 1,
+   "2up-figs": 24,
+   "table": 3
+  },
+  "RTu03C_3.pdf": {
+   "outline": 3,
+   "text-only": 4,
+   "2up-figs": 11
+  },
+  "RTu03C_4.pdf": {
+   "outline": 2,
+   "text-only": 6,
+   "2up-figs": 16,
+   "full-bleed-fig": 6
+  },
+  "RTu03C_5.pdf": {
+   "outline": 2,
+   "2up-figs": 20,
+   "full-bleed-fig": 1
+  },
+  "RTu04B_1.pdf": {
+   "outline": 1,
+   "2up-figs": 11,
+   "text-only": 4,
+   "full-bleed-fig": 1
+  },
+  "RTu04B_2.pdf": {
+   "outline": 4,
+   "2up-figs": 22,
+   "text-only": 3
+  },
+  "RTu04B_3.pdf": {
+   "outline": 2,
+   "text-only": 3,
+   "2up-figs": 20,
+   "full-bleed-fig": 1,
+   "table": 1
+  },
+  "RTu04B_4.pdf": {
+   "outline": 4,
+   "2up-figs": 29,
+   "text-only": 4,
+   "table": 1
+  },
+  "RTu04C_1.pdf": {
+   "outline": 4,
+   "2up-figs": 17,
+   "text-only": 2
+  },
+  "RTu04C_2.pdf": {
+   "outline": 5,
+   "2up-figs": 16,
+   "full-bleed-fig": 1,
+   "text-only": 2
+  },
+  "RTu04C_3.pdf": {
+   "outline": 6,
+   "2up-figs": 24,
+   "table": 1
+  },
+  "RTu04C_4.pdf": {
+   "outline": 6,
+   "2up-figs": 21,
+   "full-bleed-fig": 1,
+   "table": 1,
+   "text-only": 3
+  }
+ }
+}

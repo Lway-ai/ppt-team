@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# Office 锁文件/临时产物
+~$*
+*.tmp-omml
+*.tmp
+
+# 验证器临时报告
+vd_report.json

@@ -1,0 +1,95 @@
+---
+name: ppt-conference-style
+description: IMS/RFIC 会议风格完整法典（4 份样本深度测量）+ PPTX 安全编辑管线。生成或修改会议风格幻灯片前必须加载。
+---
+
+# 〇、样本与置信度
+
+规范来自 4 份 RFIC/IMS 官方演讲 PDF 的逐 span 量化测量：
+- `RFIC2024/...Tenghao Zou-Slides.pdf`（28 页，**主参照**，测量最深入）
+- `RFIC2024/2024_07_02_RMo01A_1/RMo01B_2.pdf`（25 页）
+- `IMS2024/2024_07_02_IF01_1/Th01C_2.pdf`（20 页）
+- `IMS2024/2024_07_02_IF01_1/IF01_32.pdf`（单页，仅参考）
+原始测量存档：`multi_agent_PPT_zcode/_learnings/`。
+
+**作者差异声明**：标题颜色（黑 vs 青绿）、标题对齐（居中 vs 左）、是否用表格（Zou 全图无表、RMo01B 亦无表、Th01C 用表）在作者间存在差异。**每个项目开工时选定 1 份参照 deck，把选择写进项目 style.json，此后不得混用。** 本文件默认值 = Zou deck（主参照），括号内标注他例差异。
+
+# 一、页面骨架
+
+- page: 960×540 pt (16:9)，纯白背景（28/28 页无主题填充）
+- 内容带: y≈60–495pt（标题下沿到页脚色带上沿）；左右边距：文本 x≈52–85 起排，右缘 ≤920pt
+- 页脚色带: y≈502–540pt 全宽渐变（青绿→绿，顶部一条黄绿细条），**色带上**：
+  - 左：IEEE + MTT-S (+SSCS) 白色 logo 组
+  - 中：页码，白字 20pt（Zou）或 22pt（RMo01B）
+  - 右：会话号（如 RTu1A-3）白字 14pt
+  - 右下角外侧：会议城市标（DENVER 2022）
+- 每页左上：RFIC/IMS 竖式 logo（x≈7–70, y≈10–115）；右上：会议徽标（部分 deck）
+
+# 二、标题（内容页）
+
+- 字号: **44pt**（区间 44–48pt），Franklin Gothic Book / Calibri，**不加粗**（Zou）或 Bold（RMo01B）
+- 颜色: **#000000 黑**（Zou）或 #197084 青绿（RMo01B、Th01C）——按选定参照
+- 对齐: 居中（Zou 所有页 y=9；RMo01B 内容页居中，其 Outline 页左对齐 x≈86）
+- **无下划线、无横线、无色条**（4 份样本均无）
+- 标题 = 主题名词短语（"Measurement"、"CTTF Technique"），单行，Title Case
+
+# 三、正文与层级
+
+- 正文主字体: Franklin Gothic Book（Zou）/ Calibri（RMo01B）——同为人文无衬线，工程上可互换为 Arial
+- **L1 条目: 32pt**，bullet 符号 `•`（ArialMT，与文字同字号同色黑），bullet x≈52–76，文字 x≈63–85，**行距 46pt**（Outline 页）；每页 L1 条目通常只有 1–2 条（一句话主旨）
+- **L2 子条: 28pt**，符号 `–`，缩进至 x≈101
+- 每页信息结构 = 顶部 1 条 L1 主旨句（有时加 1–2 条 L2）+ **大图占页面 70–85%**——"一页一口令，图是主角"
+- 强调字重: 行内加粗用 Arial-BoldMT；**数学变量用 Arial-BoldItalic 31pt 斜体**（k、C、Q）
+- 强调颜色: **红 #FF0000 = 关键结果/结论**（文字 + 2pt 描边虚线框，如推导出的关键公式整行红）；蓝 #2E0AFC = 标注/箭头；灰 #333333/#898989 = 次要/坐标说明
+- 参考文献页 15–16pt；图注（若用）11–12pt
+- **中西文字体规则（全片强制，`verify_deck.py font_rules` 机检，FAIL 级）**：
+  - **东亚文字**（汉字、全角标点、带圈数字①–④）= **微软雅黑、正体**。全片唯一 EA 字体，任何页/任何角色不得出现第二种 EA 字体。
+  - **西文正文**（标签、表格、文件名、单位、页脚）= **Arial 正体**（按选定样本可统一换 Franklin Gothic Book/Calibri，但全片正文西文只能有一种）。
+  - **数学公式**（OMML）= **Cambria Math**，变量斜体由数学引擎管理。这是唯一允许的第三种字体——"公式 vs 正文"是角色差异，不算不一致；严禁给公式改字体/颜色（数学引擎强制 Cambria Math，改了无效）。
+  - **中西文之间不强求一致**：混排行内"中文微软雅黑正体 + 西文公式 Cambria Math 斜体"是合法状态。
+  - **数学区内的汉字/带圈数字是高危点**：`m:r` 含 EA 码点时必须显式 `<a:ea typeface="微软雅黑">` 且 `i="0"`，否则渲染器按 Cambria Math 回退成衬线体，与全片微软雅黑相异（2026-09-14 事故：封面/总结页 ②③④ 序号及公式中文注释未声明 EA，回退衬线，被用户判为字体不一致）。
+
+# 四、图与公式（本风格的灵魂）
+
+- **图占 70–85% 页面**，无边框、无底色；多图页按公共顶边对齐
+- 曲线图用 **MATLAB 默认色序**（实测 1.5pt 线宽）: #0072BD 蓝、#D95319 橙红、#EDB120 黄、#7E2F8E 紫、#77AC30 绿、#4DBEEE 浅蓝；meas. 实线红 / sim. 点线黑是测量页惯例
+- 电路/示意图: 黑 2pt 描边；**红色虚线框分组**（如 Tank1/Tank2）；关键支路/关键结果红色标注
+- 公式: **原生文本**（FranklinGothic 斜体变量 + Arial-BoldItalic 关键变量 + CambriaMath），禁止截图公式；推导链用 `→`/`=` 串联；关键结果行整行红色
+- 图内注释字号: **16pt 为主力**（全片字数最多的档位），其次 14.5/18/20pt；axes 字号 ≥14pt
+- 图例: 框内右下角（meas./sim.），或图外底部横排
+
+# 五、表格
+
+- 样本差异大：Zou/RMo01B **整场零表格**（对比用图或并排 bullet）；Th01C 用表
+- 若用表（Th01C 规范）: 表头 #58AECA 黑字，行带 #D1E3EC/#EAF2F6 交替，白色 1pt 分隔线（表头下 3pt），无黑外框，"本工作"行 #B3A2C7 高亮，单元格 18pt 居中
+
+# 六、结构与节奏（Zou 28 页样本）
+
+1 封面（会话号 32pt 粗体居中顶部 → 全题 ~40pt 粗体居中 2–3 行 → 作者 24pt 粗体带上标 → 单位 ~20pt 粗体）
+2 Outline（44pt 居中标题 + 5 条 32pt bullet，行距 46pt，**首展全黑**；章节中途重复大纲页时已完成项灰化 #A6A6A6——RMo01B 手法）
+3–17 技术主体：Motivation → Prior Art×2 → Model → Technique → 简化×3 → Simulation → Summary（每主题 1–3 页，(1 of N) 编号可选）
+18 Die Photograph；19–24 Measurement Setup + 分项测量 + Comparison
+25 Conclusion（bullet 复述贡献）；26 Acknowledgement（基金 + 致谢，**必须**）；27 Reference（15–16pt，含 DOI）
+- 无 disclosure 页、无 backup 页、无 Q&A 页
+- 会话号出现位置: 封面顶部居中 + 每页页脚右侧
+
+# 七、确定性检查（"Lean"层，先于任何 LLM 评审）
+
+```
+C:/Python314/python.exe scripts/verify_deck.py <deck.pptx> --style scripts/style.json
+```
+检查项：形状越界 / 图片拉伸(>5%) / 字号越档 / 越版色 / 文本溢出(启发式,WARN) / 禁用文本 / 页码总页数一致
+        / 形状相交(白名单豁免) / 页脚色带越界 / 字体规则(正文 EA/西文字体白名单 + 数学区 EA 文字必须显式声明)。
+FAIL 必须清零；WARN 逐条裁决（**档位表本身以本文件第三节为准，不得临场自定**）。
+配套渲染：`powershell -File scripts/export_slides.ps1 -Pptx <...> -OutDir <...>`
+
+# 八、安全管线（踩过的坑，违反即损坏文件）
+
+1. **禁止 python-pptx 保存**（重存破坏兼容性）；编辑走 PowerPoint COM（GetActiveObject 优先），文件级修改走 raw-zip 拼接。
+2. **OMML 公式形状严禁 `.Text` 赋值**（特征：TextRange 文本呈 `??` 或 Runs()==0）；公式修改只走 XML 拼接；斜体数学字符码点：𝑗=U+1D457、𝜓=U+1D713。重建公式段落的可靠方法：从同 deck 兄弟公式形状复制 `<a:p>`，替换符号 run。
+3. **PowerShell 中文必须经 UTF-8 文件**：`Get-Content -Encoding UTF8`；严禁内联中文（变 ANSI 乱码，①曾渲染成"9312"）；`printf` 会吃 `\E` 转义，路径一律用 python `os.path.abspath` 写入。
+4. `Get-Content` 会把含换行的字符串拆成数组——多行文本索引会错位；多行用 `[char]11` join 后整体赋值。
+5. 批量修改前备份（`.bak-<标签>`）；每轮记 changelog；**修复轮上限 5 轮**，超出升级给人。
+6. COM 位置赋值用 `[single]` 强转；`.Text` 赋值后字体属性会被重置，须重新设字体。
+7. 每轮循环 = 改 → `export_slides.ps1` 渲染 → `verify_deck.py` → changelog 记录一行。
+8. **数学区字体只有 XML 一条路**：COM `.Font.Name/.NameFarEast` 对数学区字符**静默无效**（API 读回恒为 Cambria Math，写入被忽略）；唯一生效路径是 raw-zip 拼接，把 `<a:rPr>` 里的 `<a:ea typeface="微软雅黑">` + `i="0"` 直接写进 `m:r`（2026-09-14 实测：COM 改 ea 无效，拼接生效且渲染正确）。所以"数学区文字字体不对"这类问题不要试图用 COM 修，直接按第三节规则改 XML。

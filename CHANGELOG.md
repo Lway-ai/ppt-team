@@ -1,0 +1,37 @@
+# Changelog
+
+## v0.3.0 — 2026-09-15（修复轮：双评审问题落地）
+
+### verify_deck.py（验证器修复，16 用例回归全绿）
+- 字体中英族名**别名归一化**：微软雅黑 = Microsoft YaHei；latin 槽允许 EA 族（混排运行）。修复此前把自家 COM 产物判 FAIL 的数百条误报（真实 deck 实测 925 FAIL 中 ~200 条 YaHei 误报清零）。
+- **页码检查重写**：页码候选 = 形状名命中页脚白名单 或 底边伸入色带；`footer_regex` 锚定整串（`^(page[ ]*)?[0-9]+([ ]*(of|/)[ ]*[0-9]+)?$`）。修复 "31/0.5" 之类表格值被误判为页码 FAIL 的假阳性。
+- **相交检测递归进组合形状**（grpSp 按 chOff/chExt 映射绝对坐标）——成组形状不再逃过检测。
+- 新增**包完整性**检查：断链 rels=FAIL（真实 deck 实测抓出 44 处丢图）、孤立 media=WARN。
+- 新增**公式可编辑性**检查：OMML 数学区=INFO、命名 Equation*/Formula* 的图片=WARN。
+- 字号档位补 14pt（语料第 4 大档，此前缺档）。
+
+### builder 工具箱（新增，端到端冒烟验证通过）
+- `scripts/build_helpers.ps1`：COM 建页函数库。冒烟建 2 页 deck → 渲染 → verify 0 FAIL 全链路通。
+  内置 `HexColor` 修正 COM 的 BGR 字节序（直接传 0x197084 会变反色 #847019，实测踩坑）。
+- `scripts/inject_omml.py` + `scripts/omml/eq_*.xml`：OMML 公式注入。实测确认 PPTX 数学必须包
+  `<a14:m xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main">`（裸 m:oMathPara 或命名空间写错=能打开但不渲染）；
+  注入形状必须带 `<p:nvPr/>`（schema 必需，缺失=PowerPoint 拒开）。渲染目检：分数/斜体变量/正体中文正确。
+- `scripts/make_footer_band.py` → `assets/footer_band.png` 渐变色带素材。
+
+### 流程/文档
+- **写入串行纪律**写进 make-ppt.md / ppt-team.md / AGENTS.md：同一时刻只允许一个 builder 持有 .pptx 句柄。
+- SKILL.md 新增 第十一节（建页工具箱）、第十二节（形状命名契约）；第九节更新检查项与回归测试要求。
+- 新增 `templates/content_manifest.md`（内容官产出合同）、`templates/data_provenance.md`（技术数据来源表，Gate C 必查）。
+- 新增 `scripts/test_verify_deck.py`（16 用例回归集）与 `scripts/sync_user_scope.py`（用户作用域单向同步）。
+- 风格 profile 拆分：`style.json`=官方模板多数派（默认）、`style.zou.json`=Zou 变体（44pt Franklin 黑题）。
+- 修正学习档案：Zou deck p25 实为 Comparison 对比表（"全场零表格"系早期误读）。
+- 卫生：备份收拢至 `_backups/<标签>/`；plugin.json 版本 0.1.0 → 0.3.0。
+
+### 与并行工作流的冲突裁决
+- 修复期间发现并行会话把 `Times New Roman` 加进了默认 style.json 白名单（为放行 AM_DDC 技术分享 deck）。
+  裁决：默认法典保持纯净（Times 已移出），新增 `scripts/style.techshare.json` 宽松 profile 供非会议 deck 使用
+  ——会议风格项目用默认/Zou profile，技术分享项目用 techshare profile。
+
+### 明确不做的（诚实边界）
+- verify_deck.py **查不了**技术数值真实性、图表拓扑、公式内容正确性——由 templates/data_provenance.md + Gate C 人工终审兜底。
+- IEEE/MTT-S/RFIC logo 为版权素材不入库，需从合规 deck 提取或用户提供（放 `assets/`）。

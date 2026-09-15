@@ -1,0 +1,200 @@
+=== page sizes ===
+  959.0x540.0: 83
+  960.0x540.0: 2
+  841.9x595.3: 2
+=== total pages: 2536 over 87 decks ===
+=== fonts (chars) top 20 ===
+  Calibri                               272862
+  Calibri-Bold                          171784
+  Arial-BoldMT                           58192
+  ArialMT                                46907
+  ArialNarrow-Bold                       28933
+  Calibri,Bold                           23354
+  TimesNewRomanPSMT                      11198
+  CIDFont+F2                              9742
+  ArialNarrow                             8355
+  TimesNewRomanPS-BoldMT                  6535
+  Arial,Bold                              6488
+  CIDFont+F1                              6438
+  ARIAL,Bold                              6006
+  CIDFont+F5                              5767
+  CambriaMath                             5627
+  Arial Narrow,BoldItalic                 4287
+  Calibri-BoldItalic                      3889
+  Helvetica,Bold                          3553
+  Arial                                   3324
+  Franklin Gothic Book                    3254
+=== sizes (chars) top 24 ===
+   32.0pt     85462
+   24.0pt     81815
+   28.0pt     79685
+   14.0pt     63078
+   18.0pt     54151
+   20.0pt     51484
+   48.0pt     33884
+   16.0pt     33027
+   12.0pt     17303
+   22.0pt     16953
+   26.0pt     15387
+   44.0pt     13859
+   30.0pt     11082
+   13.0pt     10286
+   11.0pt      7720
+   15.0pt      7717
+   12.5pt      7669
+   40.0pt      7538
+   36.0pt      7303
+   17.5pt      7083
+   17.0pt      6717
+   14.5pt      6487
+    9.0pt      6190
+   10.0pt      5913
+=== colors (chars) top 24 ===
+  #000000    546223
+  #197084     47258
+  #FFFFFF     33064
+  #FF0000     15441
+  #0000FF     13131
+  #BFBFBF     10138
+  #A6A6A6      8488
+  #7F7F7F      8101
+  #C00000      4007
+  #00B050      3533
+  #0070C0      3303
+  #D9D9D9      3210
+  #004F9E      1727
+  #222222      1230
+  #7030A0      1221
+  #333333      1076
+  #595959       932
+  #0D0D0D       930
+  #006200       740
+  #262626       727
+  #1B25A6       633
+  #404040       623
+  #1A6377       500
+  #0066FF       453
+=== title size dist ===
+   48.0pt x1729
+   44.0pt x374
+   40.0pt x154
+   32.0pt x44
+   35.0pt x34
+   38.5pt x33
+   42.0pt x30
+   46.0pt x6
+   50.0pt x4
+   72.0pt x4
+=== title color dist ===
+  #197084 x1821
+  #000000 x603
+  #1A6377 x13
+  #FFFFFF x2
+  #00B050 x2
+  #FF0000 x1
+  #134256 x1
+  #0000FF x1
+=== title font dist ===
+  Calibri-Bold                       x1771
+  Calibri,Bold                       x314
+  Arial-BoldMT                       x199
+  CIDFont+F2                         x70
+  Helvetica,Bold                     x34
+  ArialNarrow-Bold                   x29
+  Franklin Gothic Book               x16
+  Calibri                            x5
+  Calibri-BoldItalic                 x4
+  TimesNewRomanPS-BoldMT             x1
+=== title centered: 2299 T / 145 F ===
+=== image coverage/page: mean=0.29 med=0.15 p10=0.12 p90=0.59 (n=2536) ===
+=== text left margin: min=2.8 p10=22 med=73 max=448 ===
+=== content bottom: med=458 p90=492 max=534 ===
+=== decks with footer band >=80% pages: 0/87 ; top-left logo >=80%: 82/87 ; decks containing tables: 86/87 ===
+=== per deck ===
+  RMo01A_1.pdf       p27 dom=Calibri title=48.0pt/#197084 imgcov=0.38 footer=0/27 logo=27/27 tbl=3 lm=32.8 cb=471.5
+  RMo01A_2.pdf       p21 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.38 footer=0/21 logo=21/21 tbl=3 lm=55.8 cb=495.0
+  RMo01A_3_.pdf      p31 dom=Calibri title=48.0pt/#197084 imgcov=0.27 footer=0/31 logo=31/31 tbl=13 lm=45.0 cb=493.2
+  RMo01A_4.pdf       p49 dom=ArialMT title=48.0pt/#197084 imgcov=0.53 footer=0/49 logo=0/49 tbl=1 lm=25.7 cb=494.1
+  RMo01A_5.pdf       p20 dom=Arial-BoldMT title=48.0pt/#197084 imgcov=0.24 footer=0/20 logo=20/20 tbl=14 lm=16.2 cb=493.4
+  RMo01B_1.pdf       p30 dom=Calibri title=48.0pt/#000000 imgcov=0.32 footer=0/30 logo=30/30 tbl=8 lm=11.0 cb=494.0
+  RMo01B_2.pdf       p25 dom=Calibri title=48.0pt/#197084 imgcov=0.49 footer=0/25 logo=0/25 tbl=3 lm=19.5 cb=492.9
+  RMo01B_3.pdf       p24 dom=Calibri title=48.0pt/#197084 imgcov=0.31 footer=0/24 logo=24/24 tbl=16 lm=4.6 cb=494.8
+  RMo01B_4.pdf       p21 dom=Calibri title=48.0pt/#197084 imgcov=0.37 footer=0/21 logo=21/21 tbl=3 lm=7.2 cb=494.9
+  RMo01B_5.pdf       p22 dom=Calibri title=48.0pt/#197084 imgcov=0.28 footer=0/22 logo=22/22 tbl=1 lm=40.5 cb=461.4
+  RMo01C_1.pdf       p27 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.26 footer=0/27 logo=27/27 tbl=15 lm=4.8 cb=494.9
+  RMo01C_2.pdf       p21 dom=Calibri title=48.0pt/#197084 imgcov=0.28 footer=0/21 logo=21/21 tbl=12 lm=12.9 cb=494.9
+  RMo01C_3.pdf       p32 dom=ARIAL,Bold title=48.0pt/#197084 imgcov=0.18 footer=0/32 logo=32/32 tbl=23 lm=4.2 cb=494.4
+  RMo01C_4.pdf       p31 dom=Calibri title=40.0pt/#197084 imgcov=0.30 footer=0/31 logo=31/31 tbl=11 lm=15.8 cb=494.8
+  RMo01C_5.pdf       p27 dom=Calibri title=48.0pt/#000000 imgcov=0.39 footer=0/27 logo=27/27 tbl=2 lm=55.8 cb=494.4
+  RMo02A_1.pdf       p28 dom=ArialMT title=48.0pt/#197084 imgcov=0.33 footer=0/28 logo=28/28 tbl=2 lm=14.4 cb=486.6
+  RMo02A_2.pdf       p33 dom=Calibri-Bold title=48.0pt/#000000 imgcov=0.26 footer=0/33 logo=33/33 tbl=17 lm=21.6 cb=494.2
+  RMo02A_3.pdf       p29 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.19 footer=0/29 logo=29/29 tbl=18 lm=17.8 cb=494.5
+  RMo02A_4.pdf       p31 dom=Calibri title=44.0pt/#000000 imgcov=0.34 footer=0/31 logo=31/31 tbl=17 lm=5.8 cb=494.7
+  RMo02A_5.pdf       p26 dom=Calibri title=48.0pt/#197084 imgcov=0.28 footer=0/26 logo=26/26 tbl=2 lm=40.5 cb=482.1
+  RMo02B_1.pdf       p20 dom=Calibri title=48.0pt/#197084 imgcov=0.43 footer=0/20 logo=20/20 tbl=0 lm=44.4 cb=494.7
+  RMo02B_2.pdf       p32 dom=Calibri title=48.0pt/#197084 imgcov=0.17 footer=0/32 logo=32/32 tbl=20 lm=38.7 cb=494.3
+  RMo02B_3.pdf       p26 dom=Calibri title=48.0pt/#197084 imgcov=0.17 footer=0/26 logo=26/26 tbl=21 lm=2.8 cb=494.8
+  RMo02B_4.pdf       p29 dom=ArialMT title=40.0pt/#000000 imgcov=0.26 footer=0/29 logo=29/29 tbl=20 lm=17.0 cb=492.3
+  RMo02B_5.pdf       p23 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.17 footer=0/23 logo=23/23 tbl=15 lm=62.7 cb=495.0
+  RMo02C_1.pdf       p43 dom=Calibri title=48.0pt/#197084 imgcov=0.30 footer=0/43 logo=43/43 tbl=20 lm=8.3 cb=493.8
+  RMo02C_2.pdf       p27 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.45 footer=0/27 logo=27/27 tbl=17 lm=4.8 cb=494.6
+  RMo02C_3.pdf       p29 dom=Calibri title=48.0pt/#197084 imgcov=0.40 footer=0/29 logo=29/29 tbl=9 lm=32.7 cb=486.9
+  RMo02C_4.pdf       p39 dom=Calibri title=48.0pt/#197084 imgcov=0.20 footer=0/39 logo=39/39 tbl=25 lm=13.3 cb=493.8
+  RMo02C_5.pdf       p96 dom=Calibri title=48.0pt/#197084 imgcov=0.20 footer=0/96 logo=96/96 tbl=52 lm=6.8 cb=494.5
+  RMo03A_1.pdf       p30 dom=Calibri title=48.0pt/#197084 imgcov=0.35 footer=0/30 logo=30/30 tbl=2 lm=14.1 cb=494.6
+  RMo03A_2.pdf       p28 dom=ArialNarrow-Bold title=48.0pt/#197084 imgcov=0.20 footer=0/28 logo=28/28 tbl=14 lm=64.7 cb=494.3
+  RMo03A_3.pdf       p36 dom=Helvetica,Bold title=44.0pt/#197084 imgcov=0.38 footer=0/36 logo=36/36 tbl=7 lm=7.2 cb=492.7
+  RMo03A_4.pdf       p35 dom=Calibri title=48.0pt/#000000 imgcov=0.22 footer=0/35 logo=35/35 tbl=25 lm=3.2 cb=493.5
+  RMo03A_5.pdf       p30 dom=ArialNarrow-Bold title=44.0pt/#000000 imgcov=0.24 footer=0/30 logo=30/30 tbl=23 lm=6.0 cb=494.7
+  RMo03B_1.pdf       p23 dom=Calibri title=48.0pt/#197084 imgcov=0.15 footer=0/23 logo=23/23 tbl=13 lm=3.6 cb=487.7
+  RMo03B_2.pdf       p24 dom=Calibri title=48.0pt/#197084 imgcov=0.39 footer=0/24 logo=24/24 tbl=4 lm=31.3 cb=494.5
+  RMo03B_3.pdf       p43 dom=Calibri title=40.0pt/#000000 imgcov=0.37 footer=0/43 logo=43/43 tbl=4 lm=9.6 cb=494.9
+  RMo03B_4.pdf       p25 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.23 footer=0/25 logo=25/25 tbl=15 lm=9.1 cb=494.3
+  RMo03B_5.pdf       p27 dom=ArialMT title=48.0pt/#000000 imgcov=0.14 footer=0/27 logo=27/27 tbl=17 lm=21.8 cb=495.0
+  RMo03C_1.pdf       p32 dom=Calibri-Bold title=48.0pt/#000000 imgcov=0.27 footer=0/32 logo=32/32 tbl=15 lm=44.4 cb=492.5
+  RMo03C_2.pdf       p17 dom=Calibri-Bold title=48.0pt/#000000 imgcov=0.18 footer=0/17 logo=17/17 tbl=12 lm=8.9 cb=494.5
+  RMo03C_3.pdf       p28 dom=Calibri-Bold title=48.0pt/#000000 imgcov=0.22 footer=0/28 logo=28/28 tbl=17 lm=38.8 cb=494.6
+  RMo03C_4.pdf       p25 dom=Calibri title=48.0pt/#197084 imgcov=0.32 footer=0/25 logo=25/25 tbl=13 lm=21.8 cb=486.9
+  RMo03C_5.pdf       p26 dom=Calibri title=48.0pt/#197084 imgcov=0.36 footer=0/26 logo=26/26 tbl=2 lm=40.1 cb=475.8
+  RMo04A_1.pdf       p38 dom=Calibri title=48.0pt/#197084 imgcov=0.35 footer=0/38 logo=38/38 tbl=22 lm=8.0 cb=494.3
+  RMo04A_2.pdf       p24 dom=Calibri title=48.0pt/#197084 imgcov=0.23 footer=0/24 logo=24/24 tbl=11 lm=30.0 cb=491.0
+  RMo04A_3.pdf       p30 dom=Calibri title=40.0pt/#000000 imgcov=0.35 footer=0/30 logo=30/30 tbl=7 lm=9.1 cb=494.4
+  RMo04A_4.pdf       p21 dom=ArialMT title=40.0pt/#197084 imgcov=0.23 footer=0/21 logo=21/21 tbl=13 lm=55.8 cb=483.5
+  RMo04B_1.pdf       p43 dom=CIDFont+F2 title=42.0pt/#197084 imgcov=0.16 footer=0/43 logo=0/43 tbl=33 lm=14.3 cb=533.5
+  RTu01B_1.pdf       p21 dom=Calibri title=48.0pt/#1A6377 imgcov=0.33 footer=0/21 logo=21/21 tbl=5 lm=5.9 cb=494.8
+  RTu01B_2.pdf       p38 dom=Calibri title=32.0pt/#197084 imgcov=0.28 footer=0/38 logo=39/38 tbl=6 lm=7.2 cb=493.7
+  RTu01B_3.pdf       p32 dom=ArialNarrow-Bold title=42.0pt/#197084 imgcov=0.22 footer=0/32 logo=32/32 tbl=24 lm=4.1 cb=494.5
+  RTu01B_4.pdf       p34 dom=Calibri title=44.0pt/#000000 imgcov=0.24 footer=0/34 logo=34/34 tbl=22 lm=23.1 cb=494.4
+  RTu01B_5.pdf       p23 dom=Calibri-Bold title=48.0pt/#000000 imgcov=0.27 footer=0/23 logo=23/23 tbl=14 lm=43.2 cb=494.6
+  RTu01C_1.pdf       p28 dom=Calibri title=48.0pt/#197084 imgcov=0.26 footer=0/28 logo=28/28 tbl=13 lm=14.1 cb=494.3
+  RTu01C_2.pdf       p22 dom=Calibri-Bold title=44.0pt/#000000 imgcov=0.30 footer=0/22 logo=22/22 tbl=12 lm=10.6 cb=495.0
+  RTu01C_3.pdf       p29 dom=Calibri title=48.0pt/#197084 imgcov=0.35 footer=0/29 logo=30/29 tbl=9 lm=12.3 cb=494.0
+  RTu01C_4.pdf       p40 dom=Calibri,Bold title=48.0pt/#197084 imgcov=0.27 footer=0/40 logo=40/40 tbl=24 lm=17.9 cb=494.1
+  RTu01C_5.pdf       p27 dom=Calibri title=48.0pt/#197084 imgcov=0.18 footer=0/27 logo=27/27 tbl=18 lm=39.0 cb=493.1
+  RTu02B_1.pdf       p31 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.30 footer=0/31 logo=31/31 tbl=8 lm=20.8 cb=492.9
+  RTu02B_2.pdf       p36 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.40 footer=0/36 logo=36/36 tbl=15 lm=7.4 cb=493.0
+  RTu02B_3.pdf       p18 dom=Calibri title=44.0pt/#197084 imgcov=0.37 footer=0/18 logo=18/18 tbl=5 lm=40.8 cb=494.6
+  RTu02B_4.pdf       p28 dom=Calibri title=48.0pt/#197084 imgcov=0.36 footer=0/28 logo=28/28 tbl=12 lm=10.1 cb=494.0
+  RTu02C_1.pdf       p33 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.20 footer=0/33 logo=33/33 tbl=17 lm=13.7 cb=490.4
+  RTu02C_2.pdf       p29 dom=Calibri title=48.0pt/#197084 imgcov=0.26 footer=0/29 logo=29/29 tbl=15 lm=5.2 cb=494.6
+  RTu02C_3.pdf       p18 dom=TimesNewRomanPS-BoldMT title=44.0pt/#000000 imgcov=0.38 footer=0/18 logo=18/18 tbl=13 lm=2.9 cb=491.1
+  RTu02C_4.pdf       p27 dom=Calibri title=48.0pt/#000000 imgcov=0.29 footer=0/27 logo=27/27 tbl=10 lm=39.0 cb=494.6
+  RTu02C_5.pdf       p26 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.15 footer=0/26 logo=26/26 tbl=11 lm=25.6 cb=489.5
+  RTu03B_1.pdf       p24 dom=Calibri-Bold title=48.0pt/#197084 imgcov=0.18 footer=0/24 logo=24/24 tbl=8 lm=38.8 cb=486.2
+  RTu03B_2.pdf       p25 dom=ArialMT title=48.0pt/#197084 imgcov=0.35 footer=0/25 logo=25/25 tbl=2 lm=21.8 cb=489.6
+  RTu03B_3.pdf       p25 dom=Arial-BoldMT title=48.0pt/#197084 imgcov=0.28 footer=0/25 logo=26/25 tbl=10 lm=7.2 cb=494.7
+  RTu03B_4.pdf       p30 dom=Calibri title=48.0pt/#197084 imgcov=0.13 footer=0/30 logo=30/30 tbl=20 lm=17.1 cb=494.3
+  RTu03B_5.pdf       p31 dom=Calibri title=35.0pt/#197084 imgcov=0.40 footer=0/31 logo=31/31 tbl=6 lm=52.1 cb=493.8
+  RTu03C_1.pdf       p25 dom=Calibri-Bold title=44.0pt/#000000 imgcov=0.33 footer=0/25 logo=25/25 tbl=2 lm=7.2 cb=485.5
+  RTu03C_2.pdf       p29 dom=CIDFont+F1 title=42.0pt/#197084 imgcov=0.20 footer=0/29 logo=0/29 tbl=24 lm=3.0 cb=533.5
+  RTu03C_3.pdf       p19 dom=Calibri-Bold title=48.0pt/#000000 imgcov=0.20 footer=0/19 logo=19/19 tbl=9 lm=41.2 cb=494.0
+  RTu03C_4.pdf       p31 dom=Calibri title=48.0pt/#197084 imgcov=0.46 footer=0/31 logo=31/31 tbl=5 lm=8.3 cb=483.2
+  RTu03C_5.pdf       p24 dom=Calibri title=48.0pt/#197084 imgcov=0.38 footer=0/24 logo=24/24 tbl=1 lm=73.1 cb=489.5
+  RTu04B_1.pdf       p18 dom=Franklin Gothic Book title=48.0pt/#000000 imgcov=0.38 footer=0/18 logo=18/18 tbl=1 lm=16.1 cb=468.7
+  RTu04B_2.pdf       p30 dom=Calibri title=48.0pt/#197084 imgcov=0.23 footer=0/30 logo=30/30 tbl=21 lm=25.8 cb=489.5
+  RTu04B_3.pdf       p28 dom=Calibri title=44.0pt/#000000 imgcov=0.39 footer=0/28 logo=28/28 tbl=1 lm=7.2 cb=494.8
+  RTu04B_4.pdf       p39 dom=Calibri title=48.0pt/#197084 imgcov=0.25 footer=0/39 logo=39/39 tbl=25 lm=11.5 cb=493.2
+  RTu04C_1.pdf       p24 dom=Calibri title=48.0pt/#197084 imgcov=0.26 footer=0/24 logo=24/24 tbl=8 lm=18.9 cb=494.1
+  RTu04C_2.pdf       p25 dom=Calibri title=48.0pt/#197084 imgcov=0.41 footer=0/25 logo=25/25 tbl=1 lm=8.5 cb=492.9
+  RTu04C_3.pdf       p32 dom=Calibri title=48.0pt/#197084 imgcov=0.45 footer=0/32 logo=0/32 tbl=1 lm=7.2 cb=494.6
+  RTu04C_4.pdf       p33 dom=Calibri title=44.0pt/#197084 imgcov=0.36 footer=0/33 logo=33/33 tbl=10 lm=5.4 cb=494.8

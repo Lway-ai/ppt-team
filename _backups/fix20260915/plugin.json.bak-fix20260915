@@ -1,0 +1,8 @@
+{
+  "name": "ppt-team",
+  "version": "0.1.0",
+  "description": "Multi-agent conference PPT team: outline fan-out, section builders, cross-pollination consolidator, deterministic verifier, visual judge",
+  "agents": "agents",
+  "skills": "skills",
+  "commands": "commands"
+}
