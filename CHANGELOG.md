@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.2 — 2026-09-15（Codex 接入）
+
+- 安装 ppt-team 到 Codex CLI(0.144.6): `~/.codex/skills/ppt-team/SKILL.md`（由仓库
+  skills/ppt-team/SKILL.md 生成, frontmatter 后注入 PLUGIN_HOME 绝对路径声明, 可从任意工作目录触发）
+- 新增 `~/.codex/prompts/make-ppt.md` 斜杠命令（流水线七步纪律 + $ARGUMENTS）
+- 全局 `~/.codex/AGENTS.md` 增加触发指引（PPT 任务优先 ppt-team 技能）
+- sync_user_scope.py 扩展双目标: ZCode SKILL.md + Codex ppt-team SKILL.md（--check 可查漂移）
+- 仓库侧适配(并行会话先期完成, 本次收编): .codex-plugin/plugin.json 清单 + skills/ppt-team/SKILL.md 角色映射
+  （Codex 单代理顺序扮演四角色, 写入串行, 只读任务才可并行）
+
 ## v0.3.1 — 2026-09-15（第二轮：Zou profile 建页能力 + 公式生成器 + 首个完整交付案例）
 
 - **C10 永久修复**: 测试改用夹具 style(默认配置减 Times), 钉住机制而非配置值——不再随 style.json 的并行修改漂移;
@@ -10,7 +20,8 @@
 - **LOGO/页脚素材**: 从用户合规语料 PDF 提取 —— assets/zou/footband.png(Zou 色带含 IEEE/MTT-S/SSCS 白标+DENVER2022,
   烤入文字已按 bbox 垂直插值修补) + rfic_logo.png; assets/footband_2024.png + badge_2024.png + rfic_logo_2024.png(2024 版)。
   仅供个人/内部学术使用, 不随仓库公开分发。
-- **omml_tex.py**: mini-LaTeX→OMML 生成器(分式/上下标/根号/希腊/常用符号/	ext 中文正体/\left-ight/matrix 族/多行),
+- **omml_tex.py**: mini-LaTeX→OMML 生成器(分式/上下标/根号/希腊/常用符号/	ext 中文正体/\left-
+ight/matrix 族/多行),
   inject_omml.py 新增 --tex 直通与 --size; test_omml_tex.py 15 用例全绿。
   过程中实证: PPTX 数学必须 a14:m(drawing/2010) 包装; 注入形状必须带 <p:nvPr/>(缺失=PowerPoint 拒开)。
 - **首个完整交付案例 examples/mvp_zou/**: 内容清单实例 + 数据来源表实例 + agenda + build.ps1(Zou profile)

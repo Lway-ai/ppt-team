@@ -1,6 +1,6 @@
 ---
 name: ppt-team
-description: Use the local PPT Team workflow for editable RFIC, ISSCC, RFIC2024, and technical PowerPoint decks. Apply the architect, builder, consolidator, and judge roles in Codex while using PowerPoint COM, raw-zip OMML injection, rendering, and verify_deck QA. Trigger when the user asks to create, modify, review, or validate a technical PPT/PPTX in this project.
+description: Use the local PPT Team workflow for editable RFIC, ISSCC, RFIC2024, and technical PowerPoint decks. Apply the architect, builder, consolidator, and judge roles in Codex while using PowerPoint COM, raw-zip OMML injection, rendering, and verify_deck QA. Trigger when the user asks to create, modify, review, or validate a technical PPT/PPTX in any working directory.
 ---
 
 # PPT Team for Codex
