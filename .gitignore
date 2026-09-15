@@ -9,3 +9,6 @@ __pycache__/
 
 # 验证器临时报告
 vd_report.json
+
+# 会话临时产物
+tmp/
