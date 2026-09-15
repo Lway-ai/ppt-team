@@ -12,3 +12,6 @@ vd_report.json
 
 # 会话临时产物
 tmp/
+
+# 探针/调试产物
+*_probe_*.png
