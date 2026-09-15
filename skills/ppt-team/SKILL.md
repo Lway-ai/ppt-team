@@ -47,6 +47,7 @@ PPTX at the same time.
 - Pass Chinese or other non-ASCII PowerShell text through UTF-8 files.
 - Use the shape naming contract: `FooterBand`, `PageNo`, `SessionId`, `KeyBox*`, `Equation*`, and related names are consumed by the verifier.
 - `verify_deck.py` checks package/layout/font/overlap/formula-presence signals. It cannot prove circuit topology, equation correctness, or measurement-value truth. Gate C must compare the deck against live models, source plots, and `data_provenance.md`.
+- officecli MCP is configured in Codex (`config.toml` → `mcp_servers.officecli`) and is an approved editing/audit channel: `view stats|issues`, `validate`, `query equation`, `set/add` text and `--type equation --prop formula="LaTeX"` (native OMML, round-trip verified: math survives, COM can reopen, verify_deck 0 FAIL). officecli keeps a resident in memory — always `save`/`close` before verify_deck, export_slides, or COM touches the file.
 - The official IEEE/MTT-S/RFIC footer logos are not bundled by default. Use only supplied or legally reusable assets.
 
 ## Review-only requests

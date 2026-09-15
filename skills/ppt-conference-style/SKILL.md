@@ -150,6 +150,11 @@ FAIL 必须清零；WARN 逐条裁决（**档位表以第三节为准，不得�
 - `scripts/make_footer_band.py`：生成 `assets/footer_band.png` 页脚渐变色带素材。
 - 风格 profile：`scripts/style.json` = 官方模板多数派（默认）；`scripts/style.zou.json` = Zou 变体
   （44pt Franklin Gothic 黑题）。项目开工时二选一并写进项目记录。
+- **officecli MCP**（ZCode/Codex 均已挂载时可用）: 只读审计 `view stats|issues`、`validate`（严格 OpenXML 校验,
+  会报告注入公式 a14:m 叶元素问题——PowerPoint 可正常打开渲染, 属已知可接受偏差）、`query equation` 列公式;
+  编辑 `set/add` 文本形状、`--type equation --prop formula="LaTeX"` 原生增改公式（实测 OMML 往返无损、COM 可开、
+  verify 0 FAIL, \mathrm 转为 m:sty="p" 顺带修正正体）。**常驻内存模型: 编辑后必须 save/close 再让外部工具读盘**;
+  保存会新增 docProps/custom.xml（无害）。
 - 页脚 logo（IEEE/MTT-S/RFIC）为版权素材，不入库——从既有合规 deck 提取或由用户提供，放 `assets/` 后经 Add-Picture 使用。
 
 # 十二、形状命名契约（builder 建形状必须遵守，verify 依赖它豁免/判定）

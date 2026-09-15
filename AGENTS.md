@@ -1,7 +1,10 @@
 # 本工作区全局守则（所有代理必读）
 
 ## 硬性禁令
-1. 禁止用 python-pptx **保存** PPTX（重存会破坏兼容性）；编辑一律走 PowerPoint COM（PowerShell），文件级修改走 raw-zip 拼接。
+1. 禁止用 python-pptx **保存** PPTX（重存会破坏兼容性）。合规编辑通道共三条，任一时刻仍只有一个写者：
+   ① PowerPoint COM（PowerShell，结构性/批量修改首选）；② raw-zip 拼接（文件级/数学区 XML，唯一能改数学区字体的通道）；
+   ③ **officecli MCP**（文本/形状轻量编辑与公式 add/set formula，往返已实测：OMML 幸存、COM 可打开、verify 0 FAIL）。
+   officecli 是常驻内存模型：**编辑后必须 save/close，再让 verify_deck/export_slides/COM 读文件**，否则读到旧文件或句柄占用。
 2. OMML 公式形状（Aeq/Beq/RotA/RotB/AM* 等，特征是 TextRange.Runs().Count == 0 或文本显示为 ??）**永远不要用 .Text 赋值**——公式只能改 XML。
 3. 向 PowerShell 传中文/非 ASCII 文本必须经 UTF-8 文件 + `Get-Content -Encoding UTF8`，不要内联在 .ps1 里。
 4. 任何批量修改前必须先备份原文件（`*.bak-<标签>`）。

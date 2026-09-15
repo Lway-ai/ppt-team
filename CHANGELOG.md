@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.3.3 — 2026-09-15（接入 officecli MCP 编辑通道）
+
+- **officecli MCP 正式列为第三条合规编辑通道**（此前仅 COM + raw-zip）。往返实测（MVP deck 副本）:
+  `set` 文本、`--type equation --prop formula` 原生增改公式 → OMML 幸存（m:oMath=1, m:r 18→20, \mathrm 转 m:sty="p" 顺带修正正体）
+  → COM 可正常打开渲染 → verify_deck 仍 0 FAIL。仅新增无害的 docProps/custom.xml。
+- **常驻内存纪律**（新增硬性规则）: officecli 编辑后必须 save/close，verify_deck/export_slides/COM 才允许读盘；
+  officecli 常驻也算写者，纳入"写者唯一"约束。
+- 审计能力入册: view stats|issues、validate（严格校验会报注入公式 a14:m 叶元素问题——PowerPoint 渲染正常,
+  已知可接受偏差）、query equation。
+- 同步更新: AGENTS.md 禁令1、agents/ppt-builder.md、SKILL.md 工具箱、Codex 适配技能（并重装到 ~/.codex/skills）。
+
 ## v0.3.2 — 2026-09-15（Codex 接入）
 
 - 安装 ppt-team 到 Codex CLI(0.144.6): `~/.codex/skills/ppt-team/SKILL.md`（由仓库

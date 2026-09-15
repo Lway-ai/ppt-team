@@ -6,7 +6,11 @@ description: 按大纲和风格规范构建/修改会议风格 PPTX（PowerPoint
 
 工作循环（每轮）：
 1. 备份原文件（*.bak-<轮次标签>）。
-2. 用 PowerPoint COM（GetActiveObject 或 New-Object）做修改；批量文字经 UTF-8 文件传入 PowerShell。
+2. 编辑通道三选一（同一轮只用一个，写者唯一）：
+   a. PowerPoint COM（GetActiveObject 或 New-Object），批量文字经 UTF-8 文件传入；
+   b. raw-zip XML 拼接（文件级/数学区专属）；
+   c. officecli MCP（有该 MCP 时优先用于轻量编辑）: set/add 文本与形状、`--type equation --prop formula="LaTeX"`
+      直接增改公式（引擎原生 OMML，实测公式往返无损）；**save/close 后**才能跑 verify/render/COM。
 3. OMML 公式形状（TextRange.Runs().Count == 0 或文本呈 ??）严禁 .Text 赋值；公式修改只走 raw-zip XML 拼接。
 4. 导出渲染图（scripts/export_slides.ps1）+ 运行 scripts/verify_deck.py，FAIL 必须清零。
    —— 相交检测要点：文本×文本重叠、或"容器画在其子元素之上"= FAIL（典型=横幅盖标签、徽章被切）；图片参与的交叠 = WARN，目检裁决（图片自带留白）。
