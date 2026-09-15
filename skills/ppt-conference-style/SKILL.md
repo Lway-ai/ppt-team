@@ -142,6 +142,11 @@ FAIL 必须清零；WARN 逐条裁决（**档位表以第三节为准，不得�
 - `scripts/inject_omml.py`：raw-zip 注入 OMML 公式，自动加 a14:m 包装（命名空间 =
   `http://schemas.microsoft.com/office/drawing/2010/main`；裸 m:oMathPara 或写错命名空间 = 文件能打开但公式不渲染，2026-09-15 实测）。
   片段库 `scripts/omml/eq_*.xml`（含 EA 正体 run 样板）。
+- `scripts/omml_tex.py`: **mini-LaTeX → OMML 公式生成器**（分式/上下标/根号/希腊/符号/矩阵/多行/	ext 中文正体），
+  经 `inject_omml.py --tex "..."` 直接调用；回归测试 `scripts/test_omml_tex.py`（15 用例）。
+- `Import-StyleProfile`（build_helpers.ps1 内）: builder 装入 style*.json 的 builder 配置块，
+  Add-Title/Add-FooterBand/Add-TopLogos 自动按 profile 取字号/颜色/字体/素材——**builder 不要硬编码风格值**。
+  回归测试 `scripts/test_verify_deck.py` 使用夹具 style, 不随共享配置漂移。
 - `scripts/make_footer_band.py`：生成 `assets/footer_band.png` 页脚渐变色带素材。
 - 风格 profile：`scripts/style.json` = 官方模板多数派（默认）；`scripts/style.zou.json` = Zou 变体
   （44pt Franklin Gothic 黑题）。项目开工时二选一并写进项目记录。

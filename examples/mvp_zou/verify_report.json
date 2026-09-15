@@ -1,0 +1,62 @@
+[
+ {
+  "slide": 1,
+  "check": "margins",
+  "severity": "INFO",
+  "msg": "形状[LogoLeft] 左边缘 10pt 小于版心 40pt"
+ },
+ {
+  "slide": 1,
+  "check": "overflow",
+  "severity": "WARN",
+  "msg": "形状[CoverTitle]疑似文本溢出: est 162pt > box 153pt"
+ },
+ {
+  "slide": 2,
+  "check": "margins",
+  "severity": "INFO",
+  "msg": "形状[LogoLeft] 左边缘 10pt 小于版心 40pt"
+ },
+ {
+  "slide": 2,
+  "check": "overflow",
+  "severity": "WARN",
+  "msg": "形状[OutlineBullets]疑似文本溢出: est 130pt > box 124pt"
+ },
+ {
+  "slide": 2,
+  "check": "overlap",
+  "severity": "WARN",
+  "msg": "图片与形状区域交叠[LogoLeft]x[Title] 24x61pt(图片含留白, 目检裁决)"
+ },
+ {
+  "slide": 3,
+  "check": "margins",
+  "severity": "INFO",
+  "msg": "形状[LogoLeft] 左边缘 10pt 小于版心 40pt"
+ },
+ {
+  "slide": 3,
+  "check": "overflow",
+  "severity": "WARN",
+  "msg": "形状[L1Bullets]疑似文本溢出: est 173pt > box 124pt"
+ },
+ {
+  "slide": 3,
+  "check": "formula_editable",
+  "severity": "INFO",
+  "msg": "检测到 1 个 OMML 数学区(可编辑公式)"
+ },
+ {
+  "slide": 3,
+  "check": "overlap",
+  "severity": "WARN",
+  "msg": "图片与形状区域交叠[LogoLeft]x[Title] 24x61pt(图片含留白, 目检裁决)"
+ },
+ {
+  "slide": 0,
+  "check": "font_rules",
+  "severity": "WARN",
+  "msg": "全片正文西文字体多于一种: ['Calibri', 'Franklin Gothic Book'] — 违反\"全片正文西文只能一种\"(SKILL.md 第三节)"
+ }
+]

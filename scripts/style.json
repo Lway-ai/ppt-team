@@ -118,8 +118,7 @@
    "FranklinGothic",
    "FranklinGothic Book",
    "Calibri",
-   "Calibri Light",
-   "Times New Roman"
+   "Calibri Light"
   ],
   "math_ea_required": "微软雅黑",
   "missing_font_severity": "INFO",
@@ -127,7 +126,8 @@
    "Microsoft YaHei": "微软雅黑",
    "MSYH": "微软雅黑"
   },
-  "_ea_comment": "两个族名同一字体: COM 常写英文名, 法典用中文名; verify 内部做别名归一化"
+  "_ea_comment": "两个族名同一字体: COM 常写英文名, 法典用中文名; verify 内部做别名归一化",
+  "_times_note": "Times New Roman 不在默认法典: 会议风格正文西文只允许 Calibri/Franklin/Arial 系. 技术分享场景请用 style.techshare.json, 勿把 Times 加回默认(2026-09-15 裁决, 见 CHANGELOG)."
  },
  "overlap": {
   "min_overlap_pt": 5,
@@ -145,5 +145,27 @@
   "footer_band_top_pt": 502,
   "footer_whitelist_regex": "^(Footer|PageNo|SessionId|CoverFoot|CoverPage|CoverC|FooterRule|FooterBand)"
  },
- "_footer_regex_comment": "只匹配整串页码(25 或 25/28); 表格值 31/0.5 因不锚定整串不会成为页脚候选"
+ "_footer_regex_comment": "只匹配整串页码(25 或 25/28); 表格值 31/0.5 因不锚定整串不会成为页脚候选",
+ "builder": {
+  "title": {
+   "size": 48,
+   "color": "197084",
+   "font": "Calibri",
+   "bold": true,
+   "left": 40,
+   "top": 20,
+   "width": 880,
+   "height": 60,
+   "align": "center"
+  },
+  "footer": {
+   "band": "assets/footband_2024.png",
+   "page_color": "000000",
+   "session_color": "000000"
+  },
+  "logos": {
+   "left_top": "assets/rfic_logo_2024.png",
+   "right_top": "assets/badge_2024.png"
+  }
+ }
 }

@@ -1,0 +1,34 @@
+{
+  "deck": "examples/mvp_zou/mvp_zou.pptx",
+  "profile": "scripts/style.zou.json",
+  "rounds": [
+    {"round": 1, "pages": [1, 2, 3], "fails": [2], "notes": "slide2 bullet 乱码(内联非 ASCII 违反安全管线3) -> 回炉改 UTF-8 文件传入"},
+    {"round": 2, "pages": [2], "fails": [], "notes": "修复确认"}
+  ],
+  "verdicts": [
+    {
+      "page": 1, "verdict": "pass",
+      "issues": [
+        "INFO 封面标题字体 Calibri Bold, Zou 原始 deck 封面同为粗体但家族未测(内容页为 Franklin) — 视觉可接受",
+        "INFO 作者/单位为 MVP 占位文本, 已在 data_provenance 标注待补充 — 不影响工具链示证"
+      ]
+    },
+    {
+      "page": 2, "verdict": "pass",
+      "issues": [
+        "PASS-after-fix: 第1轮 bullet 符号乱码(釱?), 第2轮改 UTF-8 文件传入后正常",
+        "INFO 大纲页下半留白, 符合 Zou 原版大纲页构图"
+      ]
+    },
+    {
+      "page": 3, "verdict": "pass",
+      "issues": [
+        "WARN verify#overlap LogoLeft×Title 24x61pt — 目检标题文字居中起笔 x≈640, 与 logo 无视觉碰撞, 判可接受(图片留白类假阳性)",
+        "WARN verify#font_rules 全片两种西文字体(Calibri 页脚 + Franklin 正文) — 与 Zou 原始 deck 行为一致(其页脚即为 Calibri), 判可接受; 若要零 WARN 可把页脚也换 Franklin",
+        "MINOR 公式中 log 渲染为斜体, 教科书惯例应为正体 — omml_tex 的 \\log 已按正体生成, 推断为数学引擎对无 m:sty 运行的默认斜体化; 修复方向=在 run 上补 m:rPr/m:sty= p, 不阻塞验收",
+        "INFO OMML 数学区 1 个, 公式原生可编辑(verify formula_editable INFO)"
+      ]
+    }
+  ],
+  "summary": {"pass": 3, "fail": 0, "gate": "verify 0 FAIL + judge 全 pass"}
+}

@@ -7,6 +7,22 @@
 #   - .Text 赋值后字体会被重置, 赋值后再 Set-Font
 
 $script:EMU_PT = 12700.0
+$script:StyleProfile = $null   # Import-StyleProfile 装入后, Add-Title/Add-FooterBand/Add-TopLogos 取 profile 默认值
+
+function Import-StyleProfile {
+  # 装入 style.json / style.zou.json / style.techshare.json (读取其 builder 配置块)
+  param([Parameter(Mandatory=$true)][string]$Path)
+  $script:StyleProfile = Get-Content -Path $Path -Encoding UTF8 -Raw | ConvertFrom-Json
+  Write-Output $script:StyleProfile
+}
+
+function Get-ProfileVal {
+  param([string]$Group, [string]$Key)
+  if ($null -eq $script:StyleProfile) { return $null }
+  $grp = $script:StyleProfile.builder.$Group
+  if ($null -eq $grp) { return $null }
+  return $grp.$Key
+}
 
 function HexColor {
   # '#RRGGBB' 或 'RRGGBB' -> Office COM 的 RGB 整数(字节序 R + G*256 + B*65536)。
@@ -95,7 +111,13 @@ function Add-FooterBand {
         [int]$PageColorRGB = 0x000000)
   $band = Join-Path $AssetsDir 'footer_band.png'
   if (-not (Test-Path $band)) { throw "缺页脚色带素材: $band (先跑 scripts/make_footer_band.py)" }
-  $b = $Slide.Shapes.AddPicture($band, 0, -1, [single]0, [single]502, [single]960, [single]38)
+  # 按素材原始比例适配宽度 960pt, 底边贴 540 —— 避免拉伸(image_ratio FAIL)
+  Add-Type -AssemblyName System.Drawing
+  $img = [System.Drawing.Image]::FromFile($band)
+  $h = [single](960.0 * $img.Height / $img.Width)
+  $img.Dispose()
+  $top = [single](540.0 - $h)
+  $b = $Slide.Shapes.AddPicture($band, 0, -1, [single]0, $top, [single]960, $h)
   $b.Name = 'FooterBand'
   if ($PageNo -ne '') {
     $p = $Slide.Shapes.AddTextbox(1, [single]440, [single]506, [single]80, [single]30)
@@ -115,11 +137,37 @@ function Add-FooterBand {
 }
 
 function Add-Title {
+  # 无显式参数时取 profile builder.title (默认 profile=48pt Calibri-Bold 青绿; Zou=44pt Franklin 黑 不加粗)
   param([Parameter(Mandatory=$true)]$Slide,
         [Parameter(Mandatory=$true)][string]$TextFile,
-        [int]$Size = 48, [int]$ColorRGB = 0x197084)   # 默认=官方模板 48pt 青绿; Zou 变体传 44/0x000000
-  Add-TextBox -Slide $Slide -Name 'Title' -Left 40 -Top 20 -Width 880 -Height 60 `
-    -TextFile $TextFile -Size $Size -Bold -ColorRGB $ColorRGB -Align 2 -Latin 'Calibri' | Out-Null
+        [int]$Size = 0, [int]$ColorRGB = -1, [switch]$Bold, [switch]$NoBold,
+        [string]$Font = '',
+        [float]$Left = -1, [float]$Top = -1)
+  $t = Get-ProfileVal 'title' 'size';   if ($Size -le 0)      { $Size = if ($t) { [int]$t } else { 48 } }
+  $c = Get-ProfileVal 'title' 'color';  if ($ColorRGB -lt 0)  { $ColorRGB = if ($c) { HexColor $c } else { HexColor '197084' } }
+  $f = Get-ProfileVal 'title' 'font';   if (-not $Font)       { $Font = if ($f) { $f } else { 'Calibri' } }
+  $l = Get-ProfileVal 'title' 'left';   if ($Left -lt 0)      { $Left = if ($l) { [single]$l } else { 40 } }
+  $tp = Get-ProfileVal 'title' 'top';   if ($Top -lt 0)       { $Top = if ($tp) { [single]$tp } else { 20 } }
+  $b = Get-ProfileVal 'title' 'bold'
+  if (-not $Bold -and -not $NoBold) { $Bold = [bool]($b -eq $true) }
+  Add-TextBox -Slide $Slide -Name 'Title' -Left $Left -Top $Top -Width 880 -Height 60 `
+    -TextFile $TextFile -Size $Size -Bold:$Bold -ColorRGB $ColorRGB -Align 2 -Latin $Font | Out-Null
+}
+
+function Add-TopLogos {
+  # 左上/右上 logo, 路径取 profile builder.logos; 传 -LeftTop/-RightTop 可覆盖
+  param([Parameter(Mandatory=$true)]$Slide,
+        [string]$LeftTop = '', [string]$RightTop = '')
+  if (-not $LeftTop)   { $LeftTop = Get-ProfileVal 'logos' 'left_top' }
+  if (-not $RightTop)  { $RightTop = Get-ProfileVal 'logos' 'right_top' }
+  if ($LeftTop -and (Test-Path $LeftTop)) {
+    $lt = (Resolve-Path $LeftTop).Path
+    Add-Picture -Slide $Slide -Name 'LogoLeft' -Image $lt -Left 10 -Top 8 -Width 54 -Height 118 | Out-Null
+  }
+  if ($RightTop -and (Test-Path $RightTop)) {
+    $rt = (Resolve-Path $RightTop).Path
+    Add-Picture -Slide $Slide -Name 'LogoRight' -Image $rt -Left 855 -Top 5 -Width 105 -Height 120 | Out-Null
+  }
 }
 
 function Close-Deck {

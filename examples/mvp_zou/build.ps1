@@ -1,0 +1,49 @@
+# MVP 构建脚本 — Zou profile 3 页演示 deck（封面 / Outline / Motivation+公式）
+# 用法: powershell -NoProfile -ExecutionPolicy Bypass -File examples\mvp_zou\build.ps1
+$ErrorActionPreference = 'Stop'
+$root = Resolve-Path (Join-Path $PSScriptRoot '..\..')
+. (Join-Path $root 'scripts\build_helpers.ps1')
+
+# 关键一步: builder 真正读取 Zou profile（标题 44pt Franklin Gothic Book 黑色不加粗 top=9;
+# 页脚用提取的 Zou 官方色带, 页码/会话号白字）
+Import-StyleProfile (Join-Path $root 'scripts\style.zou.json') | Out-Null
+
+$deck = Join-Path $PSScriptRoot 'mvp_zou.pptx'
+$pres = New-Deck -Path $deck
+$bodyFont = 'Franklin Gothic Book'
+
+# ---- P1 封面 (页码 0) ----
+$s1 = Add-BlankSlide -Pres $pres
+Add-TopLogos -Slide $s1 | Out-Null
+Add-TextBox -Slide $s1 -Name 'CoverSession' -Left 330 -Top 16 -Width 300 -Height 40 `
+  -Text 'RTu1A-3' -Size 32 -Bold -Align 2 | Out-Null
+Add-TextBox -Slide $s1 -Name 'CoverTitle' -Left 80 -Top 120 -Width 800 -Height 170 `
+  -TextFile (Join-Path $PSScriptRoot 'title.txt') -Size 40 -Bold -Align 2 | Out-Null
+Add-TextBox -Slide $s1 -Name 'CoverAuthors' -Left 150 -Top 320 -Width 660 -Height 40 `
+  -TextFile (Join-Path $PSScriptRoot 'authors.txt') -Size 24 -Bold -Align 2 -Latin $bodyFont | Out-Null
+Add-TextBox -Slide $s1 -Name 'CoverAffil' -Left 150 -Top 370 -Width 660 -Height 36 `
+  -TextFile (Join-Path $PSScriptRoot 'affil.txt') -Size 20 -Bold -Align 2 -Latin $bodyFont | Out-Null
+Add-FooterBand -Slide $s1 -PageNo '0' -SessionId 'RTu1A-3' | Out-Null
+
+# ---- P2 Outline (页码 1) ----
+$s2 = Add-BlankSlide -Pres $pres
+Add-TopLogos -Slide $s2 | Out-Null
+Add-Title -Slide $s2 -TextFile (Join-Path $PSScriptRoot 'outline.txt') | Out-Null
+Add-TextBox -Slide $s2 -Name 'OutlineBullets' -Left 73 -Top 140 -Width 700 -Height 200 `
+  -TextFile (Join-Path $PSScriptRoot 'outline_bullets.txt') -Size 32 -Latin $bodyFont | Out-Null
+Add-FooterBand -Slide $s2 -PageNo '1' -SessionId 'RTu1A-3' | Out-Null
+
+# ---- P3 Motivation + 公式 (页码 2) ----
+$s3 = Add-BlankSlide -Pres $pres
+Add-TopLogos -Slide $s3 | Out-Null
+Add-Title -Slide $s3 -TextFile (Join-Path $PSScriptRoot 'motiv_title.txt') | Out-Null
+Add-TextBox -Slide $s3 -Name 'LeadIn' -Left 73 -Top 100 -Width 600 -Height 44 `
+  -TextFile (Join-Path $PSScriptRoot 'motiv_leadin.txt') -Size 32 -Bold -Italic -Latin $bodyFont | Out-Null
+Add-TextBox -Slide $s3 -Name 'L1Bullets' -Left 73 -Top 155 -Width 780 -Height 140 `
+  -TextFile (Join-Path $PSScriptRoot 'motiv_bullets.txt') -Size 32 -Latin $bodyFont | Out-Null
+Add-TextBox -Slide $s3 -Name 'FormulaCaption' -Left 73 -Top 320 -Width 500 -Height 36 `
+  -TextFile (Join-Path $PSScriptRoot 'formula_caption.txt') -Size 20 -Latin $bodyFont | Out-Null
+Add-FooterBand -Slide $s3 -PageNo '2' -SessionId 'RTu1A-3' | Out-Null
+
+Close-Deck -Pres $pres
+Write-Output ('MVP BUILD OK -> ' + $deck)

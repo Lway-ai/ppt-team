@@ -119,9 +119,28 @@ def zipfile_in_mem(path):
     return zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED)
 
 
+def make_fixture_style(tmpdir):
+    """夹具 style = 当前默认去掉 Times 类可争议项, 使测试钉住机制而非配置值。"""
+    import json as _json
+    with open(STYLE, encoding='utf-8') as f:
+        cfg = _json.load(f)
+    wl = cfg['font_rules']['allowed_latin_plain']
+    cfg['font_rules']['allowed_latin_plain'] = [x for x in wl if x != 'Times New Roman']
+    fp = os.path.join(tmpdir, 'fixture_style.json')
+    with open(fp, 'w', encoding='utf-8') as f:
+        _json.dump(cfg, f, ensure_ascii=False)
+    return fp
+
+
+FIXTURE_STYLE = None
+
+
 def run_verify(path, tmpdir, tag):
+    global FIXTURE_STYLE
+    if FIXTURE_STYLE is None:
+        FIXTURE_STYLE = make_fixture_style(tempfile.gettempdir())
     out_json = os.path.join(tmpdir, tag + '.json')
-    p = subprocess.run([sys.executable, VERIFY, path, '--style', STYLE, '--json', out_json],
+    p = subprocess.run([sys.executable, VERIFY, path, '--style', FIXTURE_STYLE, '--json', out_json],
                        capture_output=True, text=True, encoding='utf-8', errors='replace')
     data = json.load(open(out_json, encoding='utf-8')) if os.path.exists(out_json) else []
     return p.returncode, data

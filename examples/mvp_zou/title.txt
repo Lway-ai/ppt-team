@@ -1,0 +1,1 @@
+A Capacitor-Assisting Triple-Winding Transformer LNA with 0.8-1.5 dB NF and 6-12 GHz BW in 130 nm SOI CMOS
