@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Office 锁文件/临时产物
+~$*
+*.tmp-omml
+*.tmp
+
+# 验证器临时报告
+vd_report.json
+
+# 会话临时产物
+tmp/
+
+# 探针/调试产物
+*_probe_*.png
+
+# Public source repository: keep generated/private presentation artifacts out
+*.pptx
+*.pdf
+*.png
+*.bak-*
+_learnings/
+examples/
+_backups/

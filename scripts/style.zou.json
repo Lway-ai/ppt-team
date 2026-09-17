@@ -1,0 +1,170 @@
+{
+ "_comment": "会议风格法典(RFIC2024 官方模板多数派, v0.3) — verify_deck.py 的判定参数。档位/色板按需增删。注意: 正则不用反斜杠, 用字符类。形状命名契约见 SKILL.md 第十一节: FooterBand/PageNo/KeyBox*/RowPanel* 等名字参与豁免与容器判定, builder 建形状必须按契约命名。",
+ "profile": "zou-variant (工具默认字体: 中文微软雅黑, 西文 Times New Roman; 标题保留 Zou 版式参数; 行距 1.20x + 段后 0.24x)",
+ "font_size_tiers_pt": [
+  9.5,
+  10,
+  10.5,
+  11,
+  12,
+  12.5,
+  13,
+  13.5,
+  14,
+  14.5,
+  15,
+  16,
+  17.5,
+  18,
+  20,
+  22,
+  24,
+  26,
+  28,
+  30,
+  31,
+  32,
+  34,
+  35,
+  36,
+  38,
+  40,
+  42,
+  44,
+  46,
+  48
+ ],
+ "palette": {
+  "197084": "accent teal",
+  "000000": "text",
+  "FFFFFF": "bg",
+  "8064A2": "secondary purple",
+  "FF0000": "warning red",
+  "7F7F7F": "gray",
+  "A6A6A6": "muted",
+  "0000FF": "link blue",
+  "58AECA": "table header",
+  "D1E3EC": "row band",
+  "EAF2F6": "row band",
+  "B3A2C7": "highlight",
+  "1F1F1F": "dark gray",
+  "262626": "schematic stroke",
+  "4EB749": "diagram green",
+  "92D050": "diagram green",
+  "378633": "diagram green stroke",
+  "1C4B19": "diagram green stroke",
+  "FFFF00": "highlight",
+  "2E0AFC": "annotation blue",
+  "333333": "dark grey",
+  "898989": "grey",
+  "0072BD": "matlab curve 1",
+  "D95319": "matlab curve 2",
+  "EDB120": "matlab curve 3",
+  "7E2F8E": "matlab curve 4",
+  "77AC30": "matlab curve 5",
+  "4DBEEE": "matlab curve 6",
+  "2E75B6": "mirror blue",
+  "C00000": "useful red",
+  "0070C0": "formula/highlight blue",
+  "1A6EDF": "schematic highlight blue",
+  "00B050": "positive green",
+  "7030A0": "conditional purple",
+  "BFBFBF": "inactive path gray",
+  "D9D9D9": "row band gray",
+  "D3D3D3": "row band gray",
+  "CACACA": "row band gray",
+  "DBE4F0": "row band blue-gray",
+  "DEEEF4": "row band blue-gray",
+  "D0E6CF": "row band green",
+  "E9F3E9": "row band green",
+  "FCEADA": "row band cream",
+  "DF6C0E": "schematic highlight orange",
+  "EF8228": "schematic orange",
+  "789440": "olive annotation",
+  "FFC000": "gold header text",
+  "1A6377": "deep teal"
+ },
+ "margins_pt": {
+  "left": 40,
+  "right": 920,
+  "top": 6,
+  "bottom": 500
+ },
+ "footer_regex": "^(page[ ]*)?[0-9]+([ ]*(of|/)[ ]*[0-9]+)?$",
+ "banned_text_patterns": [
+  "TODO",
+  "lorem",
+  "[?][?][?][?]",
+  "[{][{]",
+  "[$]VAR[$]"
+ ],
+ "overflow_line_height": 1.35,
+ "overflow_latchar_em": 0.55,
+ "ratio_tolerance": 0.05,
+ "typography": {
+  "east_asia_font": "微软雅黑",
+  "latin_font": "Times New Roman",
+  "line_spacing_ratio": 1.20,
+  "paragraph_after_ratio": 0.24,
+  "bullet_after_ratio": 0.24,
+  "paragraph_before_pt": 0,
+  "_comment": "段内换行 1.20x 字号; bullet 段落间 = 1.20x + 0.24x 段后距 ≈ 1.44x 基线节奏"
+ },
+ "font_rules": {
+  "_comment": "中西文字体规则(SKILL.md 第三节)。EA=东亚码点(汉字/全角/带圈数字 U+2460-24FF,2E80-9FFF,F900-FAFF,FF00-FFEF)。正文 a:r 运行:latin 必须在 allowed_latin_plain,ea 必须在 allowed_ea;数学 m:r 运行含 EA 文字时必须显式 ea=math_ea_required 且 i!=1(否则数学引擎回退衬线)。数学区的 Cambria Math 豁免白名单检查。",
+  "allowed_ea": [
+   "微软雅黑",
+   "Microsoft YaHei"
+  ],
+  "allowed_latin_plain": [
+   "Times New Roman"
+  ],
+  "math_ea_required": "微软雅黑",
+  "missing_font_severity": "INFO",
+  "font_aliases": {
+   "Microsoft YaHei": "微软雅黑",
+   "MSYH": "微软雅黑"
+  },
+  "_ea_comment": "两个族名同一字体: COM 常写英文名, 法典用中文名; verify 内部做别名归一化"
+ },
+ "overlap": {
+  "min_overlap_pt": 5,
+  "min_area_pt2": 100,
+  "background_regex": "^(FooterBand|TitleHairline|FooterRule|CoverRule|CoverRuleHL|CoverFootRule|RowPanel[0-9]*|HLbar|CoverBG)$",
+  "container_names": [
+   "KeyBox",
+   "KeyBox2",
+   "CoverKey",
+   "Capsule",
+   "NoteBox",
+   "TakeawayStrip",
+   "Takeaway4"
+  ],
+  "footer_band_top_pt": 502,
+  "footer_whitelist_regex": "^(Footer|PageNo|SessionId|CoverFoot|CoverPage|CoverC|FooterRule|FooterBand)"
+ },
+ "_footer_regex_comment": "只匹配整串页码(25 或 25/28); 表格值 31/0.5 因不锚定整串不会成为页脚候选",
+ "_title_style": "44pt Times New Roman #000000 居中 y=9, 不加粗 (正文 L1 32 黑色 bullet Times New Roman)",
+ "builder": {
+  "title": {
+   "size": 44,
+   "color": "000000",
+   "font": "Times New Roman",
+   "bold": false,
+   "left": 40,
+   "top": 9,
+   "width": 880,
+   "height": 60,
+   "align": "center"
+  },
+  "footer": {
+   "band": "assets/footer_band.png",
+   "page_color": "FFFFFF",
+   "session_color": "FFFFFF"
+  },
+  "logos": {
+   "left_top": "",
+   "right_top": ""
+  }
+ }
+}

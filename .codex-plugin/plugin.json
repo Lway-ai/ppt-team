@@ -1,0 +1,38 @@
+{
+  "name": "ppt-team",
+  "version": "0.3.0",
+  "description": "Codex adapter for the multi-agent RFIC conference PPT workflow with PowerPoint COM building, OMML formulas, rendering, and deterministic QA.",
+  "author": {
+    "name": "Wanglei PPT Team"
+  },
+  "license": "MIT",
+  "keywords": [
+    "powerpoint",
+    "pptx",
+    "rfic",
+    "technical-presentation",
+    "omml",
+    "powerpoint-com",
+    "presentation-qa"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "PPT Team",
+    "shortDescription": "Build and review editable RFIC conference presentations.",
+    "longDescription": "A Codex adapter for the PPT Team workflow. It coordinates outline design, PowerPoint COM construction, OMML formula injection, rendering, deterministic package checks, and visual review while preserving the original ZCode role definitions and scripts.",
+    "developerName": "Wanglei PPT Team",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Review this RFIC presentation project and report blockers.",
+      "Build an editable technical PPT using the PPT Team workflow.",
+      "Render and QA this PPTX with the project verifier."
+    ],
+    "brandColor": "#197084",
+    "screenshots": []
+  }
+}
