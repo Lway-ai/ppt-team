@@ -1,0 +1,168 @@
+{
+  "titles": {
+    "2": "Outline",
+    "3": "痛点：镜像同消息同 β，仅低 12.04 dB",
+    "4": "FM 预备：β=4、Carson 500 Hz",
+    "5": "发射机产出双 FM 载波谱",
+    "6": "四道防线全景",
+    "7": "防线①(1/4)：复混频分离正负谱",
+    "8": "z1 证据：±400 分居、环带 ±52.3%",
+    "9": "防线②(2/4)：旋转推镜像至 −800 Hz",
+    "10": "z2 证据：有用归 DC、镜像 −11.9 dBc",
+    "11": "防线③(3/4)：LPF −3dB=241 Hz",
+    "12": "LPF 前后对照：净压制 32.9 dB",
+    "13": "防线④(4/4)：归一化鉴频检波",
+    "14": "鲁棒性：±27.4% 纹波被归一化抵消",
+    "15": "结果：corr=0.9613 恢复 50 Hz 消息",
+    "16": "全链参数表：47 变量实测一致",
+    "17": "结论：四道防线净压镜像 32.9 dB",
+    "18": "Acknowledgments",
+    "19": "References"
+  },
+  "slides": {
+    "1": [
+      { "name": "CoverKicker", "x": 130, "y": 64, "w": 700, "h": 46, "size": 32, "color": "197084", "bold": true, "align": 2, "text": "Simulink 模型讲解" },
+      { "name": "CoverTitle", "x": 80, "y": 150, "w": 800, "h": 132, "size": 44, "color": "000000", "bold": true, "align": 2, "text": "FM I/Q 接收机：\nWeaver 镜像抑制架构" },
+      { "name": "CoverAuthor", "x": 180, "y": 351, "w": 600, "h": 44, "size": 24, "color": "000000", "bold": true, "align": 2, "text": "王磊" },
+      { "name": "CoverDate", "x": 180, "y": 420, "w": 600, "h": 38, "size": 20, "color": "000000", "bold": false, "align": 2, "text": "2026-09-16" }
+    ],
+    "2": [
+      { "name": "Bullets2", "x": 140, "y": 140, "w": 680, "h": 240, "size": 32, "color": "000000", "bold": false, "align": 1, "bullet": true, "spaceAfter": 7.7,
+        "text": "• 镜像问题：同消息、仅低 12.04 dB\n• FM 预备：β=4、Carson 500 Hz\n• 四道防线：复混频→旋转→基带滤波→鉴频\n• 鲁棒性与结果：corr=0.9613\n• 参数与结论：47 变量实测一致" }
+    ],
+    "3": [
+      { "name": "Eq3aLabel", "x": 80, "y": 176, "w": 400, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "有用：1000 Hz 载波，幅度 A" },
+      { "name": "Eq3bLabel", "x": 480, "y": 176, "w": 400, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "镜像：200 Hz 载波，幅度 γA（γ = 0.25）" },
+      { "name": "FreqAxis", "x": 230, "y": 298, "w": 500, "h": 3, "box": true, "fill": "262626", "line": "262626", "linew": 0.5, "size": 16, "color": "262626", "align": 1, "text": " " },
+      { "name": "Tick1", "x": 318, "y": 284, "w": 3, "h": 14, "box": true, "fill": "262626", "line": "262626", "linew": 0.5, "size": 16, "color": "262626", "align": 1, "text": " " },
+      { "name": "Tick2", "x": 478, "y": 284, "w": 3, "h": 14, "box": true, "fill": "262626", "line": "262626", "linew": 0.5, "size": 16, "color": "262626", "align": 1, "text": " " },
+      { "name": "Tick3", "x": 638, "y": 284, "w": 3, "h": 14, "box": true, "fill": "262626", "line": "262626", "linew": 0.5, "size": 16, "color": "262626", "align": 1, "text": " " },
+      { "name": "TickLbl1", "x": 250, "y": 306, "w": 140, "h": 24, "size": 16, "color": "0070C0", "align": 2, "text": "镜像 200 Hz" },
+      { "name": "TickLbl2", "x": 410, "y": 306, "w": 140, "h": 24, "size": 16, "color": "7F7F7F", "align": 2, "text": "LO 600 Hz" },
+      { "name": "TickLbl3", "x": 570, "y": 306, "w": 140, "h": 24, "size": 16, "color": "FF0000", "align": 2, "text": "有用 1000 Hz" },
+      { "name": "Prop3", "x": 110, "y": 370, "w": 740, "h": 52, "size": 36, "color": "FF0000", "bold": true, "align": 2, "text": "镜像与有用在消息域不可区分" }
+    ],
+    "4": [
+      { "name": "Lead4", "x": 60, "y": 105, "w": 840, "h": 44, "size": 32, "color": "000000", "bold": true, "italic": true, "align": 1, "text": "FM = 相位积分 + 载波相位合成：" },
+      { "name": "Note4", "x": 140, "y": 432, "w": 680, "h": 34, "size": 20, "color": "000000", "align": 1, "text": "m(t)：50 Hz 正弦消息；β = Δf / f_m = 4 为调频指数" }
+    ],
+    "5": [
+      { "name": "Head5a", "x": 40, "y": 100, "w": 500, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "发射链 18 块：镜像支路共享 fm_phase_integrator" },
+      { "name": "Head5b", "x": 545, "y": 100, "w": 375, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "双边线谱（sim）" },
+      { "name": "Pic5a", "pic": "cap_tx.png", "x": 40, "y": 155, "w": 490, "h": 134 },
+      { "name": "Bullets5", "x": 40, "y": 296, "w": 500, "h": 92, "size": 20, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 4.8,
+        "text": "• 有用与镜像接同一相位积分器\n• → 同消息、同 β=4\n• 镜像幅度 γ = 0.25（−12.04 dB）" },
+      { "name": "Pic5b", "pic": "F_tx_spectrum_bisided_20260915.png", "x": 545, "y": 140, "w": 375, "h": 244 },
+      { "name": "Note5b", "x": 545, "y": 394, "w": 375, "h": 30, "size": 18, "color": "000000", "align": 1, "text": "Carson 500 Hz；镜像线低 12.04 dB" },
+      { "name": "Take5", "x": 130, "y": 430, "w": 700, "h": 40, "size": 24, "color": "197084", "bold": true, "align": 2, "text": "镜像与有用同源同 β —— 发射机内注定难分" }
+    ],
+    "6": [
+      { "name": "Pic6b", "pic": "cap_rx.png", "x": 80, "y": 108, "w": 800, "h": 243 },
+      { "name": "KeyBoxLO", "x": 650, "y": 116, "w": 230, "h": 30, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 16, "color": "000000", "align": 2, "text": "LO1 + LO2 = fc = 1000 Hz" },
+      { "name": "Chip6a", "x": 120, "y": 356, "w": 110, "h": 26, "shape": "round", "box": true, "fill": "FFFFFF", "line": "0070C0", "linew": 1.5, "size": 18, "color": "0070C0", "bold": true, "align": 2, "text": "① 复混频" },
+      { "name": "Chip6b", "x": 320, "y": 356, "w": 110, "h": 26, "shape": "round", "box": true, "fill": "FFFFFF", "line": "00B050", "linew": 1.5, "size": 18, "color": "00B050", "bold": true, "align": 2, "text": "② 旋转" },
+      { "name": "Chip6c", "x": 520, "y": 356, "w": 110, "h": 26, "shape": "round", "box": true, "fill": "FFFFFF", "line": "DF6C0E", "linew": 1.5, "size": 18, "color": "DF6C0E", "bold": true, "align": 2, "text": "③ 基带滤波" },
+      { "name": "Chip6d", "x": 720, "y": 356, "w": 110, "h": 26, "shape": "round", "box": true, "fill": "FFFFFF", "line": "7030A0", "linew": 1.5, "size": 18, "color": "7030A0", "bold": true, "align": 2, "text": "④ 鉴频" },
+      { "name": "Box6T", "x": 54, "y": 403, "w": 69, "h": 58, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1, "size": 14, "color": "333333", "align": 2, "text": "18 块" },
+      { "name": "Box6R", "x": 177, "y": 403, "w": 81, "h": 58, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1, "size": 14, "color": "333333", "align": 2, "text": "42 块" },
+      { "name": "Arrow6a", "x": 123, "y": 416, "w": 54, "h": 4, "shape": "arrowR", "box": true, "fill": "000000", "line": "000000", "linew": 0.5, "size": 12, "color": "000000", "align": 1, "text": " " },
+      { "name": "Arrow6b", "x": 123, "y": 438, "w": 54, "h": 4, "shape": "arrowR", "box": true, "fill": "000000", "line": "000000", "linew": 0.5, "size": 12, "color": "000000", "align": 1, "text": " " },
+      { "name": "Port6a", "x": 126, "y": 398, "w": 16, "h": 16, "size": 12, "color": "000000", "align": 2, "text": "1" },
+      { "name": "Port6b", "x": 126, "y": 420, "w": 16, "h": 16, "size": 12, "color": "000000", "align": 2, "text": "2" },
+      { "name": "Label6T", "x": 10, "y": 466, "w": 130, "h": 22, "size": 14, "color": "000000", "align": 2, "text": "FM_Transmitter" },
+      { "name": "Label6R", "x": 145, "y": 466, "w": 160, "h": 22, "size": 14, "color": "000000", "align": 2, "text": "Weaver_FM_Receiver" },
+      { "name": "Bullets6", "x": 320, "y": 408, "w": 270, "h": 76, "size": 17.5, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 4.8,
+        "text": "• FM_Transmitter：18 块\n• Weaver_FM_Receiver：42 块" },
+      { "name": "Take6", "x": 600, "y": 408, "w": 320, "h": 64, "size": 22, "color": "197084", "bold": true, "align": 2, "text": "四道防线，各答一问：\n镜像此刻去哪了？" }
+    ],
+    "7": [
+      { "name": "Chip7", "x": 40, "y": 98, "w": 110, "h": 28, "size": 20, "color": "0070C0", "bold": true, "align": 1, "text": "防线 ①" },
+      { "name": "Lead7", "x": 40, "y": 134, "w": 440, "h": 32, "size": 24, "color": "000000", "bold": true, "italic": true, "align": 1, "text": "复数混频，正负谱分居两侧：" },
+      { "name": "Bullets7", "x": 40, "y": 296, "w": 440, "h": 124, "size": 20, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 4.8,
+        "text": "• LO1 = 600 Hz，mixerGain = 2 补偿 ½ 损耗\n• IF LPF 700 Hz 口径：四极点级联，−3dB = 562 Hz" },
+      { "name": "Take7", "x": 40, "y": 430, "w": 440, "h": 36, "size": 22, "color": "197084", "bold": true, "align": 1, "text": "镜像落到 −400 Hz" },
+      { "name": "Pic7", "pic": "cap_rx_stage1.png", "x": 480, "y": 110, "w": 440, "h": 344 },
+      { "name": "Note7", "x": 480, "y": 462, "w": 440, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "Stage1：混频 → IF LPF（700 Hz 口径）" }
+    ],
+    "8": [
+      { "name": "Head8a", "x": 80, "y": 100, "w": 440, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "z1 双边谱：+400 / −400" },
+      { "name": "Head8b", "x": 570, "y": 100, "w": 260, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "z1 星座：A(1±γ) 环带" },
+      { "name": "Pic8a", "pic": "F_z1_spectrum_r14.png", "x": 80, "y": 136, "w": 440, "h": 261 },
+      { "name": "Pic8b", "pic": "F_z1_constellation_r15.png", "x": 570, "y": 136, "w": 260, "h": 264 },
+      { "name": "Note8a", "x": 80, "y": 414, "w": 440, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "复谱正负分离已被仿真证实" },
+      { "name": "Note8b", "x": 570, "y": 410, "w": 260, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "±52.3%（含 LPF 倾斜）" },
+      { "name": "Take8", "x": 130, "y": 452, "w": 700, "h": 36, "size": 22, "color": "197084", "bold": true, "align": 2, "text": "镜像与有用已分居正负半轴" }
+    ],
+    "9": [
+      { "name": "Chip9", "x": 40, "y": 98, "w": 110, "h": 28, "size": 20, "color": "00B050", "bold": true, "align": 1, "text": "防线 ②" },
+      { "name": "Lead9", "x": 40, "y": 134, "w": 490, "h": 32, "size": 24, "color": "000000", "bold": true, "italic": true, "align": 1, "text": "二次旋转，把有用旋到 DC：" },
+      { "name": "RowPanel9", "x": 60, "y": 210, "w": 440, "h": 156, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1, "size": 16, "color": "000000", "align": 1, "text": " " },
+      { "name": "Bullets9", "x": 40, "y": 374, "w": 490, "h": 64, "size": 20, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 4.8,
+        "text": "• 4 乘法器 + 2 合路，符号 [++] / [−+]\n• LO2 = 400 Hz，mixerGain = 2" },
+      { "name": "Take9", "x": 40, "y": 450, "w": 490, "h": 34, "size": 22, "color": "197084", "bold": true, "align": 1, "text": "有用旋到 DC，镜像被推至 −800 Hz" },
+      { "name": "Pic9", "pic": "cap_rx_stage2.png", "x": 538, "y": 106, "w": 382, "h": 362 },
+      { "name": "Note9", "x": 538, "y": 466, "w": 382, "h": 22, "size": 16, "color": "000000", "align": 1, "text": "Stage2：4 乘法器 + 2 合路 + 2 LPF" }
+    ],
+    "10": [
+      { "name": "Pic10", "pic": "F_z2_spectrum_r14.png", "x": 90, "y": 100, "w": 556, "h": 340 },
+      { "name": "KeyBoxZ2a", "x": 660, "y": 222, "w": 260, "h": 56, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 20, "color": "000000", "bold": true, "align": 2, "text": "镜像 −11.9 dBc\n@ −800 Hz" },
+      { "name": "KeyBoxZ2b", "x": 660, "y": 302, "w": 260, "h": 56, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 18, "color": "000000", "align": 2, "text": "理论 −20lgγ = −12.04 dB" },
+      { "name": "Take10", "x": 130, "y": 452, "w": 700, "h": 36, "size": 24, "color": "197084", "bold": true, "align": 2, "text": "实测 −11.9 dBc ≈ 理论 −12.04 dB" }
+    ],
+    "11": [
+      { "name": "Chip11", "x": 40, "y": 98, "w": 110, "h": 28, "size": 20, "color": "DF6C0E", "bold": true, "align": 1, "text": "防线 ③" },
+      { "name": "Lead11", "x": 40, "y": 134, "w": 440, "h": 66, "size": 24, "color": "000000", "bold": true, "italic": true, "align": 1, "text": "基带 LPF：四极点级联，两节二阶 ζ=0.707：" },
+      { "name": "Bullets11", "x": 40, "y": 304, "w": 440, "h": 100, "size": 20, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 4.8,
+        "text": "• ω₀ = 300 Hz → −3dB = 241 Hz\n• f₃dB = 0.803·ω₀（1/(1+u⁴) 导出）\n• IF LPF 同构：−3dB = 562 Hz" },
+      { "name": "Take11", "x": 40, "y": 416, "w": 440, "h": 36, "size": 22, "color": "197084", "bold": true, "align": 1, "text": "滤除镜像，保住 50 Hz 消息" },
+      { "name": "Pic11", "pic": "F_bb_iq_time.png", "x": 480, "y": 112, "w": 440, "h": 279 },
+      { "name": "Note11", "x": 480, "y": 400, "w": 430, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "LPF 输出：50 Hz 调幅正交对（I/Q）" }
+    ],
+    "12": [
+      { "name": "Head12a", "x": 50, "y": 100, "w": 430, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "LPF 开：镜像 −44.8 dBc" },
+      { "name": "Head12b", "x": 480, "y": 100, "w": 430, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "LPF 关：同频底噪 −54.7 dBc" },
+      { "name": "Pic12a", "pic": "F_bb_on_r14.png", "x": 50, "y": 136, "w": 430, "h": 263 },
+      { "name": "Pic12b", "pic": "F_bb_off_r14.png", "x": 480, "y": 136, "w": 430, "h": 263 },
+      { "name": "KeyBox12a", "x": 90, "y": 180, "w": 180, "h": 48, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 22, "color": "FF0000", "bold": true, "align": 2, "text": "−44.8 dBc" },
+      { "name": "KeyBox12b", "x": 528, "y": 180, "w": 210, "h": 48, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 18, "color": "000000", "bold": true, "align": 2, "text": "−54.7 dBc（底噪）" },
+      { "name": "Take12", "x": 130, "y": 430, "w": 700, "h": 40, "size": 24, "color": "197084", "bold": true, "align": 2, "text": "净压制 32.9 dB（−11.9 → −44.8 dBc）" }
+    ],
+    "13": [
+      { "name": "Chip13", "x": 40, "y": 98, "w": 110, "h": 28, "size": 20, "color": "7030A0", "bold": true, "align": 1, "text": "防线 ④" },
+      { "name": "Lead13", "x": 40, "y": 134, "w": 440, "h": 32, "size": 24, "color": "000000", "bold": true, "italic": true, "align": 1, "text": "叉乘微分式，直接恢复瞬时频偏：" },
+      { "name": "Bullets13", "x": 40, "y": 396, "w": 440, "h": 92, "size": 20, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 3,
+        "text": "• Δ 支路：单位延迟作差分\n• I² + Q² 归一化 → 纹波自抵消\n• 输出增益 G：恢复 50 Hz 消息" },
+      { "name": "Head13", "x": 518, "y": 95, "w": 360, "h": 26, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "鉴频器：Δ 叉乘 + I² + Q²" },
+      { "name": "Pic13", "pic": "cap_rx_disc.png", "x": 518, "y": 124, "w": 402, "h": 287 },
+      { "name": "Note13", "x": 518, "y": 421, "w": 402, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "鉴频器：Δ 支路 + 叉乘 + I²+Q² 归一化" }
+    ],
+    "14": [
+      { "name": "Head14a", "x": 70, "y": 100, "w": 269, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "IQ 轨迹：近圆" },
+      { "name": "Head14b", "x": 379, "y": 100, "w": 473, "h": 28, "size": 20, "color": "197084", "bold": true, "align": 1, "text": "包络纹波 ±27.4% @ 50 Hz" },
+      { "name": "Pic14a", "pic": "F_iq_circle.png", "x": 70, "y": 136, "w": 269, "h": 265 },
+      { "name": "Pic14b", "pic": "F_envelope.png", "x": 379, "y": 136, "w": 473, "h": 265 },
+      { "name": "Note14a", "x": 70, "y": 410, "w": 269, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "LPF 倾斜致 |H| 失圆" },
+      { "name": "Note14b", "x": 379, "y": 410, "w": 473, "h": 24, "size": 16, "color": "000000", "align": 1, "text": "|H(600)| ≈ 0.88，|H(200)| ≈ 1.0（IF LPF 带内倾斜）" },
+      { "name": "Take14", "x": 80, "y": 444, "w": 800, "h": 40, "size": 24, "color": "197084", "bold": true, "align": 2, "text": "|H(600)| ≈ 0.88 vs |H(200)| ≈ 1.0 → I²+Q² 归一化抵消" }
+    ],
+    "15": [
+      { "name": "Pic15", "pic": "F_recovered_r17.png", "x": 70, "y": 100, "w": 580, "h": 358 },
+      { "name": "KeyBox15a", "x": 680, "y": 202, "w": 240, "h": 58, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 24, "color": "FF0000", "bold": true, "align": 2, "text": "corr = 0.9613" },
+      { "name": "KeyBox15b", "x": 680, "y": 276, "w": 240, "h": 58, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 18, "color": "000000", "align": 2, "text": "滞后 2.20 ms\n（微分链群延迟）" },
+      { "name": "KeyBox15c", "x": 680, "y": 350, "w": 240, "h": 58, "box": true, "fill": "FFFFFF", "line": "000000", "linew": 1.25, "size": 18, "color": "000000", "align": 2, "text": "频偏峰值 214 Hz\n（设置 ±200）" },
+      { "name": "Take15", "x": 130, "y": 464, "w": 700, "h": 30, "size": 22, "color": "197084", "bold": true, "align": 2, "text": "镜像问题 → 四道防线 → 消息恢复，定量闭环" }
+    ],
+    "17": [
+      { "name": "Bullets17", "x": 90, "y": 150, "w": 780, "h": 280, "size": 32, "color": "000000", "align": 1, "bullet": true, "spaceAfter": 70,
+        "text": "• 复混频分离正负谱：镜像落到 −400 Hz\n• 旋转 + 基带 LPF：净压制镜像 32.9 dB\n• 归一化鉴频：corr = 0.9613，恢复 50 Hz 消息" },
+      { "name": "Take17", "x": 130, "y": 456, "w": 700, "h": 38, "size": 24, "color": "197084", "bold": true, "align": 2, "text": "四道防线一页收束：32.9 dB + corr=0.9613" }
+    ],
+    "18": [
+      { "name": "Thanks18", "x": 180, "y": 200, "w": 600, "h": 50, "size": 32, "color": "197084", "bold": true, "align": 2, "text": "Thank you for your attention." },
+      { "name": "Note18", "x": 180, "y": 280, "w": 600, "h": 30, "size": 18, "color": "7F7F7F", "align": 2, "text": "（致谢正文由讲者补充）" }
+    ],
+    "19": [
+      { "name": "Note19", "x": 120, "y": 210, "w": 720, "h": 30, "size": 18, "color": "7F7F7F", "align": 2, "text": "（文献条目由讲者按 IEEE 格式补充，[1] 起）" }
+    ]
+  }
+}

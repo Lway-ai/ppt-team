@@ -1,6 +1,6 @@
 {
  "_comment": "会议风格法典(RFIC2024 官方模板多数派, v0.3) — verify_deck.py 的判定参数。档位/色板按需增删。注意: 正则不用反斜杠, 用字符类。形状命名契约见 SKILL.md 第十一节: FooterBand/PageNo/KeyBox*/RowPanel* 等名字参与豁免与容器判定, builder 建形状必须按契约命名。",
- "profile": "rfic2024-official (默认=语料多数派: Calibri-Bold 48pt 青绿标题; Zou 变体用 style.zou.json)",
+ "profile": "rfic2024-official (工具默认: 中文微软雅黑, 西文 Times New Roman; 行距 1.20x + 段后 0.24x)",
  "font_size_tiers_pt": [
   9.5,
   10,
@@ -102,6 +102,15 @@
  "overflow_line_height": 1.35,
  "overflow_latchar_em": 0.55,
  "ratio_tolerance": 0.05,
+ "typography": {
+  "east_asia_font": "微软雅黑",
+  "latin_font": "Times New Roman",
+  "line_spacing_ratio": 1.20,
+  "paragraph_after_ratio": 0.24,
+  "bullet_after_ratio": 0.24,
+  "paragraph_before_pt": 0,
+  "_comment": "段内换行 1.20x 字号; bullet 段落间 = 1.20x + 0.24x 段后距 ≈ 1.44x 基线节奏"
+ },
  "font_rules": {
   "_comment": "中西文字体规则(SKILL.md 第三节)。EA=东亚码点(汉字/全角/带圈数字 U+2460-24FF,2E80-9FFF,F900-FAFF,FF00-FFEF)。正文 a:r 运行:latin 必须在 allowed_latin_plain,ea 必须在 allowed_ea;数学 m:r 运行含 EA 文字时必须显式 ea=math_ea_required 且 i!=1(否则数学引擎回退衬线)。数学区的 Cambria Math 豁免白名单检查。",
   "allowed_ea": [
@@ -109,16 +118,7 @@
    "Microsoft YaHei"
   ],
   "allowed_latin_plain": [
-   "Arial",
-   "ArialMT",
-   "Arial-BoldMT",
-   "Arial-BoldItalicMT",
-   "Arial Narrow",
-   "Franklin Gothic Book",
-   "FranklinGothic",
-   "FranklinGothic Book",
-   "Calibri",
-   "Calibri Light"
+   "Times New Roman"
   ],
   "math_ea_required": "微软雅黑",
   "missing_font_severity": "INFO",
@@ -127,7 +127,7 @@
    "MSYH": "微软雅黑"
   },
   "_ea_comment": "两个族名同一字体: COM 常写英文名, 法典用中文名; verify 内部做别名归一化",
-  "_times_note": "Times New Roman 不在默认法典: 会议风格正文西文只允许 Calibri/Franklin/Arial 系. 技术分享场景请用 style.techshare.json, 勿把 Times 加回默认(2026-09-15 裁决, 见 CHANGELOG)."
+  "_times_note": "用户指定: 西文正文统一 Times New Roman; 中文/东亚文字统一微软雅黑; OMML 数学区仍使用 Cambria Math。"
  },
  "overlap": {
   "min_overlap_pt": 5,
@@ -150,7 +150,7 @@
   "title": {
    "size": 48,
    "color": "197084",
-   "font": "Calibri",
+   "font": "Times New Roman",
    "bold": true,
    "left": 40,
    "top": 20,
@@ -159,13 +159,15 @@
    "align": "center"
   },
   "footer": {
-   "band": "assets/footband_2024.png",
+   "band": "assets/footer_band.png",
    "page_color": "000000",
-   "session_color": "000000"
+   "session_color": "000000",
+   "_comment": "footer_band.png = make_footer_band.py 画的纯渐变色带, 无品牌; footband_2024.png 是带 IEEE/MTT-S logo 的语料裁剪图, 仅语料复刻项目经用户确认后才可用"
   },
   "logos": {
-   "left_top": "assets/rfic_logo_2024.png",
-   "right_top": "assets/badge_2024.png"
+   "left_top": "",
+   "right_top": "",
+   "_comment": "用户指令 2026-09-15: RFIC logo/会议徽标是身份元素不是风格, 默认不带; 复刻语料时由项目显式填路径"
   }
  }
 }

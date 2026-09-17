@@ -39,3 +39,10 @@ Gate A（大纲选择）、Gate B（迷你版风格定稿）、Gate C（交付�
 - [ ] judge 全片终审通过
 - [ ] 页码与"第 N 页"交叉引用一致（页面增删后必须重映射）
 - [ ] 备份文件与 changelog 齐全
+
+## 实战经验（2026-09-16 FM_IQ_Receiver 19 页全循环沉淀）
+- 循环收敛判据：一轮 judge 0 fail **且** consolidator 只剩"轻症可选项"→ 做完便车微修即进全片终审，不为凑轮数空转（实战：2 个完整评审循环 + 2 次微修轮收敛，远低于轮数上限）。
+- 评审产物按轮落盘：`judge_report_rK.json`、`consolidator_rK.md`、`review_log.md`（round K 条目）；改动页清单以 builder 回执为准派 judge——改动即验收，不重审未动页。
+- 图内（MATLAB PNG）问题由编排者直接改重生成脚本跑图（数据源用已存 simdata .mat，不重跑仿真），再交 builder 换图；让 builder 碰 MATLAB 又慢又易错。
+- 全片终审（Gate C）用**全新 judge 实例**（无历史包袱的冷眼）+ 数值抽查清单 + 禁用值清单，一并核对算术自洽。
+- 评审意见冲突时（judge 建议 vs 色语义声明），以全片声明为准并让 consolidator 复核；传达修复清单给 builder 时逐条写明"做/不做"，漏传达会造成遗留（实战：p11 着色漏传拖了一轮）。

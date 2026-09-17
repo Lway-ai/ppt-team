@@ -1,6 +1,6 @@
 {
  "_comment": "会议风格法典(RFIC2024 官方模板多数派, v0.3) — verify_deck.py 的判定参数。档位/色板按需增删。注意: 正则不用反斜杠, 用字符类。形状命名契约见 SKILL.md 第十一节: FooterBand/PageNo/KeyBox*/RowPanel* 等名字参与豁免与容器判定, builder 建形状必须按契约命名。",
- "profile": "zou-variant (RFIC2022 Tenghao Zou deck 变体: 标题 44pt Franklin Gothic Book 黑色居中; 正文 Franklin; 图注 16pt; 页脚纯数字页码)",
+ "profile": "zou-variant (工具默认字体: 中文微软雅黑, 西文 Times New Roman; 标题保留 Zou 版式参数; 行距 1.20x + 段后 0.24x)",
  "font_size_tiers_pt": [
   9.5,
   10,
@@ -101,6 +101,15 @@
  "overflow_line_height": 1.35,
  "overflow_latchar_em": 0.55,
  "ratio_tolerance": 0.05,
+ "typography": {
+  "east_asia_font": "微软雅黑",
+  "latin_font": "Times New Roman",
+  "line_spacing_ratio": 1.20,
+  "paragraph_after_ratio": 0.24,
+  "bullet_after_ratio": 0.24,
+  "paragraph_before_pt": 0,
+  "_comment": "段内换行 1.20x 字号; bullet 段落间 = 1.20x + 0.24x 段后距 ≈ 1.44x 基线节奏"
+ },
  "font_rules": {
   "_comment": "中西文字体规则(SKILL.md 第三节)。EA=东亚码点(汉字/全角/带圈数字 U+2460-24FF,2E80-9FFF,F900-FAFF,FF00-FFEF)。正文 a:r 运行:latin 必须在 allowed_latin_plain,ea 必须在 allowed_ea;数学 m:r 运行含 EA 文字时必须显式 ea=math_ea_required 且 i!=1(否则数学引擎回退衬线)。数学区的 Cambria Math 豁免白名单检查。",
   "allowed_ea": [
@@ -108,16 +117,7 @@
    "Microsoft YaHei"
   ],
   "allowed_latin_plain": [
-   "Arial",
-   "ArialMT",
-   "Arial-BoldMT",
-   "Arial-BoldItalicMT",
-   "Arial Narrow",
-   "Franklin Gothic Book",
-   "FranklinGothic",
-   "FranklinGothic Book",
-   "Calibri",
-   "Calibri Light"
+   "Times New Roman"
   ],
   "math_ea_required": "微软雅黑",
   "missing_font_severity": "INFO",
@@ -149,7 +149,7 @@
   "title": {
    "size": 44,
    "color": "000000",
-   "font": "Franklin Gothic Book",
+   "font": "Times New Roman",
    "bold": false,
    "left": 40,
    "top": 9,

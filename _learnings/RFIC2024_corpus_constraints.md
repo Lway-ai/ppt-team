@@ -4,6 +4,9 @@
 - 方法: PyMuPDF 全量逐 span 扫描（`analyze_corpus.py`→`corpus_stats.json`/`corpus_report.txt`；
   `deep_measure.py`→`deep_stats.json`；版式分类→`layout_stats.json`）+ 50 页渲染目检
   （`renders_rmo01a/`，覆盖全部分会）。
+- 逐 deck 档案（2026-09-15 增）: 每份 deck 一档的 8 维度实测 + 20 份代表 deck 目检注记见
+  `RFIC2024_perdeck_profiles.md`（机读 `perdeck_profiles.json`，拼图 `perdeck_renders/`，
+  工具 `perdeck_profile.py` / `render_perdeck_sheets.py`）。
 - 本文取代"4 份小样本"时代以 Zou deck 为默认参照的结论。**新默认 = 语料多数派 = RFIC 官方模板**。
 
 ## 0. 一句话结论
@@ -43,6 +46,14 @@ RFIC 演讲的"官方模板"高度统一：白底 959×540pt，**48pt Calibri-Bo
 | 表格文字 | 18–22pt | Calibri | | 黑，强调列蓝 | 见 §5 |
 | 参考文献 | 15–20pt（多数 ~18） | Calibri | `•`/`[n]` | 黑 | IEEE 引用格式，venue+年份 |
 | 页脚 | 页码 20–22pt；会话号 14pt | Calibri | | 黑或白 | 封面页码=0 |
+
+- **行距（2026-09-15 全量实测: 87 deck 段内基线对, 过滤上下标后按 0.05 步进直方）**: 倍率双峰
+  **1.20×(34.3%) 与 1.45×(28.0%) 合计 62%**。按字号档（跨 deck 中位倍率的中位数）:
+  32pt→1.44（59/71 deck 松档 ≥1.32）、28pt→1.43（39/69 松）、24pt→1.28（紧/松各半, 过渡档）、
+  20pt→1.20（35/43 紧）、18pt→1.20（39/45 紧）、16pt→1.20（27/33 紧）、14.5pt→1.27、44pt 标题换行→1.20。
+  **规律 = 段内换行 1.20×字号（≈PPT 单倍行距）, L1/L2 bullet 条目间 1.44×字号**; Zou 深测样本同规
+  （见 RFIC_Zou_CTTF_constraints.md: 封面标题 44pt 三行 52.8/53.7pt、References 16pt 恒 19.2pt、Outline 32pt 恒 46.1pt）。
+  PDF 只能测基线节奏, 无法区分 lnSpc 与 spcAft; 复刻 = 单倍行距 + 段后 ≈0.24×字号。
 
 - **bullet 符号与文字同字号同基线**；符号与文字间距 ≈ 半个字宽
 - 行内强调: Calibri-Bold 关键词（"Rich third-harmonic current"）；数学变量斜体；结果短语整段换色（蓝/红）

@@ -8,14 +8,18 @@
 2. OMML 公式形状（Aeq/Beq/RotA/RotB/AM* 等，特征是 TextRange.Runs().Count == 0 或文本显示为 ??）**永远不要用 .Text 赋值**——公式只能改 XML。
 3. 向 PowerShell 传中文/非 ASCII 文本必须经 UTF-8 文件 + `Get-Content -Encoding UTF8`，不要内联在 .ps1 里。
 4. 任何批量修改前必须先备份原文件（`*.bak-<标签>`）。
+5. **禁止擅自回退版本**：一切"回到旧版本"的操作——`git reset`/`git checkout`/`git revert`、恢复 `.bak-*` 备份、
+   用旧版本整片覆盖重建、回滚 SKILL.md/style.json 等规范与配置——**必须先征得用户同意**。
+   修复的正路是在当前版本上"向前修"（改 → 渲染 → verify → judge）；判断为"只能靠回退解决"时，
+   停下说明理由升级给人裁决。严禁用回退"清理"并行会话的改动。
 
 ## 流程纪律
-5. 每轮修改：改 → 导出渲染图 → `scripts/verify_deck.py` 检查 → 记录 changelog。
-6. **验证双门禁（硬性）**：
+6. 每轮修改：改 → 导出渲染图 → `scripts/verify_deck.py` 检查 → 记录 changelog。
+7. **验证双门禁（硬性）**：
    a. `verify_deck.py` 全片 0 FAIL（含形状相交检测——文本×文本重叠/容器盖子元素 = FAIL，图片参与的交叠 = WARN 需目检）；
    b. **judge 视觉验收只审本轮改动的页面**（改哪几页审哪几页，不必全片重审）——FAIL 页自动回 builder 修复，直到该页通过。做到"改动即验收"，不再靠事后抽查。
-7. 修复轮上限 5 轮，超出升级给人。verify 不绿不许叫 judge。
-8. 风格约束以 `skills/ppt-conference-style/SKILL.md` 为准，改规范必须先改 SKILL.md 再改代码。
+8. 修复轮上限 5 轮，超出升级给人。verify 不绿不许叫 judge。
+9. 风格约束以 `skills/ppt-conference-style/SKILL.md` 为准，改规范必须先改 SKILL.md 再改代码。
 
 ## 已知盲区（写给所有代理，避免重犯）
 - **并行写同一 .pptx 禁止**：COM/raw-zip 都是独占写，同一时刻只允许一个 builder 持有句柄；并行仅限提取/评审/渲染/验证。

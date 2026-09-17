@@ -24,6 +24,14 @@ function Get-ProfileVal {
   return $grp.$Key
 }
 
+function Get-TypographyVal {
+  param([string]$Key)
+  if ($null -eq $script:StyleProfile) { return $null }
+  $typ = $script:StyleProfile.typography
+  if ($null -eq $typ) { return $null }
+  return $typ.$Key
+}
+
 function HexColor {
   # '#RRGGBB' 或 'RRGGBB' -> Office COM 的 RGB 整数(字节序 R + G*256 + B*65536)。
   # 直接把 0x197084 传给 Font.Color.RGB 会得到反色 #847019 —— 必须经本函数转换!
@@ -56,16 +64,45 @@ function Add-BlankSlide {
 }
 
 function Set-Font {
-  param($Range, [string]$Latin = 'Calibri', [string]$EastAsia = '微软雅黑',
+  param($Range, [string]$Latin = '', [string]$EastAsia = '',
         [int]$Size = 32, [switch]$Bold, [switch]$Italic,
         [int]$ColorRGB = 0x000000)
   # 注意: 数学区(OMML)形状严禁调用本函数改字体 —— COM 对数学区静默无效, 只能 raw-zip 拼 XML
+  if (-not $Latin) {
+    $Latin = Get-TypographyVal 'latin_font'
+    if (-not $Latin) { $Latin = 'Times New Roman' }
+  }
+  if (-not $EastAsia) {
+    $EastAsia = Get-TypographyVal 'east_asia_font'
+    if (-not $EastAsia) { $EastAsia = '微软雅黑' }
+  }
   $Range.Font.Name = $Latin
   $Range.Font.NameFarEast = $EastAsia
   $Range.Font.Size = $Size
   $Range.Font.Bold = [int][bool]$Bold
   $Range.Font.Italic = [int][bool]$Italic
   $Range.Font.Color.RGB = $ColorRGB
+}
+
+function Set-ParagraphSpacing {
+  param($Range, [int]$Size = 32, [switch]$Bullet)
+  # PowerPoint COM uses relative SpaceWithin when LineRuleWithin=msoTrue.
+  # The default 1.20x line spacing plus 0.24x paragraph-after gives the
+  # required ~1.44x baseline rhythm between bullet paragraphs.
+  $line = Get-TypographyVal 'line_spacing_ratio'
+  if ($null -eq $line) { $line = 1.20 }
+  $afterKey = if ($Bullet) { 'bullet_after_ratio' } else { 'paragraph_after_ratio' }
+  $after = Get-TypographyVal $afterKey
+  if ($null -eq $after) { $after = 0.24 }
+  $before = Get-TypographyVal 'paragraph_before_pt'
+  if ($null -eq $before) { $before = 0 }
+  $pf = $Range.ParagraphFormat
+  $pf.LineRuleWithin = -1
+  $pf.SpaceWithin = [single]$line
+  $pf.LineRuleBefore = 0
+  $pf.SpaceBefore = [single]$before
+  $pf.LineRuleAfter = 0
+  $pf.SpaceAfter = [single]($Size * [double]$after)
 }
 
 function Add-TextBox {
@@ -75,9 +112,10 @@ function Add-TextBox {
         [string]$TextFile,          # UTF-8 文本文件路径(支持中文/多行)
         [string]$Text = '',
         [int]$Size = 32, [int]$ColorRGB = 0x000000,
-        [string]$Latin = 'Calibri', [string]$EastAsia = '微软雅黑',
+        [string]$Latin = '', [string]$EastAsia = '',
         [switch]$Bold, [switch]$Italic,
-        [int]$Align = 1)            # 1=左 2=居中
+        [int]$Align = 1,             # 1=左 2=居中
+        [switch]$Bullet)
   $tb = $Slide.Shapes.AddTextbox(1, [single]$Left, [single]$Top, [single]$Width, [single]$Height)
   $tb.Name = $Name
   if ($TextFile) {
@@ -89,6 +127,7 @@ function Add-TextBox {
   }
   Set-Font -Range $tb.TextFrame.TextRange -Latin $Latin -EastAsia $EastAsia -Size $Size -Bold:$Bold -Italic:$Italic -ColorRGB $ColorRGB
   $tb.TextFrame.TextRange.ParagraphFormat.Alignment = $Align
+  Set-ParagraphSpacing -Range $tb.TextFrame.TextRange -Size $Size -Bullet:$Bullet
   $tb.TextFrame.WordWrap = -1
   Write-Output $tb
 }
@@ -125,6 +164,7 @@ function Add-FooterBand {
     $p.TextFrame.TextRange.Text = $PageNo
     Set-Font -Range $p.TextFrame.TextRange -Size 20 -ColorRGB $PageColorRGB
     $p.TextFrame.TextRange.ParagraphFormat.Alignment = 2
+    Set-ParagraphSpacing -Range $p.TextFrame.TextRange -Size 20
   }
   if ($SessionId -ne '') {
     $s = $Slide.Shapes.AddTextbox(1, [single]780, [single]508, [single]170, [single]26)
@@ -132,12 +172,13 @@ function Add-FooterBand {
     $s.TextFrame.TextRange.Text = $SessionId
     Set-Font -Range $s.TextFrame.TextRange -Size 14 -ColorRGB $PageColorRGB
     $s.TextFrame.TextRange.ParagraphFormat.Alignment = 2
+    Set-ParagraphSpacing -Range $s.TextFrame.TextRange -Size 14
   }
   Write-Output $b
 }
 
 function Add-Title {
-  # 无显式参数时取 profile builder.title (默认 profile=48pt Calibri-Bold 青绿; Zou=44pt Franklin 黑 不加粗)
+  # 无显式参数时取 profile builder.title (默认 Times New Roman + 微软雅黑)
   param([Parameter(Mandatory=$true)]$Slide,
         [Parameter(Mandatory=$true)][string]$TextFile,
         [int]$Size = 0, [int]$ColorRGB = -1, [switch]$Bold, [switch]$NoBold,
@@ -145,7 +186,7 @@ function Add-Title {
         [float]$Left = -1, [float]$Top = -1)
   $t = Get-ProfileVal 'title' 'size';   if ($Size -le 0)      { $Size = if ($t) { [int]$t } else { 48 } }
   $c = Get-ProfileVal 'title' 'color';  if ($ColorRGB -lt 0)  { $ColorRGB = if ($c) { HexColor $c } else { HexColor '197084' } }
-  $f = Get-ProfileVal 'title' 'font';   if (-not $Font)       { $Font = if ($f) { $f } else { 'Calibri' } }
+  $f = Get-ProfileVal 'title' 'font';   if (-not $Font)       { $Font = if ($f) { $f } else { 'Times New Roman' } }
   $l = Get-ProfileVal 'title' 'left';   if ($Left -lt 0)      { $Left = if ($l) { [single]$l } else { 40 } }
   $tp = Get-ProfileVal 'title' 'top';   if ($Top -lt 0)       { $Top = if ($tp) { [single]$tp } else { 20 } }
   $b = Get-ProfileVal 'title' 'bold'

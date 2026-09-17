@@ -1,0 +1,7 @@
+FM_IQ_Receiver_Basic 实测 (sim 0-0.08s; 频谱窗 20-80ms; 重采样 fs=10kHz; 复信号双边谱, 矩形窗)
+mirror pre-LPF  @-800Hz: -11.9 dBc  (= -20lg0.25, 理论 -12.04 dB)
+mirror post-LPF (开): -44.8 dBc | (关,底噪): -54.7 dBc
+基带 LPF 对镜像净压制: 32.9 dB
+envelope ripple: +-27.4% @ 50 Hz (一阶 IF LPF 带内倾斜)
+recovered corr = 0.9613, lag = -2.20 ms (微分链群延迟)
+dev peak = 214 Hz (设置 ±200, +7% 由包络纹波经鉴频斜率引入)

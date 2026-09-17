@@ -43,6 +43,7 @@ PPTX at the same time.
 ## Safety and quality boundaries
 
 - Never save a PPTX with `python-pptx`.
+- Never revert versions on your own initiative: `git reset`/`git checkout`/`git revert`, restoring `.bak-*` backups, or wholesale rebuild from an old version all require explicit user approval first. Forward-fix on the current version (edit → render → verify → judge); escalate to the user before any rollback. Never use rollback to "clean up" a parallel session's changes.
 - Never assign `.Text` to an OMML formula shape.
 - Pass Chinese or other non-ASCII PowerShell text through UTF-8 files.
 - Use the shape naming contract: `FooterBand`, `PageNo`, `SessionId`, `KeyBox*`, `Equation*`, and related names are consumed by the verifier.
