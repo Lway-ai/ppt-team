@@ -47,8 +47,7 @@
 | `AGENTS.md` | 全体代理硬性禁令 + 流程纪律 + 已知盲区 |
 
 ## 团队的三层包装
-1. **ZCode 插件级**：安装 `ppt-team` 插件 = 装上整个团队（5 个代理 + 法典 + 命令 + 脚本）；
-   Codex 适配器只注册技能，ZCode 的 `agents/` 与 `commands/` 不会成为 Codex 原生组件，需由主代理协调角色与命令流程。
+1. **插件级**：安装 `ppt-team` 插件 = 装上整个团队（5 个代理 + 法典 + 命令 + 脚本）；
 2. **指挥级**：把任务交给 `ppt-team` 代理 = 由总指挥调度四名角色（可派子代理则派，不可则亲自戴帽执行）；
 3. **命令级**：`/make-ppt` = 从主会话直接触发整条流水线（等价入口）。
 
@@ -58,8 +57,6 @@
   （机制 = ZCode 的 `readUserPluginConfigState`→扫描 `plugins.dirs`→读 `.zcode-plugin/plugin.json`→默认启用），
   并在 `plugins.enabledPlugins` 写入 `"ppt-team": true`。**重启 ZCode / 新会话生效**，
   之后 4 个角色成为原生可调用子代理（Agent 工具的 subagent_type）。
-- **Codex 适配器边界**：`.codex-plugin/plugin.json` 只声明 `skills`；Codex 中的 `/make-ppt` 是仓库流程参考，
-  不是由该 manifest 原生注册的 slash command，四角色由主代理按技能顺序协调。
 - **用户作用域**（立即生效）：`~/.zcode/skills/ppt-conference-style/SKILL.md`、
   `~/.zcode/commands/make-ppt.md` 已部署——任何工作区都能加载风格法典、使用 `/make-ppt`。
 - 回滚：`~/.zcode/cli/config.json.bak-before-ppt-team`。
@@ -71,8 +68,7 @@
 - WorkBuddy 的用户级子代理目录 = `(CODEBUDDY_CONFIG_DIR || ~/.codebuddy)/agents`（源码常量
   `getHomeAgentsDir()`）；本机 `CODEBUDDY_CONFIG_DIR = C:\Users\wanglei\.workbuddy`，
   故本体装在 `C:\Users\wanglei\.workbuddy\agents\`（5 个角色：ppt-team / architect / builder / consolidator / judge）。
-- 装法：`python scripts/sync_user_scope.py --only workbuddy`（真源 = `adapters/workbuddy/agents/`）；脚本在未继承环境变量时
-  会自动优先探测已有的 `.workbuddy` 目录，再回落 `.codebuddy`。
+- 装法：`python scripts/sync_user_scope.py --only workbuddy`（真源 = `adapters/workbuddy/agents/`）。
   **磁盘新增的子代理在下次启动会话时加载**；届时可用 `/agents` 面板查看/编辑，也可被 Agent 工具直接调度。
 - 角色文件用 frontmatter 的 `tools` 做能力约束：builder 是 pptx 唯一写者；judge/consolidator 只读
   （拿不到写工具）——把「只看渲染图」「不自己动手」从口头纪律变成硬约束。

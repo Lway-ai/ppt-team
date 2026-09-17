@@ -1,4 +1,24 @@
 # Changelog
+## 2026-09-17 — PPT Team 修复回归、同步路径与示例交付门禁
+
+- **同步**: `sync_user_scope.py` 在未继承 `CODEBUDDY_CONFIG_DIR` 时自动优先探测已有 `.workbuddy`，并拒绝无效 `--only` 参数；ZCode、Codex、Trae、WorkBuddy 用户级副本已重新同步并复检全 `ok`。
+- **文档**: 修正 Zou profile 的字体描述，明确 Codex manifest 只原生注册技能、OfficeCLI `a14:m` schema 报告属于已知兼容项，补充根目录 `agend.md`。
+- **示例重建**: 使用当前 `style.json` / `style.zou.json` 和 PowerPoint COM 重建 `FM_IQ_Receiver_RFIC2024.pptx`（19 页）与 `mvp_zou.pptx`（3 页）；FM 构建脚本现在自动执行 `build_eq.py`，恢复第 9 页旋转公式组；MVP 构建脚本自动注入第 3 页噪声因子 OMML 公式。
+- **渲染与验证**: `export_slides.ps1` 现在将输入 PPTX 和输出目录解析为绝对路径；FM verify = **0 FAIL / 0 WARN / 7 INFO**，Zou verify = **0 FAIL / 2 WARN / 4 INFO**（两项 WARN 均为 `LogoLeft` 图片留白造成的图片×标题假阳性，视觉验收裁决通过）。
+- **视觉门禁**: 当前渲染图经 `ppt-judge` 复审，FM 19/19 页、Zou 3/3 页通过；残留致谢/参考文献占位和 FM 第 7 页单位换行均为非阻断提示。
+- **回归**: `test_verify_deck.py`、`test_omml_tex.py`、`sync_user_scope.py --check` 全部通过；备份保存在 `_backups/repair-20260917-171218/` 与 `_backups/repair-20260917-174500/`。
+
+## 2026-09-17 — PPT Team 接入 WorkBuddy（自定义子代理通道，五个角色落盘 + 工具白名单）
+
+- **安装位置**: `C:\Users\wanglei\.workbuddy\agents\`（用户级 = 全项目可用），新增 `ppt-team.md` / `ppt-architect.md` / `ppt-builder.md` / `ppt-consolidator.md` / `ppt-judge.md` 五个文件。**真源 = 仓库 `adapters/workbuddy/agents/`**（随仓库版本化），经同步脚本单向部署。
+- **同步脚本**: `scripts/sync_user_scope.py` 新增 WorkBuddy 目标 + `--only zcode|codex|trae|workbuddy` 单通道开关；`--only workbuddy` 已实跑（5 文件 synced，复检全 `ok`）。全通道 `--check` 另报存量 DRIFT 2 处（ZCode/Trae 的风格法典副本未随法典更新重分发），本轮**未**擅自全量同步。
+- **路径依据**（从 `resources/app.asar.unpacked/cli/dist/codebuddy.js` 提取的常量）: `getHomeAgentsDir() = (CODEBUDDY_CONFIG_DIR || ~/.codebuddy)/agents`；`getProjectAgentsDir() = <WorkDir>/.codebuddy/agents`（项目级优先级更高）。本机 `CODEBUDDY_CONFIG_DIR = C:\Users\wanglei\.workbuddy`。
+- **设计**: 文件为薄适配层——内置公共声明（PLUGIN_HOME 绝对路径）+ 职责摘要 + 硬边界，正文强制要求先完整读取仓库真源 `agents/<角色>.md` 与 `skills/ppt-conference-style/SKILL.md`，避免两份提示词漂移。
+- **工具白名单即纪律**: builder=Read/Write/Edit/Glob/Grep/Bash/PowerShell（pptx 唯一写者）；consolidator=Read/Glob/Grep；judge=Read/Glob；architect=Read/Write/Glob/Grep；conductor 额外持有 Agent/AskUserQuestion/Task*。
+- **验证**: 实跑派发 `ppt-judge` 成功——角色可被发现、可读取自身定义、工具白名单生效（只读）。磁盘新增子代理按官方语义于下次会话加载。
+- **文档**: 新增 `workbuddy_custom_agents_ppt_team.md`（发现规则表 / 安装清单 / 用法 / 可选插件通道 `.codebuddy-plugin/plugin.json` / 四宿主对应关系）。
+- **说明**: 未创建 `.codebuddy-plugin/plugin.json`——插件通道与用户级安装会产生同名重复代理，当前只开用户级通道。
+
 ## 2026-09-17 — PPT Team 工具层字体与行距默认值
 
 - **建页工具**: `scripts/build_helpers.ps1` 新增 `Get-TypographyVal` / `Set-ParagraphSpacing`；`Add-TextBox`、标题和页脚默认应用段内 1.20× 行距、0.24× 段后距（bullet 基线节奏约 1.44×）。
@@ -333,4 +353,3 @@ enders`。
 - **改动**: Bul3 删一字「被」→「③ 二次旋转与基带 LPF —— 有用归 DC，镜像 −800 Hz 压 32.9 dB（P11–P16）」，消去行尾「P16）」孤行；run 级 COM 替换后重设 L=Times New Roman / EA=SimHei / 24pt（同框 Bul* 一致；首过误参照 ProgBar 12.5pt，v3 巡检已修回 24pt）。
 - **验证**: Save 后逐 run 读回一致；形状级快照确认页内其余 10 个文本形状未动；渲染 1600x900 覆盖 FM/render_fontfix2/errata_slide_2.png，目检第③条单行完整、其余三条未动（改动页仅 P2，通过）。
 - **工具**: _ppt_run/errata3_fix.ps1（参数经 UTF-8 文件 errata3_params.txt 传入），报告 _ppt_run/errata3_report.txt。本轮无新增 .bak（单字符微调，沿用 .bak-errata-20260916）。
-

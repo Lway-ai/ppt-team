@@ -18,29 +18,10 @@ USER_SKILL = os.path.join(os.path.expanduser('~'), '.zcode', 'skills', 'ppt-conf
 CODEX_SKILL = os.path.join(os.path.expanduser('~'), '.codex', 'skills', 'ppt-team')
 TRAE_STYLE_SKILL = os.path.join(os.path.expanduser('~'), '.trae-cn', 'skills', 'ppt-conference-style')
 TRAE_TEAM_SKILL = os.path.join(os.path.expanduser('~'), '.trae-cn', 'skills', 'ppt-team')
-
-
-def resolve_workbuddy_home():
-    """Resolve the WorkBuddy home used by CodeBuddy's agent discovery.
-
-    WorkBuddy normally supplies CODEBUDDY_CONFIG_DIR to its child process, but
-    a PowerShell launched by the user may not inherit that variable. Prefer the
-    known local .workbuddy home when it exists, then fall back to .codebuddy.
-    """
-    configured = os.environ.get('CODEBUDDY_CONFIG_DIR')
-    if configured:
-        return os.path.abspath(configured)
-    user_home = os.path.expanduser('~')
-    for name in ('.workbuddy', '.codebuddy'):
-        candidate = os.path.join(user_home, name)
-        if os.path.isdir(candidate):
-            return candidate
-    return os.path.join(user_home, '.codebuddy')
-
-
 # WorkBuddy: 用户级子代理目录 = (CODEBUDDY_CONFIG_DIR || ~/.codebuddy)/agents；
-# 未继承环境变量时由 resolve_workbuddy_home() 探测已有宿主目录。
-WORKBUDDY_HOME = resolve_workbuddy_home()
+# 本机 CODEBUDDY_CONFIG_DIR 指向 ~/.workbuddy（见 getHomeAgentsDir()）。
+WORKBUDDY_HOME = os.environ.get('CODEBUDDY_CONFIG_DIR') or os.path.join(
+    os.path.expanduser('~'), '.codebuddy')
 WORKBUDDY_AGENTS = os.path.join(WORKBUDDY_HOME, 'agents')
 WORKBUDDY_ADAPTER_SRC = os.path.join(PLUGIN, 'adapters', 'workbuddy', 'agents')
 PLUGIN_HOME = PLUGIN
@@ -171,9 +152,6 @@ def main():
         idx = sys.argv.index('--only')
         if idx + 1 < len(sys.argv):
             only = sys.argv[idx + 1]
-    if only not in ('all', 'zcode', 'codex', 'trae', 'workbuddy'):
-        print('error: --only must be one of zcode|codex|trae|workbuddy')
-        sys.exit(2)
 
     def want(target):
         return only in ('all', target)

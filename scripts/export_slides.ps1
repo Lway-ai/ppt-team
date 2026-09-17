@@ -6,11 +6,13 @@ param(
 )
 $pp = $null
 try { $pp = [Runtime.InteropServices.Marshal]::GetActiveObject('PowerPoint.Application') } catch { $pp = New-Object -ComObject PowerPoint.Application }
-$pres = $pp.Presentations.Open($Pptx, $true, $false, $false)
-New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
+$pptxFullPath = (Get-Item -LiteralPath $Pptx -ErrorAction Stop).FullName
+$outDirItem = New-Item -ItemType Directory -Force -Path $OutDir -ErrorAction Stop
+$outDirFullPath = $outDirItem.FullName
+$pres = $pp.Presentations.Open($pptxFullPath, $true, $false, $false)
 $n = $pres.Slides.Count
 for ($i = 1; $i -le $n; $i++) {
-  $pres.Slides.Item($i).Export((Join-Path $OutDir ('slide{0:d2}.png' -f $i)), 'PNG', $Width, $Height)
+  $pres.Slides.Item($i).Export((Join-Path $outDirFullPath ('slide{0:d2}.png' -f $i)), 'PNG', $Width, $Height)
 }
 $pres.Close()
-Write-Output ("exported " + $n + " slides to " + $OutDir)
+Write-Output ("exported " + $n + " slides to " + $outDirFullPath)

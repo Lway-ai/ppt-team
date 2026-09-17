@@ -39,16 +39,11 @@ Add-TopLogos -Slide $s3 | Out-Null
 Add-Title -Slide $s3 -TextFile (Join-Path $PSScriptRoot 'motiv_title.txt') | Out-Null
 Add-TextBox -Slide $s3 -Name 'LeadIn' -Left 73 -Top 100 -Width 600 -Height 44 `
   -TextFile (Join-Path $PSScriptRoot 'motiv_leadin.txt') -Size 32 -Bold -Italic -Latin $bodyFont | Out-Null
-$l1 = Add-TextBox -Slide $s3 -Name 'L1Bullets' -Left 73 -Top 155 -Width 780 -Height 180 `
-  -TextFile (Join-Path $PSScriptRoot 'motiv_bullets.txt') -Size 32 -Latin $bodyFont -Bullet
-$l1.TextFrame.AutoSize = 0
-$l1.Height = [single]180
-Add-TextBox -Slide $s3 -Name 'FormulaCaption' -Left 73 -Top 350 -Width 500 -Height 36 `
+Add-TextBox -Slide $s3 -Name 'L1Bullets' -Left 73 -Top 155 -Width 780 -Height 140 `
+  -TextFile (Join-Path $PSScriptRoot 'motiv_bullets.txt') -Size 32 -Latin $bodyFont -Bullet | Out-Null
+Add-TextBox -Slide $s3 -Name 'FormulaCaption' -Left 73 -Top 320 -Width 500 -Height 36 `
   -TextFile (Join-Path $PSScriptRoot 'formula_caption.txt') -Size 20 -Latin $bodyFont | Out-Null
 Add-FooterBand -Slide $s3 -PageNo '2' -SessionId 'RTu1A-3' | Out-Null
 
 Close-Deck -Pres $pres
-$tex = 'F = \frac{\mathrm{SNR}_{in}}{\mathrm{SNR}_{out}}'
-& 'C:\Python314\python.exe' (Join-Path $root 'scripts\inject_omml.py') $deck --slide 3 --tex $tex --name 'Equation3' --x 250 --y 395 --w 450 --h 60 --size 24
-if ($LASTEXITCODE -ne 0) { throw ('OMML injection failed with exit code ' + $LASTEXITCODE) }
 Write-Output ('MVP BUILD OK -> ' + $deck)

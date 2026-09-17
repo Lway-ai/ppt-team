@@ -31,7 +31,7 @@
 ## 复现
 
 ```powershell
-# 构建源（builder 会话内执行序）：build_deck.ps1（COM 建页）→ build_eq.py（OMML 注入+三线表）→ 渲染验证
+# 构建源（builder 会话内执行序）：build_deck.ps1（COM 建页，并自动调用 build_eq.py 完成 OMML 注入+三线表）→ 渲染验证
 powershell -File ../../scripts/export_slides.ps1 -Pptx FM_IQ_Receiver_RFIC2024.pptx -OutDir render
 C:/Python314/python.exe ../../scripts/verify_deck.py FM_IQ_Receiver_RFIC2024.pptx --style ../../scripts/style.json
 # 仿真图重生成（需 MATLAB，数据源 FM/_ppt_run/assets/simdata_r15.mat，不重跑仿真）

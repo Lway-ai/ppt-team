@@ -48,7 +48,4 @@ Add-TextBox -Slide $s3 -Name 'FormulaCaption' -Left 73 -Top 350 -Width 500 -Heig
 Add-FooterBand -Slide $s3 -PageNo '2' -SessionId 'RTu1A-3' | Out-Null
 
 Close-Deck -Pres $pres
-$tex = 'F = \frac{\mathrm{SNR}_{in}}{\mathrm{SNR}_{out}}'
-& 'C:\Python314\python.exe' (Join-Path $root 'scripts\inject_omml.py') $deck --slide 3 --tex $tex --name 'Equation3' --x 250 --y 395 --w 450 --h 60 --size 24
-if ($LASTEXITCODE -ne 0) { throw ('OMML injection failed with exit code ' + $LASTEXITCODE) }
 Write-Output ('MVP BUILD OK -> ' + $deck)

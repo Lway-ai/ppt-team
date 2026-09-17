@@ -17,8 +17,7 @@
 
 ## 流水线轨迹（双门禁真实运转的一次记录）
 
-1. `build.ps1`（builder=COM+Zou profile）建 3 页
-2. `inject_omml.py --tex` 注入公式（omml_tex 引擎）
+1. `build.ps1`（builder=COM+Zou profile）建 3 页，并自动调用 `inject_omml.py --tex` 注入公式
 3. `export_slides.ps1` 渲染
 4. `verify_deck.py --style style.zou.json` → 0 FAIL（WARN 列表进 judge 裁决）
 5. judge 目检: 第 1 轮 slide2 bullet 乱码（FAIL：构建脚本内联非 ASCII 违反安全管线 3）
@@ -29,7 +28,6 @@
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File examples\mvp_zou\build.ps1
-python scripts\inject_omml.py examples\mvp_zou\mvp_zou.pptx --slide 3 --tex "F = \frac{S_i}{S_o} = \frac{1}{G_t}, \quad \mathrm{NF} = 10\log_{10} F" --name "Equation 1" --x 200 --y 370 --w 560 --h 80 --size 24
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts\export_slides.ps1 -Pptx <绝对路径>\examples\mvp_zou\mvp_zou.pptx -OutDir <绝对路径>\examples\mvp_zou\render
 python scripts\verify_deck.py examples\mvp_zou\mvp_zou.pptx --style scripts\style.zou.json --json examples\mvp_zou\verify_report.json
 ```

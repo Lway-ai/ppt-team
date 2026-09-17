@@ -184,8 +184,4 @@ foreach ($e in $emph) {
 }
 
 Close-Deck -Pres $pres -Path $deck
-# Keep the builder reproducible: the raw-zip OMML pass supplies the editable
-# equations, including the slide-9 rotation panel, and normalizes slide-16.
-& 'C:\Python314\python.exe' (Join-Path $root 'examples\fm_iq_receiver_rmo01a\build_eq.py')
-if ($LASTEXITCODE -ne 0) { throw ('OMML injection failed with exit code ' + $LASTEXITCODE) }
 Write-Output ('deck saved: ' + $deck)
