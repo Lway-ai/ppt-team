@@ -120,12 +120,19 @@ def zipfile_in_mem(path):
 
 
 def make_fixture_style(tmpdir):
-    """夹具 style = 当前默认去掉 Times 类可争议项, 使测试钉住机制而非配置值。"""
+    """测试夹具保留历史字体白名单，单独钉住字体规则机制。
+
+    生产 style 已收紧为 Times New Roman；合成 PPT 的旧字体只用于测试
+    几何、包完整性和字体违规检测，不代表新建页面的默认字体。
+    """
     import json as _json
     with open(STYLE, encoding='utf-8') as f:
         cfg = _json.load(f)
-    wl = cfg['font_rules']['allowed_latin_plain']
-    cfg['font_rules']['allowed_latin_plain'] = [x for x in wl if x != 'Times New Roman']
+    cfg['font_rules']['allowed_latin_plain'] = [
+        'Arial', 'ArialMT', 'Arial-BoldMT', 'Arial-BoldItalicMT',
+        'Arial Narrow', 'Franklin Gothic Book', 'FranklinGothic',
+        'FranklinGothic Book', 'Calibri', 'Calibri Light'
+    ]
     fp = os.path.join(tmpdir, 'fixture_style.json')
     with open(fp, 'w', encoding='utf-8') as f:
         _json.dump(cfg, f, ensure_ascii=False)

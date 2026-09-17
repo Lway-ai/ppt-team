@@ -58,6 +58,9 @@ FONT_ALIASES = {
     'arial mt': 'ArialMT',
     'arialnarrow': 'Arial Narrow',
     'arial narrow': 'Arial Narrow',
+    'times new roman': 'Times New Roman',
+    'timesnewromanpsmt': 'Times New Roman',
+    'times new roman psmt': 'Times New Roman',
 }
 
 
@@ -270,9 +273,7 @@ def main():
     aliases = dict(FONT_ALIASES)
     aliases.update({k.strip().lower(): v for k, v in fr_cfg.get('font_aliases', {}).items()})
     ea_allowed = set(fr_cfg.get('allowed_ea', ['微软雅黑'])) | {aliases.get(x, x) for x in fr_cfg.get('allowed_ea', ['微软雅黑'])}
-    latin_allowed = set(fr_cfg.get('allowed_latin_plain',
-                        ['Arial', 'ArialMT', 'Arial-BoldMT', 'Arial-BoldItalicMT',
-                         'Franklin Gothic Book', 'FranklinGothic', 'Calibri']))
+    latin_allowed = set(fr_cfg.get('allowed_latin_plain', ['Times New Roman']))
     latin_allowed = {norm_font(x) for x in latin_allowed}
     ea_allowed = {norm_font(x) for x in ea_allowed}
     math_ea_required = norm_font(fr_cfg.get('math_ea_required', '微软雅黑'))

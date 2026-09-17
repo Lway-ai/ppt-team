@@ -1,4 +1,9 @@
 # Changelog
+## 2026-09-17 — PPT Team 工具层字体与行距默认值
+
+- **建页工具**: `scripts/build_helpers.ps1` 新增 `Get-TypographyVal` / `Set-ParagraphSpacing`；`Add-TextBox`、标题和页脚默认应用段内 1.20× 行距、0.24× 段后距（bullet 基线节奏约 1.44×）。
+- **字体默认**: 三份 style profile 和 COM 建页默认统一中文/东亚字体为微软雅黑、西文为 Times New Roman；OMML 数学区继续使用 Cambria Math。
+- **自动检查**: 生产 style 的普通西文白名单收紧为 Times New Roman；回归测试夹具保留历史字体，仅用于验证几何/包完整性/违规检测机制。
 ## 2026-09-16 — FM_IQ_Receiver_Basic_模型讲解_会议版.pptx（勘误轮：6 处换图 r20 + 8 处文本修订 + 页码引用重映射，COM 编辑）
 
 - **备份**: `*.pptx.bak-errata-20260916`（2459705 字节。**偏差**: 任务称 PowerPoint 打开中，实测 POWERPNT 未运行、无锁文件——按管线 §十.12 改用 COM 新启实例 Presentations.Open 挂载编辑，结束后保持打开不关进程；备份为磁盘当前态纯复制，无未保存内存态需先 Save）。

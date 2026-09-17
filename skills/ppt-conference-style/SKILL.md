@@ -33,7 +33,7 @@ description: IMS/RFIC 会议风格完整法典（RFIC2024 官方语料 87 deck/2
 # 二、标题（内容页）
 
 - 字号: **48pt 默认**；长题降档 44/40（谱系 32–48 全允许，但须在档位表内）
-- 字体: **Calibri-Bold**（变体: Arial-BoldMT / Franklin Gothic Book——Zou 派）
+- 字体: **Times New Roman-Bold**（中文/东亚字符统一微软雅黑；OMML 公式保留 Cambria Math）
 - 颜色: **#197084 青绿默认**（变体: #000000 黑，但全片只能选一种）
 - 对齐: **居中**（94% 语料），y≈20–75 单行；**无下划线、无横线、无色条**
 - 标题 = 主题名词短语或结论短句，Title Case；系列页把 `(1)`/`<1/5>` 写进标题
@@ -42,19 +42,19 @@ description: IMS/RFIC 会议风格完整法典（RFIC2024 官方语料 87 deck/2
 
 | 层级 | 字号 | 字体/字重 | bullet | 符号颜色 |
 |---|---|---|---|---|
-| Lead-in 引言行 | 32pt（密集页 24–28） | Calibri **粗斜体**，冒号结尾 | 无 | 黑 |
-| L1 主条 | **32pt**（可整条 bold） | Calibri regular/bold | `•` | **#197084 青绿**（黑为变体） |
-| L2 子条 | **28pt** | Calibri | `•` 或 `–` | 同 L1 |
-| L3 次子条 | **24pt** | Calibri | `•`/`–` | 同 L1 |
-| 密集页正文 | 20/22/26/30 过渡档 | Calibri | | |
-| 图内注释 | **16pt 主力**，14/18/20；axes≥14 | Calibri/Arial；密集标注 Arial Narrow Bold | | 黑/白/红/蓝 |
-| 参考文献 | 15–20pt | Calibri | `[n]`/`•` | 黑 |
+| Lead-in 引言行 | 32pt（密集页 24–28） | Times New Roman **粗斜体**，冒号结尾 | 无 | 黑 |
+| L1 主条 | **32pt**（可整条 bold） | Times New Roman regular/bold | `•` | **#197084 青绿**（黑为变体） |
+| L2 子条 | **28pt** | Times New Roman | `•` 或 `–` | 同 L1 |
+| L3 次子条 | **24pt** | Times New Roman | `•`/`–` | 同 L1 |
+| 密集页正文 | 20/22/26/30 过渡档 | Times New Roman | | |
+| 图内注释 | **16pt 主力**，14/18/20；axes≥14 | Times New Roman；密集标注可用 Times New Roman Bold | | 黑/白/红/蓝 |
+| 参考文献 | 15–20pt | Times New Roman | `[n]`/`•` | 黑 |
 
 - **行距（2026-09-15 87 deck 全量实测，基线倍率双峰 1.20×/1.45× 合计 62%）**:
   段内换行 = **1.20×字号**（图注、References、封面标题/作者换行同此档）；**bullet 条目间 = 1.44×字号**
   （等效做法 = 单倍行距 + 段后距 ≈0.24×字号：32pt→46pt、28pt→40pt、24pt 档两档皆见）。
   行距暂无机检——builder 建页必须按本档设置 lnSpc/spcAft，consolidator 构图审查时核对。
-- bullet 符号与文字**同字号**；一页 L1 通常 1–3 条，行内强调用 Calibri-Bold
+- bullet 符号与文字**同字号**；一页 L1 通常 1–3 条，行内强调用 Times New Roman Bold
 - **bullet glyph 谱系**（逐 deck 目检，2026-09-15）：`•` 主流；L2 允许 `–`；方块 `■`+圆 `●`（RMo03B_3）、
   `❖`/`•`/`–` 三级（RMo04B_1）、`◆` 表头前缀、`☺` 行尾装饰、`☑☐`（Keynote 派）为语料实证变体——
   glyph 可变但**全片统一**，颜色跟随层级主色；默认仍用 `•`
@@ -63,9 +63,9 @@ description: IMS/RFIC 会议风格完整法典（RFIC2024 官方语料 87 deck/2
   （报告人可加下划线）→ 单位 20pt 粗体；页码从 0 计
 - **中西文字体规则（全片强制，`verify_deck.py font_rules` 机检，FAIL 级）**：
   - **东亚文字**（汉字、全角标点、带圈数字①–⑤）= **微软雅黑、正体**，全片唯一 EA 字体。
-  - **西文正文** = 选定的一种（默认 Calibri 系；Franklin/Arial 派需开工时声明），全片只能有一种。
+  - **西文正文** = **Times New Roman**，全片只能有这一种普通西文字体。
   - **数学公式**（OMML）= **Cambria Math**，唯一允许的第三种字体；严禁给公式改字体/颜色。
-- **项目变体声明（FM_IQ_Receiver_模型讲解 15 页全量版, 2026-09-14 用户 Gate 指定）**: 版式以 FM_DDC_技术分享_noDDC.pptx 为权威来源——白底, 左上深蓝 #1F3864 加粗标题(约 28pt) + 蓝色短横条 #2E75B6, 小节标题亮蓝 #0070C0, 正文 12–14pt, 关键结论黄底高亮, 页脚三段式无色带; **全片西文（含公式变量）统一 Times New Roman**, 公式为原生可编辑文本 + 真 baseline 上下标（变量斜体）, 禁公式贴图。style.json 已同步: palette += 1F3864, allowed_latin_plain += Times New Roman。
+- **项目变体声明（FM_IQ_Receiver_模型讲解 15 页全量版, 2026-09-14 用户 Gate 指定）**: 版式以 FM_DDC_技术分享_noDDC.pptx 为权威来源——白底, 左上深蓝 #1F3864 加粗标题(约 28pt) + 蓝色短横条 #2E75B6, 小节标题亮蓝 #0070C0, 正文 12–14pt, 关键结论黄底高亮, 页脚三段式无色带; **全片中文统一微软雅黑、西文（含公式变量的普通文本）统一 Times New Roman**, 公式为原生可编辑文本 + 真 baseline 上下标（变量斜体）, 禁公式贴图。style.json、style.techshare.json、style.zou.json 已同步字体与行距配置。
   - 混排行内"中文雅黑正体 + 西文公式 Cambria Math 斜体"合法；**数学区含 EA 码点必须显式
     `<a:ea typeface="微软雅黑">` 且 `i="0"`**（否则回退衬线——2026-09-14 事故条目）。
 

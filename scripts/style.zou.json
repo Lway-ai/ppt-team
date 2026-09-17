@@ -144,7 +144,7 @@
   "footer_whitelist_regex": "^(Footer|PageNo|SessionId|CoverFoot|CoverPage|CoverC|FooterRule|FooterBand)"
  },
  "_footer_regex_comment": "只匹配整串页码(25 或 25/28); 表格值 31/0.5 因不锚定整串不会成为页脚候选",
- "_title_style": "44pt Franklin Gothic Book #000000 居中 y=9, 不加粗 (正文 L1 32 黑色 bullet ArialMT)",
+ "_title_style": "44pt Times New Roman #000000 居中 y=9, 不加粗 (正文 L1 32 黑色 bullet Times New Roman)",
  "builder": {
   "title": {
    "size": 44,
