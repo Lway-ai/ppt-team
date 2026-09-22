@@ -39,6 +39,7 @@ PPTX at the same time.
 
 7. Do not call visual review until `verify_deck.py` has zero FAIL findings. Review only the pages changed in the current round, then run a full final review before delivery.
 8. Record the round in `CHANGELOG.md`. Keep backups under `_backups/` and keep the original ZCode package intact.
+9. After the final save, zero-FAIL verification, and full visual review, close any resident editor state and reopen the exact final `.pptx` from disk in Microsoft PowerPoint (or the available desktop UI). Leave the deck visible for human inspection and report the handoff path. Do not claim human acceptance from automated gates; the final state is `ready for human review` until the user confirms or returns findings. If the deck cannot be opened, report that blocker explicitly.
 
 ## Safety and quality boundaries
 
