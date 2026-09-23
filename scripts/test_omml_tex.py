@@ -83,6 +83,30 @@ def main():
     wellformed(x)
     case('escape lt', '&lt;' in flat(x), x)
 
+    # 10 chr 类定界符（2026-09-17 修：\left| 曾静默丢竖线且不报错）
+    x = tex_paragraphs(r"S = \left| \frac{L}{1+L} \right|^{2} S_{ref}")
+    wellformed(x)
+    case('left/right pipe delim', 'begChr m:val="|"' in flat(x)
+         and 'endChr m:val="|"' in flat(x), x)
+    case('pipe delim keeps superscript', '<m:sSup>' in flat(x), x)
+
+    # 11 重音宏 → m:acc
+    x = tex_paragraphs(r"g_{n} = \frac{f_{REF}}{\hat{K}_{DCO}}")
+    wellformed(x)
+    case('hat accent m:acc', '<m:acc>' in flat(x)
+         and '<m:chr m:val="\u0302"/>' in flat(x), x)
+    x = tex_paragraphs(r"\tilde{c}_{0} = 1 - \frac{\tau}{T}")
+    wellformed(x)
+    case('tilde accent m:acc', '<m:chr m:val="\u0303"/>' in flat(x), x)
+    case('accent no literal macro', 'hat' not in flat(x)
+         and 'tilde' not in flat(x), x)
+
+    # 12 长箭头符号（2026-09-17 修：曾字面化成 Longleftrightarrow）
+    x = tex_paragraphs(r"a \Longleftrightarrow b")
+    wellformed(x)
+    case('Longleftrightarrow glyph', '\u27fa' in flat(x)
+         and 'Longleftrightarrow' not in flat(x), x)
+
     print('\n== %d cases failed ==' % len(FAILS))
     for f in FAILS:
         print('  -', f)

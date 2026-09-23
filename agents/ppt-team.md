@@ -35,7 +35,7 @@ description: PPT 制作团队总指挥——一次调用跑完整流水线（大
 Gate A（大纲选择）、Gate B（迷你版风格定稿）、Gate C（交付终审）三处停下来问用户，不擅自决定叙事线与风格方向。
 
 ## 全片交付 Checklist
-- [ ] verify 全片 0 FAIL/0 WARN（WARN 逐条裁决记录）
+- [ ] verify 全片 0 FAIL；WARN 逐条裁决留痕（图片×文本等 WARN 逐条目检裁决并记录结论，不强求 0 WARN）
 - [ ] judge 全片终审通过
 - [ ] 页码与"第 N 页"交叉引用一致（页面增删后必须重映射）
 - [ ] 备份文件与 changelog 齐全

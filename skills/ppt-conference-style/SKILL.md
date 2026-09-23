@@ -153,6 +153,21 @@ FAIL 必须清零；WARN 逐条裁决（**档位表以第三节为准，不得�
 回归测试：`python scripts/test_verify_deck.py`（16 个合成用例，改 verify_deck/style.json 前后各跑一次）。
 配套渲染：`powershell -File scripts/export_slides.ps1 -Pptx <...> -OutDir <...>`
 
+# 十、安全管线（踩过的坑，违反即损坏文件）
+
+1. **禁止 python-pptx 保存**（重存破坏兼容性）；编辑走 PowerPoint COM（GetActiveObject 优先），文件级修改走 raw-zip 拼接。
+2. **OMML 公式形状严禁 `.Text` 赋值**（特征：TextRange 文本呈 `??` 或 Runs()==0）；公式修改只走 XML 拼接；斜体数学字符码点：𝑗=U+1D457、𝜓=U+1D713。重建公式段落的可靠方法：从同 deck 兄弟公式形状复制 `<a:p>`，替换符号 run。
+3. **PowerShell 中文必须经 UTF-8 文件**：`Get-Content -Encoding UTF8`；严禁内联中文（变 ANSI 乱码，①曾渲染成"9312"）；`printf` 会吃 `\E` 转义，路径一律用 python `os.path.abspath` 写入。
+4. `Get-Content` 会把含换行的字符串拆成数组——多行文本索引会错位；多行用 `[char]11` join 后整体赋值。
+5. 批量修改前备份（`.bak-<标签>`）；每轮记 changelog；**修复轮上限 5 轮**，超出升级给人。
+6. COM 位置赋值用 `[single]` 强转；`.Text` 赋值后字体属性会被重置，须重新设字体。
+7. 每轮循环 = 改 → `export_slides.ps1` 渲染 → `verify_deck.py` → changelog 记录一行。
+8. **数学区字体只有 XML 一条路**：COM `.Font.Name/.NameFarEast` 对数学区字符**静默无效**（API 读回恒为 Cambria Math，写入被忽略）；唯一生效路径是 raw-zip 拼接，把 `<a:rPr>` 里的 `<a:ea typeface="微软雅黑">` + `i="0"` 直接写进 `m:r`（2026-09-14 实测：COM 改 ea 无效，拼接生效且渲染正确）。所以"数学区文字字体不对"这类问题不要试图用 COM 修，直接按第三节规则改 XML。
+9. **OMML run 粒度 = 单字符级**：数学斜体字符（U+1D400–1D7FF）与标点/空格混在同一个 `<m:t>` 里时，该 run 会被按文本字排版、字体回退导致**缺字方框**（2026-09-15 实测：`<m:t>(𝑡)| = </m:t>` 渲染成 `()| =`）。修法：拆成独立 run —— `R('(')+R('𝑡')+R(')| = ')`，与 deck 既有公式的 run 粒度一致；纯标点 run（`= `、` + `）无此问题。
+10. **表格宽度 = `a:tblGrid` 的 gridCol 之和**，不是 graphicFrame 的 `a:ext`：只改 `a:ext` 表格仍按原宽渲染并溢出框（2026-09-15 实测 720→545pt 无效）。必须按比例缩放每个 `<a:gridCol w="...">`；gridCol 常带 extLst 子节点而**非自闭合**，用属性级替换 `w="旧"` → `w="新"`（自闭合模式 `<a:gridCol w="..."/>` 匹配不到）。
+11. **页脚页码是静态文本**：增删页后必须逐页改 `PageNo` 的 `a:t`（"N of M"）——删除一页后 22 页每页都会报 page_number FAIL；改完用 verify_deck 的 page_number 检查全片确认。
+12. **改前先查 PowerPoint 是否开着**：`~$<文件名>` 锁文件存在时 zip 拼接必失败（WinError 32）。此时要么走 COM 编辑打开中的文件，要么先 `Presentations.Close()`（先查 `$pres.Saved`，未保存则 Save）再拼接、拼完 `Presentations.Open()` 重新打开——编辑期间保持文件在 PowerPoint 中打开是用户的常态。
+
 # 十一、建页工具箱（builder 必用，勿徒手写 COM 脚本）
 
 - `scripts/build_helpers.ps1`（dot-source 后用）：New-Deck / Add-BlankSlide / Add-TextBox（中文走 UTF-8 文件）
@@ -167,8 +182,9 @@ FAIL 必须清零；WARN 逐条裁决（**档位表以第三节为准，不得�
   Add-Title/Add-FooterBand/Add-TopLogos 自动按 profile 取字号/颜色/字体/素材——**builder 不要硬编码风格值**。
   回归测试 `scripts/test_verify_deck.py` 使用夹具 style, 不随共享配置漂移。
 - `scripts/make_footer_band.py`：生成 `assets/footer_band.png` 页脚渐变色带素材。
-- 风格 profile：`scripts/style.json` = 官方模板多数派（默认）；`scripts/style.zou.json` = Zou 变体
-  （保留 Zou 版式参数，当前普通西文统一 Times New Roman）。项目开工时二选一并写进项目记录。
+- 风格 profile（三选一，项目开工时选定并写进项目记录，此后不得混用）：`scripts/style.json` = 官方模板多数派（默认）；
+  `scripts/style.zou.json` = Zou 变体（保留 Zou 版式参数，当前普通西文统一 Times New Roman）；
+  `scripts/style.techshare.json` = FM/DDC 技术分享变体（白底、左上深蓝标题、页脚三段式无色带，见第三节项目变体声明）。
 - **officecli MCP**（ZCode/Codex 均已挂载时可用）: 只读审计 `view stats|issues`、`validate`（严格 OpenXML 校验,
   会报告注入公式 a14:m 叶元素问题——PowerPoint 可正常打开渲染, 属已知可接受偏差）、`query equation` 列公式;
   编辑 `set/add` 文本形状、`--type equation --prop formula="LaTeX"` 原生增改公式（实测 OMML 往返无损、COM 可开、
@@ -189,17 +205,3 @@ FAIL 必须清零；WARN 逐条裁决（**档位表以第三节为准，不得�
 
 反例：页脚色带不叫 FooterBand → 全片内容被判"越页脚区" WARN；容器不叫 KeyBox* → 容器盖字检测失效。
 
-# 十、安全管线（踩过的坑，违反即损坏文件）
-
-1. **禁止 python-pptx 保存**（重存破坏兼容性）；编辑走 PowerPoint COM（GetActiveObject 优先），文件级修改走 raw-zip 拼接。
-2. **OMML 公式形状严禁 `.Text` 赋值**（特征：TextRange 文本呈 `??` 或 Runs()==0）；公式修改只走 XML 拼接；斜体数学字符码点：𝑗=U+1D457、𝜓=U+1D713。重建公式段落的可靠方法：从同 deck 兄弟公式形状复制 `<a:p>`，替换符号 run。
-3. **PowerShell 中文必须经 UTF-8 文件**：`Get-Content -Encoding UTF8`；严禁内联中文（变 ANSI 乱码，①曾渲染成"9312"）；`printf` 会吃 `\E` 转义，路径一律用 python `os.path.abspath` 写入。
-4. `Get-Content` 会把含换行的字符串拆成数组——多行文本索引会错位；多行用 `[char]11` join 后整体赋值。
-5. 批量修改前备份（`.bak-<标签>`）；每轮记 changelog；**修复轮上限 5 轮**，超出升级给人。
-6. COM 位置赋值用 `[single]` 强转；`.Text` 赋值后字体属性会被重置，须重新设字体。
-7. 每轮循环 = 改 → `export_slides.ps1` 渲染 → `verify_deck.py` → changelog 记录一行。
-8. **数学区字体只有 XML 一条路**：COM `.Font.Name/.NameFarEast` 对数学区字符**静默无效**（API 读回恒为 Cambria Math，写入被忽略）；唯一生效路径是 raw-zip 拼接，把 `<a:rPr>` 里的 `<a:ea typeface="微软雅黑">` + `i="0"` 直接写进 `m:r`（2026-09-14 实测：COM 改 ea 无效，拼接生效且渲染正确）。所以"数学区文字字体不对"这类问题不要试图用 COM 修，直接按第三节规则改 XML。
-9. **OMML run 粒度 = 单字符级**：数学斜体字符（U+1D400–1D7FF）与标点/空格混在同一个 `<m:t>` 里时，该 run 会被按文本字排版、字体回退导致**缺字方框**（2026-09-15 实测：`<m:t>(𝑡)| = </m:t>` 渲染成 `()| =`）。修法：拆成独立 run —— `R('(')+R('𝑡')+R(')| = ')`，与 deck 既有公式的 run 粒度一致；纯标点 run（`= `、` + `）无此问题。
-10. **表格宽度 = `a:tblGrid` 的 gridCol 之和**，不是 graphicFrame 的 `a:ext`：只改 `a:ext` 表格仍按原宽渲染并溢出框（2026-09-15 实测 720→545pt 无效）。必须按比例缩放每个 `<a:gridCol w="...">`；gridCol 常带 extLst 子节点而**非自闭合**，用属性级替换 `w="旧"` → `w="新"`（自闭合模式 `<a:gridCol w="..."/>` 匹配不到）。
-11. **页脚页码是静态文本**：增删页后必须逐页改 `PageNo` 的 `a:t`（"N of M"）——删除一页后 22 页每页都会报 page_number FAIL；改完用 verify_deck 的 page_number 检查全片确认。
-12. **改前先查 PowerPoint 是否开着**：`~$<文件名>` 锁文件存在时 zip 拼接必失败（WinError 32）。此时要么走 COM 编辑打开中的文件，要么先 `Presentations.Close()`（先查 `$pres.Saved`，未保存则 Save）再拼接、拼完 `Presentations.Open()` 重新打开——编辑期间保持文件在 PowerPoint 中打开是用户的常态。

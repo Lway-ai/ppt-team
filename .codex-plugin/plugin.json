@@ -1,6 +1,6 @@
 {
   "name": "ppt-team",
-  "version": "0.3.0",
+  "version": "0.3.7",
   "description": "Codex adapter for the multi-agent RFIC conference PPT workflow with PowerPoint COM building, OMML formulas, rendering, and deterministic QA.",
   "author": {
     "name": "Wanglei PPT Team"

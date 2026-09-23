@@ -10,6 +10,9 @@
   \\text{...} / \\mathrm{...} 正体（含中文自动挂 EA 字体正体 i="0" —— 事故修复样式）
   \\log \\ln \\sin ... 函数名正体
   \\left( ... \\right) 自适应定界符;  ( ) [ ] 直接量
+  \\left| ... \\right| 及 \\Vert \\langle 等 chr 类定界符（2026-09-17 修：旧版只认 paren 类,
+    \\left| 静默产出空定界符 → |L/(1+L)|² 的竖线在 PPT 里丢失, 且不报错）
+  \\hat{x} \\tilde{x} \\bar{x} \\vec{x} \\dot{x} \\ddot{x} \\widehat \\widetilde 重音(m:acc)
   \\begin{matrix|pmatrix|bmatrix} a & b \\\\ c & d \\end{...} 矩阵
   顶层 \\\\ 分行 → 多段落
 
@@ -28,7 +31,7 @@ SYMBOLS = {
     'phi': 'φ', 'varphi': 'φ', 'chi': 'χ', 'psi': 'ψ', 'omega': 'ω',
     'Gamma': 'Γ', 'Delta': 'Δ', 'Theta': 'Θ', 'Lambda': 'Λ', 'Xi': 'Ξ',
     'Pi': 'Π', 'Sigma': 'Σ', 'Phi': 'Φ', 'Psi': 'Ψ', 'Omega': 'Ω',
-    'times': '×', 'cdot': '·', 'div': '÷', 'pm': '±', 'mp': '∓',
+    'times': '×', 'cdot': '·', 'div': '÷', 'pm': '±', 'mp': '∓', 'sum': '∑',
     'leq': '≤', 'geq': '≥', 'neq': '≠', 'approx': '≈', 'equiv': '≡',
     'infty': '∞', 'rightarrow': '→', 'to': '→', 'Rightarrow': '⇒',
     'leftarrow': '←', 'Leftarrow': '⇐', 'mapsto': '↦',
@@ -37,14 +40,51 @@ SYMBOLS = {
     'in': '∈', 'notin': '∉', 'cup': '∪', 'cap': '∩',
     'subset': '⊂', 'supset': '⊃', 'perp': '⊥', 'parallel': '∥',
     'degree': '°', 'angle': '∠', 'quad': '  ', 'qquad': '    ',
+    'leftrightarrow': '↔', 'Leftrightarrow': '⇔',
+    'Longleftrightarrow': '⟺', 'longleftrightarrow': '⟷',
+    'longrightarrow': '⟶', 'Longrightarrow': '⟹',
+    'longleftarrow': '⟵', 'Longleftarrow': '⟸',
+    'hookrightarrow': '↪', 'uparrow': '↑', 'downarrow': '↓',
+    'll': '≪', 'gg': '≫', 'sim': '∼', 'simeq': '≃', 'cong': '≅',
+    'oplus': '⊕', 'otimes': '⊗', 'ominus': '⊖', 'setminus': '∖',
+    'langle': '⟨', 'rangle': '⟩', 'Vert': '‖', 'lVert': '‖', 'rVert': '‖',
+    'lvert': '|', 'rvert': '|', 'vert': '|', 'mid': '|', 'nmid': '∤',
+    'forall': '∀', 'exists': '∃', 'neg': '¬', 'emptyset': '∅',
+    '{': '{', '}': '}',   # \{ \} 字面花括号（旧版被当分组符静默吞掉）
+    'triangle': '△', 'square': '□', 'diamond': '⋄', 'star': '⋆',
+    'prime': '′', 'surd': '√', 'aleph': 'ℵ', 'ell': 'ℓ',
     ',': ' ', ';': ' ', ':': ' ', ' ': ' ',
 }
+# 重音宏 → 组合字符（m:acc 的 m:chr 值）
+ACCENTS = {
+    'hat': '\u0302', 'widehat': '\u0302',
+    'tilde': '\u0303', 'widetilde': '\u0303',
+    'bar': '\u0304', 'overline': '\u0304',
+    'vec': '\u20d7',
+    'dot': '\u0307', 'ddot': '\u0308',
+}
+# \left / \right 后面可接受的“chr 类”定界符（非 paren 类）
+CHR_DELIMS = set('|/\\<>^.,‖⟨⟩⌈⌉⌊⌋⎡⎤⎣⎦')
 FUNCNAMES = {'log', 'ln', 'exp', 'sin', 'cos', 'tan', 'max', 'min', 'det', 'tr', 'Re', 'Im'}
 GREEK_RE = re.compile(r'^[α-ωΑ-Ω]$')
 
 
 def esc(t):
     return sx.escape(t)
+
+
+def delim_of(d):
+    """\\left / \\right 之后的定界符解析：paren 类直接量、cmd 类查表、chr 类查白名单。
+    认不出的一律返回 '.'（空定界符），与 LaTeX 的 \\left. 语义一致。"""
+    if d is None:
+        return '.'
+    if d.kind == 'paren':
+        return d.val
+    if d.kind == 'cmd':
+        return SYMBOLS.get(d.val, '.')
+    if d.kind == 'chr' and d.val in CHR_DELIMS:
+        return d.val
+    return '.'
 
 
 def run(text, italic=True, ea_font='微软雅黑'):
@@ -61,7 +101,7 @@ def run(text, italic=True, ea_font='微软雅黑'):
 
 TOKEN_RE = re.compile(r"""
     \\\\ |
-    \\[A-Za-z]+ | \\[,;:! ] |
+    \\[A-Za-z]+ | \\[,;:! ] | \\[{}] |
     [_^] | [{}\[\]&()] |
     [^\s_^{}\\&()\[\]]+ |
     \s+
@@ -115,9 +155,7 @@ class Parser:
                 break
             if until_right and t.kind == 'cmd' and t.val == 'right':
                 self.next()
-                d = self.next()
-                self._right_char = d.val if d and d.kind == 'paren' else (
-                    SYMBOLS.get(d.val, '.') if d and d.kind == 'cmd' else '.')
+                self._right_char = delim_of(self.next())
                 break
             items.append(self.parse_atom())
         return items
@@ -154,14 +192,17 @@ class Parser:
                 return ('sqrt', self.group(), None)
             if name in ('text', 'mathrm', 'operatorname', 'textrm'):
                 return ('text', self._raw_group())
+            if name in ACCENTS:
+                inner = self.group()
+                if not inner:
+                    return ('sym', '')      # \hat 后无参数：退化为空
+                return ('acc', ACCENTS[name], inner)
             if name in FUNCNAMES:
                 return ('text', name)
             if name == 'begin':
                 return self._matrix()
             if name == 'left':
-                d = self.next()
-                beg = d.val if d and d.kind == 'paren' else (
-                    SYMBOLS.get(d.val, '.') if d and d.kind == 'cmd' else '.')
+                beg = delim_of(self.next())
                 self._right_char = ')'
                 inner = self.parse_seq(until_right=True)
                 return ('delim', beg, self._right_char, inner)
@@ -299,6 +340,9 @@ def to_xml(items):
                 out.append('<m:sSub><m:e>%s</m:e><m:sub>%s</m:sub></m:sSub>' % (base, sub))
             elif sup:
                 out.append('<m:sSup><m:e>%s</m:e><m:sup>%s</m:sup></m:sSup>' % (base, sup))
+        elif kind == 'acc':
+            out.append('<m:acc><m:accPr><m:chr m:val="%s"/></m:accPr><m:e>%s</m:e></m:acc>'
+                       % (esc(it[1]), to_xml(it[2])))
         elif kind == 'delim':
             beg, end = it[1], it[2]
             dpr = ''
@@ -314,7 +358,9 @@ def to_xml(items):
 
 def _matrix_xml(env, rows):
     ncol = max(len(r) for r in rows) if rows else 1
-    mcs = ('<m:mcs><m:mc><m:mcPr><m:mcount m:val="%d"/><m:mcJc m:val="center"/></m:mcPr>'
+    # OMML uses m:count for the number of columns.  m:mcount is not a
+    # schema element and makes PowerPoint reject the presentation on open.
+    mcs = ('<m:mcs><m:mc><m:mcPr><m:count m:val="%d"/><m:mcJc m:val="center"/></m:mcPr>'
            '</m:mc></m:mcs>' % ncol)
     mrs = ''.join('<m:mr>%s</m:mr>' % ''.join('<m:e>%s</m:e>' % to_xml(fold_scripts(cell)) for cell in row)
                   for row in rows)

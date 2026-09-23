@@ -1,4 +1,16 @@
 # Changelog
+## v0.3.7 — 2026-09-23（ppt-team 技能包 review 修复 + omml_tex 增强/ADPLL 记录同轮入库）
+
+- **P1**: `skills/ppt-team/SKILL.md` 工作流 9 步扩为 12 步，补 Gate A（大纲选择）/ Gate B（迷你版风格定稿）/ Gate C（交付终审）三处人类门禁与"修复轮上限 5"（引 AGENTS.md 规则 8），与 `agents/ppt-team.md`、`commands/make-ppt.md` 对齐——入口技能此前漏载门禁，仅从技能入口进来的执行者可能跳过 Gate A/B。
+- **P2**: `agents/ppt-team.md` 全片交付 Checklist 首行"0 FAIL/0 WARN（WARN 逐条裁决记录）"自相矛盾，改为"0 FAIL；WARN 逐条裁决留痕（不强求 0 WARN）"，与 AGENTS.md 图片 WARN 目检规则及既有交付口径（例：ADPLL 带 3 条已裁决假阳性 WARN 交付）一致。
+- **P3**: profile 文档收敛：SKILL.md 步骤 5 与风格法典 §十一 统一列出 `style.json` / `style.zou.json` / `style.techshare.json` 三选一（techshare 此前仅在 §三 内联提及，从入口不可发现）。
+- **P4**: 风格法典章节物理顺序纠正：第十节（安全管线）由文末挪回第九、十一节之间；节号未变，各角色与 AGENTS.md 的节号引用不受影响（已复核标题顺序 〇→十二 连续）。
+- **P6**: `skills/ppt-team/SKILL.md` description 改 "in Codex or ZCode"；开头段中性化并显式指向 ZCode 原生总指挥 `agents/ppt-team.md` 与 `/make-ppt` 命令，消除"两个编排者详略不一"的漂移根源。
+- **同轮入库（并行会话成稿，测试已绿）**: `omml_tex.py` 定界符解析（`delim_of`，修复 `\left|` 静默丢竖线）、重音宏 `m:acc`（hat/tilde/bar/vec/dot/ddot）、长箭头与符号表扩充，`test_omml_tex.py` 同步扩例；`build_helpers.ps1` TextBox 关闭 AutoSize；本文件另并入 ADPLL 体系 A 两轮交付记录与数值修订（并行会话既成内容，本轮原样提交）。
+- **验证**: 文档修复轮未触碰任何 PPTX（渲染/verify/judge 门禁 N/A）；`test_verify_deck.py`、`test_omml_tex.py` 实测均 0 cases failed（23/17 PASS 行）。三份目标文件均 git 跟踪且改前无本地改动，`git diff` 可回溯（未新增 .bak，避免复造 P5 遗留物）。
+- **发布（v0.3.7）**: 版本以 CHANGELOG 为准；`.zcode-plugin`/`.codex-plugin` 的 plugin.json 由滞留的 0.3.0 同步至 0.3.7。推送 GitHub `Lway-ai/ppt-team` 时与远端初始发布孤儿根提交（含 LICENSE、`.github/workflows/ci.yml`）执行 unrelated-histories 合并，内容冲突一律取本地，远端独有文件保留。
+- **P5 遗留（未处置）**: `skills/ppt-team/SKILL.md.bak-20260922-1630-human-review-gate`、`scripts/omml_tex.py.bak-r1-delmacc`，以及 CHANGELOG/build_helpers/omml_tex/test_omml_tex 的未提交在途改动，均属并行会话产物——按禁令 5 与并行纪律不动，待其收尾后由用户裁决处置。
+
 ## 2026-09-17 — PPT Team 修复回归、同步路径与示例交付门禁
 
 - **同步**: `sync_user_scope.py` 在未继承 `CODEBUDDY_CONFIG_DIR` 时自动优先探测已有 `.workbuddy`，并拒绝无效 `--only` 参数；ZCode、Codex、Trae、WorkBuddy 用户级副本已重新同步并复检全 `ok`。
@@ -264,7 +276,7 @@ enders`。
 ## 2026-09-15 round10-12 左栏 bullet 重构（用户复验：S7 等距四框布局仍丑）
 - S7/S10 由 4 个独立文本框（等 pitch 摆放、行数不齐→间距 16/35/16 交替）合并为单 Bullets 文本框：标签段+子行段（二级缩进 IndentLevel=2，Levels(2) 14/14），段距分级（标签后 2pt、子行后 14pt、末段 0），16.5pt、行距 1.12、悬挂 14pt，BoundHeight 居中于 y150-420 版心。
 - S3/S5/S15 正文字号统一 16.5（S15 框高 150）。
-- 新坑：COM 给 .Text 赋含  的串，PowerPoint 会把每个  序列化成两个 <a:br>（读回 ）——软换行路线废弃，子行一律用真段落+IndentLevel；IndentLevel 在 TextRange 上不在 ParagraphFormat 上。
+- 新坑：COM 给 .Text 赋含  的串，PowerPoint 会把每个  序列化成两个 <a:br>（读回 ）——软换行路线废弃，子行一律用真段落+IndentLevel；IndentLevel 在 TextRange 上不在 ParagraphFormat 上。
 - 验收：verify 0 FAIL（30 WARN），judge 改动页 5/5 pass。备份 .bak-round10。
 
 ## 2026-09-15 — FM_IQ_Receiver_Basic_模型讲解_会议版.pptx 中西文字体分离
@@ -353,3 +365,63 @@ enders`。
 - **改动**: Bul3 删一字「被」→「③ 二次旋转与基带 LPF —— 有用归 DC，镜像 −800 Hz 压 32.9 dB（P11–P16）」，消去行尾「P16）」孤行；run 级 COM 替换后重设 L=Times New Roman / EA=SimHei / 24pt（同框 Bul* 一致；首过误参照 ProgBar 12.5pt，v3 巡检已修回 24pt）。
 - **验证**: Save 后逐 run 读回一致；形状级快照确认页内其余 10 个文本形状未动；渲染 1600x900 覆盖 FM/render_fontfix2/errata_slide_2.png，目检第③条单行完整、其余三条未动（改动页仅 P2，通过）。
 - **工具**: _ppt_run/errata3_fix.ps1（参数经 UTF-8 文件 errata3_params.txt 传入），报告 _ppt_run/errata3_report.txt。本轮无新增 .bak（单字符微调，沿用 .bak-errata-20260916）。
+
+## 2026-09-17 ADPLL 体系 A deck（ADPLL_A_Linear_TPM.pptx，22 页）R1 修复轮 — 22/22 judge pass
+- **交付物**: `D:\wanglei\project\ADPLL\workspace\ppt\ADPLL_A_Linear_TPM.pptx`（22 页，封面计 0 → 末页 21）。
+  管线：`write_txt_A.py` → `build_full_A.ps1`（COM 建页）→ `inject_formulas_A.py full`（33 个原生 OMML）。
+- **改前备份**: `ADPLL_A_Linear_TPM.pptx.bak-r1-pre-fix`；原始素材与既有 deck 未动。
+- **工具链修 bug（`scripts/omml_tex.py`，先备份 `.bak-r1-delmacc`）**: ①`\left|`/`\right|` 这类 chr 类定界符
+  被静默解析成空定界符（后果：|L/(1+L)|² 的竖线在 PPT 里消失且不报错）；②`\hat`/`\tilde`/`\bar`/`\vec`
+  等重音宏未知 → 字面化成 hat/tilde 文本；③`\Longleftrightarrow` 等长箭头未收录 → 字面化。
+  修法：新增 `delim_of()`（paren/cmd/chr 三类定界符解析）、`ACCENTS` 表 + `m:acc` 渲染分支、补齐长箭头
+  与竖线类符号。回归测试 `test_omml_tex.py` 由 15 例扩到 20 例（新增 pipe delim / hat / tilde / 长箭头 4 组），
+  **20/20 PASS**。
+- **版面修复（4 处）**: p2 反馈环 φ_E/f_OUT 标签与引言行交叠 8pt（整图下移 14pt，标签框 22→40pt 消溢出）；
+  p15 模型页模块表 13 行溢出至 y=507pt 压页脚与页码（模块列 130→185pt、13pt 字、行高 23pt，收进版心）；
+  p21 References 归属注压 [07]/[08] 行（文献 14→13pt、注下移）；p8 架构框图 MASH→Mod_Source 走线穿越
+  Mod_Div_Accum 框（改经右侧 x=440 上行、y=224 横穿，零穿框）。
+- **公式修复（4 处，重新注入）**: K̂_DCO 重音、c̃₀ 波浪重音、全通条件 ⇔、S_φo 的 |·|² 竖线。
+  另把 p10 归一化链拆为 α/β 两行（原单式折行后压数据带），步号 ①②③④ 分别对齐四行。
+- **数值勘误（4 处，MATLAB 读 `model/results_A.mat` 复核）**: ①A2「最大 2.9% @ 3 MHz」→ **@ 2 MHz**
+  （3 MHz 点实为 −2.8%，2 MHz 点 −2.9%），并补平均偏差 0.9%；②整定时间原「t_s≈10 µs」混淆两件事 →
+  **相位阶跃 4.8 µs（pe1 实测 4.97）/ 频率阶跃 10 µs（fe 实测 10.00）**；③A4 改善原「3× / 压到 1/3」
+  → **≈2.8×（36%）**（170.5/61.3=2.78）；④结论页 PM 58.61° → **58.6°**（全片统一）。
+  四项均回写 `data_provenance_A.md`（新增 #37/#38 行）与 `content_manifest_A.md`。
+- **构图审查（consolidator r1）**: 全片量化（墨迹行占比 / 图片占比 / 死区带）。弱页 p1/p5/p12/p14 判为
+  「内容量不足型留白」而非版式错误——行距收窄只会把空档搬到页脚上（算术见报告）；仅执行 p1 目录
+  24→26pt+下移（下缘空档 115→82pt），其余处方标注「不执行」防循环空转；列免改页清单 16 页。
+- **验收**: `verify_deck.py --style style.json` → **0 FAIL / 2 WARN / 9 INFO**（2 条 WARN 为 p10 数据带文本溢出的
+  估计器假阳性，像素实测文本 x 63.5–837.9pt 落在框内 56–906pt 且单行 → 裁决接受）；占位符/LaTeX 残留扫描
+  0 命中；禁用值（体系 B）扫描仅命中 References 文献题名 2 处（合规）；页码 0–21 连续。
+  judge 冷眼全片 22/22 pass；渲染回归 diff 证明未动页（1/4/8/10/14/17/19）逐像素 identical。
+- **产物**: `renders_r2/slide01..22.png`、`judge_report_r1.json`、`consolidator_r1.md`、`composition_audit.py`、
+  `measure_color_bands.py`、`render_diff.py`、`gateC_values.py`、`placeholder_scan.py`。
+
+## 2026-09-17 ADPLL 体系 A deck（ADPLL_A_Linear_TPM.pptx，22→23 页）R2 增页轮 + R3 微修轮 — 改动页全 pass
+- **交付物**: `D:\wanglei\project\ADPLL\workspace\ppt\ADPLL_A_Linear_TPM.pptx`（**23 页**，封面计 0 → 末页 22）。
+  管线：`write_txt_A.py`（文本源，扩到 154 条）→ `build_r2_insert.ps1`（COM 插页 + 全片重编号 + 文本修订）
+  → `build_r3_fix.ps1`（judge 驱动微修）→ `export_slides.ps1` → `verify_deck.py`。
+- **改前备份**: `.bak-r2-pre-insert`（22 页版）、`.bak-r3-post-fix`（23 页 r2 后版）。素材与既有 21 页 deck 未动。
+- **新增页（slide 17 / 扇出第 16 页）**: 「Simulink 模型 A（2/2）：两点调制路径」——图 (a) `model_A_block_diagram.png`
+  (5721×4086，零拉伸 294×210pt) + 红虚线 callout 标出放大区 + 图 (b) `model_A_tpm_paths.png`（= 全图自 (1516,1140)
+  起的 1:1 裁片，3725×2033，零拉伸 384.8×210pt）+ 路径图例 + 参数表（12 值，源自 `adpll_params_A.m`）+ takeaway。
+  callout 区域经模板匹配实测（95.8% 像素一致、均值差 8.1/255），保证红框与 (b) 严格同区。
+  原「模型 A」页标题改 (1/2) 与之配对。
+- **用户 Gate 口径修订（5 处）**: ①封面题 →《ADPLL（一）：TDC 线性体系与两点调制》；②目录第四条 →
+  「模块、参数与实图（2 页）」；③复核带补 **f_c = f_REF/128 = 312.50 kHz**；④References 归属注改
+  **体系 A 7 篇 = [14][02][05][01][03] + 共用 [11][13]**，并在末页写出配套 deck 文件名 `ADPLL_B_BangBang.pptx`；
+  ⑤页码全片重编 `N of 23`，交叉引用同步：p7「第 16→17 页」、p8「第 17→18 页」。
+- **r3 微修（judge 驱动 3 处）**: ①封面 CoverKey 原单行超宽 → 第二行（含配套 deck 文件名）被框高裁掉（**r1 遗留缺陷**），
+  改显式两行 + 框高 32→44pt；②新页图 (a) 图注超宽折行、第二行被参数表表头遮挡 → 缩短为单行；
+  ③p11 复核带补字后产生「58.6°」孤行 → 删去与公式②重复的「α/β = 34.8」回到单行。
+- **验收**: `verify_deck.py --style style.json` → **0 FAIL / 3 WARN / 9 INFO**（3 条 WARN 均为估计器假阳性：
+  p11 S11Band×2 渲染单行在 66pt 带内、p17 Title 渲染单行 → 逐条像素裁决接受）；占位符扫描只余封面署名下划线占位
+  （有意保留待人类补充）；禁用值（体系 B）仅命中 References 文献题名 1 处（合规）；页码 0–22 连续无重号。
+  judge 冷眼仅审改动页 {1,2,7,8,11,16,17,23} → **全 pass**（`judge_report_r2.json`）；未动页以像素差证明
+  **0.0000% identical**（14 页：3,4,5,6,9,10,12,13,14,15 + 位移页 17→18…21→22）。
+  构图量化（`composition_audit.py renders_r3b`）：新页墨迹行占比 89.8%、图占比 50.9%、**死区 0.0%**；
+  封面 52.2%（较 r1 的 63.6% 改善，两行边界声明填了空档）。
+- **踩坑（写进经验）**: PowerShell 变量名大小写不敏感——局部 `$txt` 覆写了路径变量 `$TXT`，导致 RefNote 段
+  读文件时路径变成页标题文本；修法为局部变量改名（`$cur`），并丢弃未保存的 COM 会话从头重跑（磁盘文件全程未脏）。
+- **产物**: `renders_r3/`（23 页首版）、`renders_r3b/`（r3 修复后）、`build_r2_insert.ps1`、`build_r3_fix.ps1`、
+  `judge_report_r2.json`、`data_provenance_A.md` 新增 #39–#42 行。

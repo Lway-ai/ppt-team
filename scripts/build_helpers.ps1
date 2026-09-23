@@ -118,6 +118,7 @@ function Add-TextBox {
         [switch]$Bullet)
   $tb = $Slide.Shapes.AddTextbox(1, [single]$Left, [single]$Top, [single]$Width, [single]$Height)
   $tb.Name = $Name
+  $tb.TextFrame.AutoSize = 0   # ppAutoSizeNone: 固定框，避免按文本增高导致矩形重叠
   if ($TextFile) {
     $content = Get-Content -Path $TextFile -Encoding UTF8 -Raw
     $content = $content -replace "`r`n", [char]11 -replace "`n", [char]11

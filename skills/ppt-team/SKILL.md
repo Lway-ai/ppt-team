@@ -1,13 +1,17 @@
 ---
 name: ppt-team
-description: Use the local PPT Team workflow for editable RFIC, ISSCC, RFIC2024, and technical PowerPoint decks. Apply the architect, builder, consolidator, and judge roles in Codex while using PowerPoint COM, raw-zip OMML injection, rendering, and verify_deck QA. Trigger when the user asks to create, modify, review, or validate a technical PPT/PPTX in any working directory.
+description: Use the local PPT Team workflow for editable RFIC, ISSCC, RFIC2024, and technical PowerPoint decks. Apply the architect, builder, consolidator, and judge roles in Codex or ZCode while using PowerPoint COM, raw-zip OMML injection, rendering, and verify_deck QA. Trigger when the user asks to create, modify, review, or validate a technical PPT/PPTX in any working directory.
 ---
 
 # PPT Team for Codex
 
-This skill is the Codex adapter for the local multi-agent PPT Team. The original
-`.zcode-plugin` remains the ZCode source package. Codex loads this skill and the
-project's `ppt-conference-style` skill through `.codex-plugin/plugin.json`.
+This skill is the entry point for the local multi-agent PPT Team in both Codex and
+ZCode. In Codex it acts as the adapter: the original `.zcode-plugin` remains the
+ZCode source package, and Codex loads this skill plus the project's
+`ppt-conference-style` skill through `.codex-plugin/plugin.json`. In ZCode the native
+conductor is `agents/ppt-team.md` (driven by the `/make-ppt` command in
+`commands/make-ppt.md`); the workflow below states the Gate A/B/C human gates
+explicitly so every host shares one rule set.
 
 ## Role mapping
 
@@ -29,17 +33,20 @@ PPTX at the same time.
 1. Read `AGENTS.md`, `skills/ppt-conference-style/SKILL.md`, and the relevant role files in `agents/`.
 2. Inspect the exact source PDF/PPTX/model and create or update a content manifest using `templates/content_manifest.md`.
 3. Register every technical number, equation, plot, photo, and comparison value in `templates/data_provenance.md`.
-4. Select one style profile. Use `scripts/style.zou.json` for the Tenghao Zou RFIC2022 visual variant and `scripts/style.json` for the RFIC2024 majority variant.
-5. Preserve the source before any write. Use `scripts/build_helpers.ps1` for PowerPoint COM construction and `scripts/inject_omml.py` for native editable formulas.
-6. Render with `scripts/export_slides.ps1`, then run:
+4. **Gate A (human gate, do not skip)**: have `ppt-architect` produce 2–3 competing outlines from the manifest and stop for the user to pick or hybridize — never choose a narrative line or silently drop a variant.
+5. Select one style profile and declare it in the project record (never mix profiles within a deck): `scripts/style.json` = RFIC2024 majority variant (default); `scripts/style.zou.json` = Tenghao Zou RFIC2022 variant; `scripts/style.techshare.json` = FM/DDC tech-share variant (white background, deep-blue left title, three-segment footer without color band — see style skill §三).
+6. **Gate B (human gate, do not skip)**: build a 3-page mini-deck through one full loop (build → render → verify → judge) and freeze the style only after the user confirms it.
+7. Preserve the source before any write. Use `scripts/build_helpers.ps1` for PowerPoint COM construction and `scripts/inject_omml.py` for native editable formulas.
+8. Render with `scripts/export_slides.ps1`, then run:
 
    ```powershell
    C:/Python314/python.exe scripts/verify_deck.py <deck.pptx> --style <selected-style.json>
    ```
 
-7. Do not call visual review until `verify_deck.py` has zero FAIL findings. Review only the pages changed in the current round, then run a full final review before delivery.
-8. Record the round in `CHANGELOG.md`. Keep backups under `_backups/` and keep the original ZCode package intact.
-9. After the final save, zero-FAIL verification, and full visual review, close any resident editor state and reopen the exact final `.pptx` from disk in Microsoft PowerPoint (or the available desktop UI). Leave the deck visible for human inspection and report the handoff path. Do not claim human acceptance from automated gates; the final state is `ready for human review` until the user confirms or returns findings. If the deck cannot be opened, report that blocker explicitly.
+9. Do not call visual review until `verify_deck.py` has zero FAIL findings. Review only the pages changed in the current round, then run a full final review before delivery. Repair rounds are capped at 5 — beyond that, escalate to the user (AGENTS.md rule 8).
+10. Record each round in `CHANGELOG.md`. Keep backups under `_backups/` and keep the original ZCode package intact.
+11. **Gate C (human gate, do not skip)**: before delivery, re-verify the whole deck, run a full-deck judge review with a fresh instance, and check every technical value against `templates/data_provenance.md` (verify cannot prove value truth — see safety boundaries below). Deliver renders + verify/judge reports + the changelog entry.
+12. After the final save, zero-FAIL verification, and full visual review, close any resident editor state and reopen the exact final `.pptx` from disk in Microsoft PowerPoint (or the available desktop UI). Leave the deck visible for human inspection and report the handoff path. Do not claim human acceptance from automated gates; the final state is `ready for human review` until the user confirms or returns findings. If the deck cannot be opened, report that blocker explicitly.
 
 ## Safety and quality boundaries
 
